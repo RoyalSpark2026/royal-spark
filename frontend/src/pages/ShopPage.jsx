@@ -79,7 +79,9 @@ export default function ShopPage() {
           <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
             <div>
               <p className="text-xs uppercase tracking-[0.24em] text-[#7d5f2d]" data-testid="shop-results-eyebrow">Available now</p>
-              <p className="mt-2 text-sm text-[#5f5a52]" data-testid="shop-results-count">{data?.total ?? 0} pieces found</p>
+              <p className="mt-2 text-sm text-[#5f5a52]" data-testid="shop-results-count">
+                {isLoading && !data ? "Curating pieces…" : `${data?.total ?? 0} pieces found`}
+              </p>
             </div>
           </div>
 
