@@ -1,0 +1,139 @@
+{
+  "theme": "LIGHT (Editorial Luxury Variant)",
+  "archetype": "5 (Luxury)",
+  "colors": {
+    "primary": "#C5A059",
+    "secondary": "#022B22",
+    "background": "#FDFBF7",
+    "surface": "#FFFFFF",
+    "text": {
+      "main": "#1A1A1A",
+      "muted": "#666666",
+      "inverse": "#FDFBF7"
+    },
+    "editorial_dark": "#0A0A0A",
+    "border": "#EAEAEA"
+  },
+  "typography": {
+    "headings": {
+      "fontFamily": "Cormorant Garamond, serif",
+      "weights": ["300", "400", "600"],
+      "strategy": "Expressive, tight letter spacing for large headers (tracking-tighter), elegant italics for emphasis."
+    },
+    "body": {
+      "fontFamily": "Outfit, sans-serif",
+      "weights": ["300", "400"],
+      "strategy": "Clean, readable, slightly loose line-height (leading-relaxed)."
+    },
+    "labels": {
+      "strategy": "Uppercase + Tiny + Wide Spacing (tracking-[0.2em])"
+    }
+  },
+  "spacing_and_layout": {
+    "philosophy": "Generous Spacing (py-24, py-32). The 'Bento' Grid for collections.",
+    "container_padding": "px-6 md:px-12 lg:px-24",
+    "grid_modes": {
+      "marketing": "Asymmetrical 12-column grid. Large images spanning multiple columns.",
+      "product_catalog": "Strict 3-column or 4-column grid, dense but with massive bottom margins."
+    }
+  },
+  "components": {
+    "navigation": "Crystal Glassmorphism (backdrop-blur-xl bg-white/70) on scroll, or completely transparent at top. Must have solid contrast.",
+    "buttons": "Minimalist luxury. Primary: Solid deep emerald (#022B22) or Obsidian (#0A0A0A) with white text, hover state scales slightly. Secondary: 1px solid border, transparent background.",
+    "cards": "Flat background, no shadow, 1px subtle border (#EAEAEA). Focus strictly on the product image.",
+    "forms": "Bespoke Custom Jewelry form must use Shadcn inputs but styled with 1px bottom borders (flaired, luxurious) instead of full boxes.",
+    "cart_wishlist": "Slide-out sheet (Shadcn Sheet) for cart. Minimalist wishlist heart icons on products."
+  },
+  "pages": [
+    {
+      "name": "Home (Editorial Marketing)",
+      "sections": [
+        "Hero: Full bleed image, heavy typography, slight parallax. Max overlay black/20.",
+        "Featured Collections: Asymmetric grid (Rings, Necklaces, Bracelets).",
+        "The Atelier (Craftsmanship): Dark section (#0A0A0A) highlighting the handmade process.",
+        "Bespoke CTA: Elegant banner directing to custom jewelry form.",
+        "Reviews/Testimonials: Slow editorial marquee or large typographic carousel."
+      ]
+    },
+    {
+      "name": "Shop (Catalog)",
+      "sections": [
+        "Filter/Sort sidebar (minimalist).",
+        "Product Grid: High-res images, on-hover secondary image reveal. Wishlist icon."
+      ]
+    },
+    {
+      "name": "Product Detail",
+      "sections": [
+        "Split layout: Sticky product details on right, massive scrolling gallery on left.",
+        "Details: Price, Material selector (18k Gold, Platinum), Add to Cart.",
+        "Accordions: Shipping, Returns, Care.",
+        "Reviews section."
+      ]
+    },
+    {
+      "name": "Bespoke Inquiry",
+      "sections": [
+        "Step-by-step elegant form for custom jewelry (budget, materials, inspiration upload)."
+      ]
+    }
+  ],
+  "motion_and_interactions": {
+    "hover": "Images scale up 105% slowly (duration-700 ease-out).",
+    "scroll": "Lenis smooth scroll recommended. Fade-up staggered entrance for catalog items.",
+    "buttons": "Hover fills with brand color, text inverts."
+  },
+  "media": {
+    "hero_images": [
+      {
+        "url": "https://images.unsplash.com/photo-1611652022419-a9419f74343d?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NDh8MHwxfHNlYXJjaHwxfHxlbGVnYW50JTIwcGVhcmwlMjBuZWNrbGFjZSUyMGpld2Vscnl8ZW58MHx8fHwxNzgxNDM3NzIzfDA&ixlib=rb-4.1.0&q=85",
+        "category": "hero_main",
+        "description": "Woman in white off shoulder shirt wearing silver necklace, perfect for the luxurious editorial hero."
+      }
+    ],
+    "product_images": [
+      {
+        "url": "https://images.unsplash.com/photo-1654699991520-aaaf4dd2608b?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NDh8MHwxfHNlYXJjaHwyfHxlbGVnYW50JTIwcGVhcmwlMjBuZWNrbGFjZSUyMGpld2Vscnl8ZW58MHx8fHwxNzgxNDM3NzIzfDA&ixlib=rb-4.1.0&q=85",
+        "category": "product_necklace",
+        "description": "Close up of a pearl necklace"
+      },
+      {
+        "url": "https://images.pexels.com/photos/2849742/pexels-photo-2849742.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        "category": "product_ring",
+        "description": "Close-up of a sparkling diamond engagement ring"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1605100804763-247f67b3557e?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1MDV8MHwxfHNlYXJjaHwxfHxmaW5lJTIwamV3ZWxyeXxlbnwwfHx8fDE3ODE0Mzc3MzN8MA&ixlib=rb-4.1.0&q=85",
+        "category": "product_ring_silver",
+        "description": "Silver diamond ring on black box"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1611955167811-4711904bb9f8?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1MDV8MHwxfHNlYXJjaHwzfHxmaW5lJTIwamV3ZWxyeXxlbnwwfHx8fDE3ODE0Mzc3MzN8MA&ixlib=rb-4.1.0&q=85",
+        "category": "product_ring_gold",
+        "description": "Gold diamond studded ring on white textile"
+      }
+    ],
+    "editorial_images": [
+      {
+        "url": "https://images.unsplash.com/photo-1624585179018-25699030cb8f?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1MDV8MHwxfHNlYXJjaHw0fHxmaW5lJTIwamV3ZWxyeXxlbnwwfHx8fDE3ODE0Mzc3MzN8MA&ixlib=rb-4.1.0&q=85",
+        "category": "craftsmanship_atelier",
+        "description": "Fire in close up photography, jewel making process"
+      },
+      {
+        "url": "https://images.pexels.com/photos/32988751/pexels-photo-32988751.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        "category": "featured_collection",
+        "description": "Diamond ring displayed on a soft blue velvet stand"
+      }
+    ]
+  },
+  "testing": {
+    "attributes": "All interactive elements MUST include data-testid attributes (e.g., data-testid='add-to-cart-button', data-testid='category-link')."
+  },
+  "instructions_to_main_agent": [
+    "Install required fonts from Google Fonts: Cormorant Garamond and Outfit.",
+    "Install dependencies: lucide-react for icons, framer-motion for smooth transitions, and react-router-dom for routing.",
+    "Build out the Home, Shop, Product Detail, Cart (Sheet), and Bespoke Inquiry pages.",
+    "Ensure UI is fully responsive, using Tailwind's 'grid' extensively. Use HTML-based layout for complex masonry grids.",
+    "Create a robust mock local JSON catalog structure with realistic jewelry data, prices, variants, and reviews to prepare for future Shopify integration."
+  ]
+}
