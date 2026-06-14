@@ -1,55 +1,35 @@
-import { useEffect } from "react";
+import { ThemeProvider } from "next-themes";
 import "@/App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import axios from "axios";
-import { HOME } from "@/constants/testIds";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
-
-const Home = () => {
-  const helloWorldApi = async () => {
-    try {
-      const response = await axios.get(`${API}/`);
-      console.log(response.data.message);
-    } catch (e) {
-      console.error(e, `errored out requesting / api`);
-    }
-  };
-
-  useEffect(() => {
-    helloWorldApi();
-  }, []);
-
-  return (
-    <div>
-      <header className="App-header">
-        <a
-          data-testid={HOME.emergentLink}
-          className="App-link"
-          href="https://emergent.sh"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src="https://avatars.githubusercontent.com/in/1201222?s=120&u=2686cf91179bbafbc7a71bfbc43004cf9ae1acea&v=4" />
-        </a>
-        <p className="mt-5">Building something incredible ~!</p>
-      </header>
-    </div>
-  );
-};
+import { Layout } from "@/components/Layout";
+import { Toaster } from "@/components/ui/sonner";
+import { useStorefrontState } from "@/hooks/useStorefrontState";
+import BespokePage from "@/pages/BespokePage";
+import HomePage from "@/pages/HomePage";
+import ProductDetailPage from "@/pages/ProductDetailPage";
+import ShopPage from "@/pages/ShopPage";
 
 function App() {
+  const storefront = useStorefrontState();
+
   return (
-    <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />}>
-            <Route index element={<Home />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </div>
+    <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
+      <div className="App">
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Layout storefront={storefront} />}>
+              <Route index element={<HomePage />} />
+              <Route path="shop" element={<ShopPage />} />
+              <Route path="shop/:slug" element={<ProductDetailPage />} />
+              <Route path="bespoke" element={<BespokePage />} />
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+        <Toaster richColors position="top-right" />
+      </div>
+    </ThemeProvider>
   );
 }
 
