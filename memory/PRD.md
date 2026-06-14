@@ -1,4 +1,4 @@
-# PRD — Maison Aurelle Jewelry Store
+# PRD — Royal Spark Jewelry
 
 Date: 2026-06-14
 
@@ -42,6 +42,7 @@ can a build Jwellary Store and connect to Shopify for Jewllary Store ?
 - Added FastAPI catalog APIs, product detail API, bespoke inquiry API, and Shopify readiness API
 - Stored bespoke inquiries in MongoDB
 - Added responsive navigation, mobile menu, and complete data-testid coverage for key UI flows
+- Updated storefront branding to Royal Spark Jewelry with header/footer contact details for Houston, Texas
 
 ## Prioritized Backlog
 ### P0

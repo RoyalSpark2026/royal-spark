@@ -23,7 +23,7 @@ export const Layout = ({ storefront }) => {
               <Gem className="h-5 w-5 text-[#7d5f2d]" />
             </span>
             <div>
-              <p className="font-display text-3xl leading-none">Maison Aurelle</p>
+              <p className="font-display text-3xl leading-none" data-testid="brand-name">Royal Spark Jewelry</p>
               <p className="text-[10px] uppercase tracking-[0.32em] text-[#666666]" data-testid="brand-tagline">Fine jewelry atelier</p>
             </div>
           </NavLink>
@@ -53,9 +53,18 @@ export const Layout = ({ storefront }) => {
                 {item.label}
               </NavLink>
             ))}
+            <div className="mt-3 rounded-[24px] border border-[#e7e1d7] bg-white/80 p-4 text-sm text-[#4f4a43] md:hidden" data-testid="mobile-header-contact-card">
+              <p className="text-xs uppercase tracking-[0.24em] text-[#7d5f2d]">Contact</p>
+              <p className="mt-2" data-testid="mobile-header-phone">+1 832 329 7145</p>
+              <p className="mt-1" data-testid="mobile-header-address">Sharps Town Plaza, Houston, Texas, USA</p>
+            </div>
           </nav>
 
           <div className="hidden items-center gap-3 md:flex">
+            <div className="rounded-[24px] border border-[#e7e1d7] bg-white/80 px-4 py-3 text-right text-xs uppercase tracking-[0.16em] text-[#4f4a43]" data-testid="header-contact-card">
+              <p data-testid="header-phone">+1 832 329 7145</p>
+              <p className="mt-1 text-[10px] tracking-[0.18em] text-[#7d5f2d]" data-testid="header-address">Sharps Town Plaza, Houston, Texas, USA</p>
+            </div>
             <div className="inline-flex items-center gap-2 rounded-full border border-[#e7e1d7] bg-white/70 px-4 py-2 text-xs uppercase tracking-[0.22em] text-[#534d45]" data-testid="wishlist-count-chip">
               <Heart className="h-4 w-4" /> {storefront.wishlistIds.length} wished
             </div>
@@ -78,7 +87,7 @@ export const Layout = ({ storefront }) => {
       <footer className="border-t border-[#e7e1d7] bg-white/60" data-testid="site-footer">
         <div className="mx-auto grid max-w-7xl gap-6 px-6 py-10 md:grid-cols-3 md:px-10 lg:px-16">
           <div>
-            <p className="font-display text-3xl text-[#0a0a0a]" data-testid="footer-brand">Maison Aurelle</p>
+            <p className="font-display text-3xl text-[#0a0a0a]" data-testid="footer-brand">Royal Spark Jewelry</p>
             <p className="mt-3 max-w-sm text-sm leading-relaxed text-[#666666]" data-testid="footer-description">
               An editorial jewelry storefront built for timeless shopping and bespoke commissions.
             </p>
@@ -89,7 +98,8 @@ export const Layout = ({ storefront }) => {
           </div>
           <div className="text-sm text-[#4f4a43]">
             <p className="text-xs uppercase tracking-[0.24em] text-[#7d5f2d]" data-testid="footer-contact-label">Contact</p>
-            <p className="mt-3" data-testid="footer-contact-content">Concierge replies within one business day.</p>
+            <p className="mt-3" data-testid="footer-contact-phone">+1 832 329 7145</p>
+            <p className="mt-2" data-testid="footer-contact-address">Sharps Town Plaza, Houston, Texas, USA</p>
           </div>
         </div>
       </footer>
