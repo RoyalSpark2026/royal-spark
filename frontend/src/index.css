@@ -18,30 +18,30 @@ code {
 
 @layer base {
     :root {
-        --background: 42 45% 98%;
-        --foreground: 0 0% 10%;
-        --card: 0 0% 100%;
-        --card-foreground: 0 0% 10%;
-        --popover: 0 0% 100%;
-        --popover-foreground: 0 0% 10%;
-        --primary: 165 91% 9%;
-        --primary-foreground: 39 45% 97%;
-        --secondary: 39 46% 94%;
-        --secondary-foreground: 0 0% 10%;
-        --muted: 40 37% 94%;
-        --muted-foreground: 0 0% 40%;
-        --accent: 38 57% 88%;
-        --accent-foreground: 0 0% 10%;
+        --background: 222 52% 10%;
+        --foreground: 42 43% 95%;
+        --card: 222 44% 13%;
+        --card-foreground: 42 43% 95%;
+        --popover: 222 44% 13%;
+        --popover-foreground: 42 43% 95%;
+        --primary: 43 74% 63%;
+        --primary-foreground: 222 52% 10%;
+        --secondary: 223 36% 18%;
+        --secondary-foreground: 42 43% 95%;
+        --muted: 222 31% 18%;
+        --muted-foreground: 218 16% 72%;
+        --accent: 223 41% 21%;
+        --accent-foreground: 42 43% 95%;
         --destructive: 0 72% 45%;
         --destructive-foreground: 39 45% 97%;
-        --border: 40 26% 88%;
-        --input: 40 26% 88%;
-        --ring: 165 91% 9%;
-        --chart-1: 39 49% 56%;
-        --chart-2: 165 91% 9%;
-        --chart-3: 0 0% 10%;
-        --chart-4: 31 38% 73%;
-        --chart-5: 347 55% 35%;
+        --border: 221 29% 27%;
+        --input: 221 29% 27%;
+        --ring: 43 74% 63%;
+        --chart-1: 43 74% 63%;
+        --chart-2: 214 62% 54%;
+        --chart-3: 221 29% 60%;
+        --chart-4: 38 65% 75%;
+        --chart-5: 196 80% 68%;
         --radius: 1rem;
     }
     .dark {
@@ -80,6 +80,7 @@ code {
         @apply bg-background text-foreground;
         min-height: 100vh;
         background-attachment: fixed;
+        background-image: radial-gradient(circle at top right, rgba(57, 95, 182, 0.25), transparent 30%), radial-gradient(circle at bottom left, rgba(215, 180, 89, 0.18), transparent 28%), linear-gradient(180deg, #081226 0%, #101a33 100%);
     }
 
     h1, h2, h3, h4, h5, h6, .font-display {
@@ -93,7 +94,7 @@ code {
     }
 
     ::selection {
-        background: rgba(197, 160, 89, 0.28);
+        background: rgba(219, 184, 93, 0.35);
     }
 }
 

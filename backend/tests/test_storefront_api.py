@@ -39,7 +39,7 @@ def test_api_root(api_client):
     response = api_client.get(f"{BASE_URL}/api/")
     assert response.status_code == 200
     data = response.json()
-    assert data["message"] == "Maison Aurelle API is running."
+    assert data["message"] == "Royal Spark API is running."
 
 
 def test_catalog_home(api_client):
@@ -47,7 +47,7 @@ def test_catalog_home(api_client):
     assert response.status_code == 200
     data = response.json()
 
-    assert data["hero_product"]["slug"] == "solstice-diamond-ring"
+    assert data["hero_product"]["slug"] == "royal-solitaire-spark-ring"
     assert isinstance(data["featured_products"], list) and len(data["featured_products"]) > 0
     assert isinstance(data["collections"], list) and len(data["collections"]) > 0
     assert "atelier_story" in data and isinstance(data["atelier_story"], dict)
@@ -61,6 +61,26 @@ def test_catalog_products_default(api_client):
     assert data["total"] >= 1
     assert isinstance(data["items"], list) and len(data["items"]) >= 1
     assert data["categories"][0] == "All"
+
+
+def test_catalog_products_grills_filter(api_client):
+    response = api_client.get(f"{BASE_URL}/api/catalog/products", params={"category": "Grills"})
+    assert response.status_code == 200
+    data = response.json()
+
+    assert data["total"] >= 1
+    assert isinstance(data["items"], list) and len(data["items"]) >= 1
+    assert all(item["category"] == "Grills" for item in data["items"])
+
+
+def test_catalog_product_by_specific_slug(api_client):
+    response = api_client.get(f"{BASE_URL}/api/catalog/products/royal-solitaire-spark-ring")
+    assert response.status_code == 200
+    data = response.json()
+
+    assert data["slug"] == "royal-solitaire-spark-ring"
+    assert data["category"] == "Rings"
+    assert isinstance(data["gallery"], list) and len(data["gallery"]) >= 1
 
 
 def test_catalog_product_by_slug(api_client):

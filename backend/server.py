@@ -31,176 +31,210 @@ def format_money(value: float) -> str:
     return f"${value:,.0f}"
 
 
+ASSET_RING_CAMPAIGN = "https://customer-assets.emergentagent.com/job_shopify-gems-2/artifacts/8jfge9he_fashion-%26-beauty-design-2x%20%281%29%20%281%29.png"
+ASSET_GRILL_CROWN = "https://customer-assets.emergentagent.com/job_shopify-gems-2/artifacts/y62y0h0m_fashion-%26-beauty-design-2x%20%282%29%20%281%29.png"
+ASSET_GRILL_SMILES = "https://customer-assets.emergentagent.com/job_shopify-gems-2/artifacts/rqlc637n_fashion-%26-beauty-design-2x%20%284%29%20%281%29.png"
+ASSET_GRILL_DETAIL = "https://customer-assets.emergentagent.com/job_shopify-gems-2/artifacts/q8yfzjph_fashion-%26-beauty-design-2x%20%283%29%20%281%29.png"
+ASSET_GRILL_BEFORE_AFTER = "https://customer-assets.emergentagent.com/job_shopify-gems-2/artifacts/yruo7fl8_fashion-%26-beauty-design-2x%20%285%29%20%281%29.png"
+ASSET_CHAIN_IMAGE = "https://supremejewelers.com/cdn/shop/files/NCK00702B._7_57529e40-a13e-4acc-a79f-9ae93784f021.jpg?v=1743765226"
+ASSET_NECKLACE_IMAGE = "https://supremejewelers.com/cdn/shop/files/NCK00706FINAL_7.jpg?v=1743765844"
+ASSET_BRACELET_IMAGE = "https://supremejewelers.com/cdn/shop/files/21LBR00824.jpg?v=1743759681"
+
+
 PRODUCTS = [
     {
-        "id": "solstice-diamond-ring",
-        "name": "Solstice Diamond Ring",
-        "slug": "solstice-diamond-ring",
+        "id": "royal-solitaire-spark-ring",
+        "name": "Royal Solitaire Spark Ring",
+        "slug": "royal-solitaire-spark-ring",
         "category": "Rings",
-        "price": 4200,
+        "price": 3890,
         "currency": "USD",
-        "materials": ["18K Gold", "Platinum"],
+        "materials": ["14K White Gold", "Lab Diamond"],
         "is_customizable": True,
         "featured": True,
-        "short_description": "A sculpted diamond ring with graceful pavé detail.",
-        "description": "Our Solstice ring frames a brilliant center diamond with a refined, hand-set pavé halo and a softly tapered band designed for daily elegance.",
-        "hero_image": "https://images.unsplash.com/photo-1611955167811-4711904bb9f8?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1MDV8MHwxfHNlYXJjaHwzfHxmaW5lJTIwamV3ZWxyeXxlbnwwfHx8fDE3ODE0Mzc3MzN8MA&ixlib=rb-4.1.0&q=85",
+        "short_description": "A bright-cut solitaire ring inspired by high-shine showroom campaigns.",
+        "description": "Designed for the Royal Spark signature look, this solitaire profile delivers clean brilliance, polished shoulders, and a modern showroom finish for everyday luxury.",
+        "hero_image": ASSET_RING_CAMPAIGN,
         "gallery": [
-            "https://images.unsplash.com/photo-1611955167811-4711904bb9f8?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1MDV8MHwxfHNlYXJjaHwzfHxmaW5lJTIwamV3ZWxyeXxlbnwwfHx8fDE3ODE0Mzc3MzN8MA&ixlib=rb-4.1.0&q=85",
-            "https://images.unsplash.com/photo-1605100804763-247f67b3557e?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1MDV8MHwxfHNlYXJjaHwxfHxmaW5lJTIwamV3ZWxyeXxlbnwwfHx8fDE3ODE0Mzc3MzN8MA&ixlib=rb-4.1.0&q=85"
+            ASSET_RING_CAMPAIGN,
+            "https://supremejewelers.com/cdn/shop/files/Male_ring.jpg?v=1746694447&width=768"
         ],
         "rating": 4.9,
-        "review_count": 32,
-        "highlights": ["Hand-set pavé", "Conflict-conscious sourcing", "Made to order in 14 days"],
+        "review_count": 44,
+        "highlights": ["Center-stone focus", "High-polish finish", "Custom sizing available"],
         "reviews": [
-            {"author": "Amelia", "rating": 5, "title": "Absolutely radiant", "comment": "The finish is flawless and it feels timeless.", "date": "2026-02-11"},
-            {"author": "Nora", "rating": 5, "title": "Elegant without being loud", "comment": "Exactly what I wanted for a forever piece.", "date": "2026-01-28"}
+            {"author": "Amelia", "rating": 5, "title": "Bright and clean", "comment": "The shine is strong and the setting feels premium.", "date": "2026-02-11"},
+            {"author": "Nora", "rating": 5, "title": "Looks expensive in person", "comment": "Exactly the type of ring I wanted for a standout piece.", "date": "2026-01-28"}
         ]
     },
     {
-        "id": "luna-pearl-necklace",
-        "name": "Luna Pearl Necklace",
-        "slug": "luna-pearl-necklace",
-        "category": "Necklaces",
-        "price": 1950,
+        "id": "emerald-halo-royal-ring",
+        "name": "Emerald Halo Royal Ring",
+        "slug": "emerald-halo-royal-ring",
+        "category": "Rings",
+        "price": 4625,
         "currency": "USD",
-        "materials": ["Freshwater Pearl", "18K Gold"],
+        "materials": ["14K White Gold", "Natural Diamond"],
         "is_customizable": True,
         "featured": True,
-        "short_description": "An airy strand of luminous pearls with a discreet gold clasp.",
-        "description": "Luna is composed for understated ceremony—balanced proportions, softly reflective pearls, and an heirloom sensibility that sits beautifully against silk or skin.",
-        "hero_image": "https://images.unsplash.com/photo-1654699991520-aaaf4dd2608b?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NDh8MHwxfHNlYXJjaHwyfHxlbGVnYW50JTIwcGVhcmwlMjBuZWNrbGFjZSUyMGpld2Vscnl8ZW58MHx8fHwxNzgxNDM3NzIzfDA&ixlib=rb-4.1.0&q=85",
+        "short_description": "Halo styling with a bold rectangular center silhouette and extra sparkle.",
+        "description": "Inspired by statement showroom campaigns, this halo ring layers crisp lines, brilliant framing stones, and a tall-profile look for clients who want maximum presence.",
+        "hero_image": ASSET_RING_CAMPAIGN,
         "gallery": [
-            "https://images.unsplash.com/photo-1654699991520-aaaf4dd2608b?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NDh8MHwxfHNlYXJjaHwyfHxlbGVnYW50JTIwcGVhcmwlMjBuZWNrbGFjZSUyMGpld2Vscnl8ZW58MHx8fHwxNzgxNDM3NzIzfDA&ixlib=rb-4.1.0&q=85",
-            "https://images.unsplash.com/photo-1611652022419-a9419f74343d?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NDh8MHwxfHNlYXJjaHwxfHxlbGVnYW50JTIwcGVhcmwlMjBuZWNrbGFjZSUyMGpld2Vscnl8ZW58MHx8fHwxNzgxNDM3NzIzfDA&ixlib=rb-4.1.0&q=85"
+            ASSET_RING_CAMPAIGN,
+            "https://supremejewelers.com/cdn/shop/files/Female_band.jpg?v=1746694447&width=768"
         ],
         "rating": 4.8,
-        "review_count": 21,
-        "highlights": ["Hand-knotted strand", "Soft luster matching", "Gift boxed"],
+        "review_count": 29,
+        "highlights": ["Halo brilliance", "Engagement-ready", "Luxury gift presentation"],
         "reviews": [
-            {"author": "Ella", "rating": 5, "title": "Pure luxury", "comment": "It elevates every outfit instantly.", "date": "2026-03-01"},
-            {"author": "Sofia", "rating": 4, "title": "Beautiful craftsmanship", "comment": "The pearls feel carefully selected and balanced.", "date": "2026-02-03"}
+            {"author": "Ella", "rating": 5, "title": "Strong sparkle", "comment": "The halo catches light beautifully from every angle.", "date": "2026-03-01"},
+            {"author": "Sofia", "rating": 4, "title": "Feels very premium", "comment": "Looks like a showcase piece right out of a luxury catalog.", "date": "2026-02-03"}
         ]
     },
     {
-        "id": "aurum-chain-bracelet",
-        "name": "Aurum Chain Bracelet",
-        "slug": "aurum-chain-bracelet",
-        "category": "Bracelets",
-        "price": 1280,
+        "id": "diamond-smile-grill-set",
+        "name": "Diamond Smile Grill Set",
+        "slug": "diamond-smile-grill-set",
+        "category": "Grills",
+        "price": 2150,
         "currency": "USD",
-        "materials": ["18K Gold"],
+        "materials": ["Silver Tone", "Iced Stones"],
+        "is_customizable": False,
+        "featured": True,
+        "short_description": "Statement grill styling with a bright iced-out finish for instant impact.",
+        "description": "Built for bold smiles and campaign-ready shine, this full-set grill design gives clients a strong entry point into Royal Spark’s custom grill offering.",
+        "hero_image": ASSET_GRILL_SMILES,
+        "gallery": [
+            ASSET_GRILL_SMILES,
+            ASSET_GRILL_DETAIL
+        ],
+        "rating": 4.9,
+        "review_count": 37,
+        "highlights": ["Custom-fit ready", "Photo-ready sparkle", "Popular starter grill style"],
+        "reviews": [
+            {"author": "Jay", "rating": 5, "title": "Exactly the shine I wanted", "comment": "The look pops on camera and feels like a premium custom set.", "date": "2026-02-14"}
+        ]
+    },
+    {
+        "id": "gold-classic-grill-set",
+        "name": "Gold Classic Grill Set",
+        "slug": "gold-classic-grill-set",
+        "category": "Grills",
+        "price": 1795,
+        "currency": "USD",
+        "materials": ["Yellow Gold Finish", "Mirror Polish"],
         "is_customizable": False,
         "featured": False,
-        "short_description": "A refined gold chain with fluid movement and quiet shine.",
-        "description": "Aurum is designed with custom-cast links and a near-weightless drape, offering a luxurious everyday bracelet that layers effortlessly.",
-        "hero_image": "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=1200&q=80",
+        "short_description": "A polished gold grill look with a smoother, classic street-luxury finish.",
+        "description": "For clients who want a cleaner metal-first statement, this gold grill concept emphasizes shape, polish, and boldness over heavy stone coverage.",
+        "hero_image": ASSET_GRILL_DETAIL,
         "gallery": [
-            "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=1200&q=80",
-            "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?auto=format&fit=crop&w=1200&q=80"
+            ASSET_GRILL_DETAIL,
+            ASSET_GRILL_SMILES
+        ],
+        "rating": 4.8,
+        "review_count": 24,
+        "highlights": ["Smooth gold finish", "Custom top/bottom options", "Street-luxury style"],
+        "reviews": [
+            {"author": "Marcus", "rating": 5, "title": "Clean gold look", "comment": "Simple, bold, and exactly right for a classic setup.", "date": "2026-03-12"}
+        ]
+    },
+    {
+        "id": "vvs-before-after-grill-set",
+        "name": "VVS Before & After Grill Set",
+        "slug": "vvs-before-after-grill-set",
+        "category": "Grills",
+        "price": 2890,
+        "currency": "USD",
+        "materials": ["Gold Tone", "VVS-style stones"],
+        "is_customizable": True,
+        "featured": False,
+        "short_description": "A high-contrast grill concept built around dramatic before-and-after presentation.",
+        "description": "This custom grill concept is perfect for ad campaigns, showroom consultations, and transformation-led selling that highlights the final smile upgrade.",
+        "hero_image": ASSET_GRILL_BEFORE_AFTER,
+        "gallery": [
+            ASSET_GRILL_BEFORE_AFTER,
+            ASSET_GRILL_CROWN
+        ],
+        "rating": 5.0,
+        "review_count": 16,
+        "highlights": ["Before/after presentation", "Premium custom consultation", "Ideal for social content"],
+        "reviews": [
+            {"author": "Dre", "rating": 5, "title": "This sells itself", "comment": "The before-and-after look makes it easy for clients to imagine the result.", "date": "2026-01-09"}
+        ]
+    },
+    {
+        "id": "radiant-bezel-chain-necklace",
+        "name": "Radiant Bezel Chain Necklace",
+        "slug": "radiant-bezel-chain-necklace",
+        "category": "Chains",
+        "price": 5345,
+        "currency": "USD",
+        "materials": ["14K Gold", "Diamond"],
+        "is_customizable": True,
+        "featured": False,
+        "short_description": "A high-visibility chain necklace with bezel-set sparkle and retail-ready appeal.",
+        "description": "Inspired by luxury showroom best sellers, this chain style adds a polished, high-ticket necklace option to the Royal Spark range for future expansion.",
+        "hero_image": ASSET_CHAIN_IMAGE,
+        "gallery": [
+            ASSET_CHAIN_IMAGE,
+            ASSET_NECKLACE_IMAGE
         ],
         "rating": 4.7,
         "review_count": 18,
-        "highlights": ["Fluid hand feel", "Secure clasp", "Designed for stacking"],
+        "highlights": ["Diamond bezel links", "Layering-friendly", "Future Shopify bestseller"],
         "reviews": [
-            {"author": "Grace", "rating": 5, "title": "So easy to wear", "comment": "The clasp feels secure and premium.", "date": "2026-02-14"}
+            {"author": "Noah", "rating": 5, "title": "Looks strong in the showcase", "comment": "This is the type of chain clients ask about immediately.", "date": "2026-02-19"}
         ]
     },
     {
-        "id": "stellare-drop-earrings",
-        "name": "Stellare Drop Earrings",
-        "slug": "stellare-drop-earrings",
-        "category": "Earrings",
-        "price": 1640,
+        "id": "mixed-cut-tennis-bracelet",
+        "name": "Mixed Cut Tennis Bracelet",
+        "slug": "mixed-cut-tennis-bracelet",
+        "category": "Bracelets",
+        "price": 6825,
         "currency": "USD",
-        "materials": ["White Gold", "Diamond"],
-        "is_customizable": False,
-        "featured": True,
-        "short_description": "Diamond drops designed to catch candlelight and conversation.",
-        "description": "Light, elongated, and balanced, Stellare brings fine diamond movement to evening dressing without sacrificing comfort.",
-        "hero_image": "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=1200&q=80",
-        "gallery": [
-            "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=1200&q=80",
-            "https://images.unsplash.com/photo-1617038220319-276d3cfab638?auto=format&fit=crop&w=1200&q=80"
-        ],
-        "rating": 4.9,
-        "review_count": 26,
-        "highlights": ["Lightweight balance", "High brilliance stones", "Secure post fastening"],
-        "reviews": [
-            {"author": "Layla", "rating": 5, "title": "Wedding-perfect", "comment": "They shimmer beautifully without feeling heavy.", "date": "2026-03-12"}
-        ]
-    },
-    {
-        "id": "atelier-signature-pendant",
-        "name": "Atelier Signature Pendant",
-        "slug": "atelier-signature-pendant",
-        "category": "Custom",
-        "price": 3100,
-        "currency": "USD",
-        "materials": ["18K Gold", "Diamond", "Engravable"],
+        "materials": ["14K White Gold", "Mixed Cut Diamonds"],
         "is_customizable": True,
         "featured": False,
-        "short_description": "A bespoke pendant designed around your story and stone selection.",
-        "description": "Begin with our signature silhouette and tailor every detail—from engraving and chain length to gemstone and gold tone—for a deeply personal piece.",
-        "hero_image": "https://images.unsplash.com/photo-1617038220319-276d3cfab638?auto=format&fit=crop&w=1200&q=80",
+        "short_description": "A refined bracelet option for clients who want classic sparkle beyond rings.",
+        "description": "This mixed-cut tennis bracelet adds a future-ready bracelet category with premium styling, high perceived value, and strong cross-sell potential.",
+        "hero_image": ASSET_BRACELET_IMAGE,
         "gallery": [
-            "https://images.unsplash.com/photo-1617038220319-276d3cfab638?auto=format&fit=crop&w=1200&q=80",
-            "https://images.unsplash.com/photo-1624585179018-25699030cb8f?auto=format&fit=crop&w=1200&q=80"
-        ],
-        "rating": 5.0,
-        "review_count": 9,
-        "highlights": ["Design consultation included", "Rendered before production", "Ideal for gifting or milestones"],
-        "reviews": [
-            {"author": "Harper", "rating": 5, "title": "Meaningful and beautifully made", "comment": "The team translated my idea perfectly.", "date": "2026-01-09"}
-        ]
-    },
-    {
-        "id": "velour-emerald-ring",
-        "name": "Velour Emerald Ring",
-        "slug": "velour-emerald-ring",
-        "category": "Rings",
-        "price": 3850,
-        "currency": "USD",
-        "materials": ["Yellow Gold", "Emerald", "Diamond"],
-        "is_customizable": True,
-        "featured": False,
-        "short_description": "An emerald centerpiece framed with discreet diamond brilliance.",
-        "description": "Velour pairs a richly saturated emerald with architectural gold lines for a ring that feels both classic and distinctly modern.",
-        "hero_image": "https://images.pexels.com/photos/2849742/pexels-photo-2849742.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-        "gallery": [
-            "https://images.pexels.com/photos/2849742/pexels-photo-2849742.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-            "https://images.unsplash.com/photo-1605100804763-247f67b3557e?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1MDV8MHwxfHNlYXJjaHwxfHxmaW5lJTIwamV3ZWxyeXxlbnwwfHx8fDE3ODE0Mzc3MzN8MA&ixlib=rb-4.1.0&q=85"
+            ASSET_BRACELET_IMAGE,
+            "https://supremejewelers.com/cdn/shop/files/2LBR00824.jpg?v=1743759681&width=533"
         ],
         "rating": 4.8,
-        "review_count": 14,
-        "highlights": ["Statement stone", "Available in bespoke sizing", "Hand-finished prongs"],
+        "review_count": 15,
+        "highlights": ["Mixed diamond cuts", "Luxury gifting option", "Classic tennis profile"],
         "reviews": [
-            {"author": "Mia", "rating": 5, "title": "Rich color and lovely setting", "comment": "The emerald has incredible depth.", "date": "2026-02-19"}
+            {"author": "Mia", "rating": 5, "title": "Balanced and elegant", "comment": "A strong bracelet option with serious shine.", "date": "2026-02-19"}
         ]
     }
 ]
 
 COLLECTIONS = [
     {
-        "id": "bridal-rings",
-        "name": "Bridal & Forever",
+        "id": "signature-rings",
+        "name": "Signature Rings",
         "category": "Rings",
-        "description": "Ceremony-ready rings and heirloom silhouettes.",
-        "image": "https://images.pexels.com/photos/32988751/pexels-photo-32988751.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+        "description": "Solitaire, halo, and statement ring styles inspired by luxury retail showcases.",
+        "image": ASSET_RING_CAMPAIGN
     },
     {
-        "id": "soft-lustre",
-        "name": "Pearls & Light",
-        "category": "Necklaces",
-        "description": "Luminous pieces with soft editorial grace.",
-        "image": "https://images.unsplash.com/photo-1611652022419-a9419f74343d?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NDh8MHwxfHNlYXJjaHwxfHxlbGVnYW50JTIwcGVhcmwlMjBuZWNrbGFjZSUyMGpld2Vscnl8ZW58MHx8fHwxNzgxNDM3NzIzfDA&ixlib=rb-4.1.0&q=85"
+        "id": "grill-collection",
+        "name": "Royal Grillz",
+        "category": "Grills",
+        "description": "Custom-fit gold and iced grill looks for bold luxury styling.",
+        "image": ASSET_GRILL_SMILES
     },
     {
-        "id": "bespoke-atelier",
-        "name": "Bespoke Atelier",
-        "category": "Custom",
-        "description": "Designed around milestones, stories, and one-of-one commissions.",
-        "image": "https://images.unsplash.com/photo-1624585179018-25699030cb8f?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1MDV8MHwxfHNlYXJjaHw0fHxmaW5lJTIwamV3ZWxyeXxlbnwwfHx8fDE3ODE0Mzc3MzN8MA&ixlib=rb-4.1.0&q=85"
+        "id": "chains-bracelets",
+        "name": "Chains & Bracelets",
+        "category": "Chains",
+        "description": "Retail-ready necklace and bracelet styles prepared for the next catalog expansion.",
+        "image": ASSET_CHAIN_IMAGE
     }
 ]
 
@@ -326,7 +360,7 @@ def build_product_summary(product: dict) -> ProductSummary:
 # Add your routes to the router instead of directly to app
 @api_router.get("/")
 async def root():
-    return {"message": "Maison Aurelle API is running."}
+    return {"message": "Royal Spark API is running."}
 
 @api_router.post("/status", response_model=StatusCheck)
 async def create_status_check(input: StatusCheckCreate):
@@ -362,9 +396,9 @@ async def get_home_catalog():
         featured_products=featured_products,
         collections=[Collection(**collection) for collection in COLLECTIONS],
         atelier_story={
-            "title": "The Atelier",
-            "description": "Each piece begins with a sketch, a material study, and the discipline of hand-finishing. Maison Aurelle is designed for moments that deserve permanence.",
-            "image": "https://images.unsplash.com/photo-1624585179018-25699030cb8f?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1MDV8MHwxfHNlYXJjaHw0fHxmaW5lJTIwamV3ZWxyeXxlbnwwfHx8fDE3ODE0Mzc3MzN8MA&ixlib=rb-4.1.0&q=85",
+            "title": "Blue Label Campaign",
+            "description": "Royal Spark now blends deep midnight blue, gold highlights, diamond rings, and custom grill concepts into one client-ready luxury storefront.",
+            "image": ASSET_GRILL_CROWN,
         },
         testimonials=testimonials,
     )

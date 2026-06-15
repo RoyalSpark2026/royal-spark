@@ -43,6 +43,7 @@ can a build Jwellary Store and connect to Shopify for Jewllary Store ?
 - Stored bespoke inquiries in MongoDB
 - Added responsive navigation, mobile menu, and complete data-testid coverage for key UI flows
 - Updated storefront branding to Royal Spark, with phone in the header and full contact details in the footer
+- Re-themed the storefront with a blue-and-gold campaign style, loaded uploaded PNG campaign visuals, and refreshed the seeded catalog toward rings, grillz, chains, and bracelets
 
 ## Prioritized Backlog
 ### P0
