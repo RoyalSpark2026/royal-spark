@@ -4,6 +4,8 @@ import { NavLink, Outlet } from "react-router-dom";
 
 import { CartSheet } from "@/components/CartSheet";
 
+const fullLogo = "https://customer-assets.emergentagent.com/job_shopify-gems-2/artifacts/ytwf02jq_IMG_7015.jpeg";
+
 const navItems = [
   { to: "/", label: "Home" },
   { to: "/shop", label: "Shop" },
@@ -19,9 +21,9 @@ export const Layout = ({ storefront }) => {
       <header className="sticky top-0 z-40 border-b border-white/10 bg-[#081226]/80 backdrop-blur-xl" data-testid="site-header">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-4 md:px-10 lg:px-16">
           <NavLink to="/" className="flex items-center gap-3 text-white" data-testid="brand-home-link">
-            <span className="flex h-11 w-11 items-center justify-center rounded-full border border-[#d8b85d]/60 bg-white/5 shadow-[0_0_28px_rgba(78,126,255,0.25)]">
-              <Gem className="h-5 w-5 text-[#d8b85d]" />
-            </span>
+            <div className="overflow-hidden rounded-[18px] border border-[#d8b85d]/30 bg-black shadow-[0_0_28px_rgba(78,126,255,0.2)]" data-testid="header-logo-image-wrapper">
+              <img src={fullLogo} alt="Royal Spark logo" className="h-14 w-14 object-cover object-top" data-testid="header-logo-image" />
+            </div>
             <div>
               <p className="font-display text-3xl leading-none text-[#f5f7ff]" data-testid="brand-name">Royal Spark</p>
               <p className="text-[10px] uppercase tracking-[0.32em] text-[#d8b85d]" data-testid="brand-tagline">Diamond rings & grillz studio</p>
@@ -85,7 +87,10 @@ export const Layout = ({ storefront }) => {
 
       <footer className="border-t border-white/10 bg-[#081226]/70" data-testid="site-footer">
         <div className="mx-auto grid max-w-7xl gap-6 px-6 py-10 md:grid-cols-3 md:px-10 lg:px-16">
-          <div>
+          <div className="flex flex-col gap-4">
+            <div className="w-fit overflow-hidden rounded-[24px] border border-[#d8b85d]/30 bg-black" data-testid="footer-logo-image-wrapper">
+              <img src={fullLogo} alt="Royal Spark Jewelry logo" className="h-28 w-28 object-cover object-top" data-testid="footer-logo-image" />
+            </div>
             <p className="font-display text-3xl text-[#f5f7ff]" data-testid="footer-brand">Royal Spark</p>
             <p className="mt-3 max-w-sm text-sm leading-relaxed text-[#c6cff0]" data-testid="footer-description">
               A blue-label storefront for diamond rings, custom grillz, and high-visibility showroom styling.
