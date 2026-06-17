@@ -1,6 +1,6 @@
 import { Search } from "lucide-react";
 import { useMemo, useState } from "react";
-import { useNavigate, useOutletContext } from "react-router-dom";
+import { useNavigate, useOutletContext, useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
 import { ProductCard } from "@/components/ProductCard";
@@ -22,10 +22,12 @@ const curatedCategories = [
 export default function ShopPage() {
   const storefront = useOutletContext();
   const navigate = useNavigate();
-  const [activeCategory, setActiveCategory] = useState("All");
+  const [searchParams, setSearchParams] = useSearchParams();
   const [search, setSearch] = useState("");
   const [customOnly, setCustomOnly] = useState(false);
-  const [moissaniteOnly, setMoissaniteOnly] = useState(false);
+  const activeCategory = searchParams.get("category") || "All";
+  const moissaniteOnly = searchParams.get("material") === "Moissanite";
+
   const { data, isLoading } = useQuery({
     queryKey: ["products", activeCategory, search, customOnly, moissaniteOnly],
     queryFn: () => fetchProducts({
@@ -72,7 +74,11 @@ export default function ShopPage() {
                       navigate("/contact");
                       return;
                     }
-                    setActiveCategory(category.value);
+                    if (category.value === "All") {
+                      setSearchParams({});
+                    } else {
+                      setSearchParams({ category: category.value, ...(moissaniteOnly ? { material: "Moissanite" } : {}) });
+                    }
                   }}
                   className={`rounded-full px-4 py-2 text-xs uppercase tracking-[0.24em] transition ${
                     activeCategory === category.value ? "bg-[#d8b85d] text-[#081226]" : "border border-white/10 bg-white/5 text-[#d9e0ff] hover:bg-white/10"
@@ -102,7 +108,17 @@ export default function ShopPage() {
             <Checkbox
               id="moissanite-only-toggle"
               checked={moissaniteOnly}
-              onCheckedChange={(checked) => setMoissaniteOnly(Boolean(checked))}
+              onCheckedChange={(checked) => {
+                const nextValue = Boolean(checked);
+                const nextParams = {};
+                if (activeCategory !== "All") {
+                  nextParams.category = activeCategory;
+                }
+                if (nextValue) {
+                  nextParams.material = "Moissanite";
+                }
+                setSearchParams(nextParams);
+              }}
               className="border-[#d8b85d] data-[state=checked]:bg-[#d8b85d] data-[state=checked]:text-[#081226]"
               data-testid="shop-moissanite-only-checkbox"
             />

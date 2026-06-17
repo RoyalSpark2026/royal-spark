@@ -1,6 +1,6 @@
-import { ChevronDown, Gem, Heart, Menu, ShoppingBag } from "lucide-react";
+import { Gem, Heart, Menu, ShoppingBag } from "lucide-react";
 import { useState } from "react";
-import { NavLink, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet } from "react-router-dom";
 
 import { CartSheet } from "@/components/CartSheet";
 
@@ -8,25 +8,26 @@ const fullLogo = "https://customer-assets.emergentagent.com/job_shopify-gems-2/a
 
 const navItems = [
   { to: "/", label: "Home" },
+  { to: "/shop", label: "Shop" },
   { to: "/bespoke", label: "Bespoke" },
   { to: "/contact", label: "Contact" },
 ];
 
 const categoryItems = [
-  { label: "Chains", to: "/shop" },
-  { label: "Bangles", to: "/shop" },
-  { label: "Grillz", to: "/shop" },
-  { label: "Charms", to: "/shop" },
-  { label: "Rings", to: "/shop" },
-  { label: "Earrings", to: "/shop" },
-  { label: "Bracelets", to: "/shop" },
-  { label: "Moissanite", to: "/shop" },
+  { label: "Chains", href: "/shop?category=Chains" },
+  { label: "Bangles", href: "/shop?category=Bangles" },
+  { label: "Grillz", href: "/shop?category=Grills" },
+  { label: "Charms", href: "/shop?category=Charms" },
+  { label: "Rings", href: "/shop?category=Rings" },
+  { label: "Earrings", href: "/shop?category=Earrings" },
+  { label: "Bracelets", href: "/shop?category=Bracelets" },
+  { label: "Moissanite", href: "/shop?material=Moissanite" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export const Layout = ({ storefront }) => {
   const [cartOpen, setCartOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [mobileShopOpen, setMobileShopOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-[radial-gradient(circle_at_top_right,_rgba(64,112,255,0.18),_transparent_26%),linear-gradient(180deg,_#081226_0%,_#101a33_100%)] text-[#f3f5ff]" data-testid="app-shell">
@@ -52,73 +53,6 @@ export const Layout = ({ storefront }) => {
           </button>
 
           <nav className={`${menuOpen ? "flex" : "hidden"} absolute left-0 top-full w-full flex-col gap-2 border-b border-white/10 bg-[#0f1b37] px-6 py-4 md:static md:flex md:w-auto md:flex-row md:items-center md:border-none md:bg-transparent md:p-0`} data-testid="main-navigation">
-            <div className="hidden md:block md:relative md:group" data-testid="desktop-shop-mega-menu-wrapper">
-              <NavLink
-                to="/shop"
-                className={({ isActive }) => `rounded-full px-4 py-2 text-sm uppercase tracking-[0.24em] transition ${isActive ? "bg-[#d8b85d] text-[#081226]" : "text-[#d8def7] hover:bg-white/10"}`}
-                data-testid="nav-link-shop"
-              >
-                <span className="inline-flex items-center gap-2">
-                  Shop <ChevronDown className="h-4 w-4" />
-                </span>
-              </NavLink>
-
-              <div className="invisible absolute left-1/2 top-full z-50 mt-4 w-[520px] -translate-x-1/2 rounded-[28px] border border-white/10 bg-[#111d3a]/95 p-6 opacity-0 shadow-2xl shadow-black/30 backdrop-blur transition duration-200 group-hover:visible group-hover:opacity-100" data-testid="desktop-shop-mega-menu-panel">
-                <div className="mb-4 flex items-center justify-between">
-                  <p className="text-xs uppercase tracking-[0.28em] text-[#d8b85d]" data-testid="desktop-shop-mega-menu-title">Browse categories</p>
-                  <NavLink to="/shop" className="text-xs uppercase tracking-[0.24em] text-[#d8def7]" data-testid="desktop-shop-mega-menu-all-link">View all</NavLink>
-                </div>
-                <div className="grid grid-cols-2 gap-3" data-testid="desktop-shop-mega-menu-grid">
-                  {categoryItems.map((item) => (
-                    <NavLink
-                      key={item.label}
-                      to={item.to}
-                      className="rounded-[18px] border border-white/10 bg-white/5 px-4 py-3 text-sm uppercase tracking-[0.18em] text-[#eef2ff] transition hover:border-[#d8b85d]/40 hover:text-[#d8b85d]"
-                      data-testid={`desktop-mega-menu-item-${item.label.toLowerCase()}`}
-                    >
-                      {item.label}
-                    </NavLink>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            <div className="md:hidden" data-testid="mobile-shop-mega-menu-wrapper">
-              <button
-                type="button"
-                className="flex w-full items-center justify-between rounded-full px-4 py-2 text-sm uppercase tracking-[0.24em] text-[#d8def7] transition hover:bg-white/10"
-                onClick={() => setMobileShopOpen((current) => !current)}
-                data-testid="mobile-shop-menu-toggle"
-              >
-                <span>Shop</span>
-                <ChevronDown className={`h-4 w-4 transition ${mobileShopOpen ? "rotate-180" : ""}`} />
-              </button>
-
-              {mobileShopOpen ? (
-                <div className="mt-3 grid gap-2 rounded-[24px] border border-white/10 bg-white/5 p-4" data-testid="mobile-shop-menu-panel">
-                  <NavLink
-                    to="/shop"
-                    onClick={() => setMenuOpen(false)}
-                    className="rounded-[16px] border border-white/10 px-4 py-3 text-xs uppercase tracking-[0.24em] text-[#d8b85d]"
-                    data-testid="mobile-shop-menu-all-link"
-                  >
-                    View all collections
-                  </NavLink>
-                  {categoryItems.map((item) => (
-                    <NavLink
-                      key={item.label}
-                      to={item.to}
-                      onClick={() => setMenuOpen(false)}
-                      className="rounded-[16px] border border-white/10 px-4 py-3 text-xs uppercase tracking-[0.24em] text-[#eef2ff]"
-                      data-testid={`mobile-mega-menu-item-${item.label.toLowerCase()}`}
-                    >
-                      {item.label}
-                    </NavLink>
-                  ))}
-                </div>
-              ) : null}
-            </div>
-
             {navItems.map((item) => (
               <NavLink
                 key={item.to}
@@ -156,6 +90,21 @@ export const Layout = ({ storefront }) => {
             >
               <ShoppingBag className="h-4 w-4" /> {storefront.cartCount} in cart
             </button>
+          </div>
+        </div>
+
+        <div className="border-t border-white/5 bg-[#0d1835]/90" data-testid="category-header-bar">
+          <div className="mx-auto flex max-w-7xl gap-3 overflow-x-auto px-6 py-3 md:px-10 lg:px-16" data-testid="category-header-scroll-row">
+            {categoryItems.map((item) => (
+              <Link
+                key={item.label}
+                to={item.href}
+                className="shrink-0 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs uppercase tracking-[0.24em] text-[#dfe5ff] transition hover:border-[#d8b85d]/40 hover:bg-white/10 hover:text-[#d8b85d]"
+                data-testid={`header-category-link-${item.label.toLowerCase()}`}
+              >
+                {item.label}
+              </Link>
+            ))}
           </div>
         </div>
       </header>
