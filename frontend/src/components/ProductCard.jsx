@@ -20,7 +20,7 @@ export const ProductCard = ({ product, isWishlisted, onToggleWishlist, onAddToCa
         <img
           src={product.hero_image}
           alt={product.name}
-          className="aspect-[4/5] w-full object-cover transition duration-700 ease-out group-hover:scale-105"
+          className="aspect-[4/5] w-full bg-[#0a1631] p-3 object-contain transition duration-700 ease-out group-hover:scale-105"
           data-testid={`product-image-${product.slug}`}
         />
         <button
