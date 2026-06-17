@@ -1,6 +1,6 @@
 import { Search } from "lucide-react";
 import { useMemo, useState } from "react";
-import { useOutletContext } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
 import { ProductCard } from "@/components/ProductCard";
@@ -8,17 +8,35 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { fetchProducts } from "@/lib/api";
 
+const curatedCategories = [
+  { label: "Chains", value: "Chains" },
+  { label: "Bangles", value: "Bangles" },
+  { label: "Grillz", value: "Grills" },
+  { label: "Charms", value: "Charms" },
+  { label: "Rings", value: "Rings" },
+  { label: "Earrings", value: "Earrings" },
+  { label: "Bracelets", value: "Bracelets" },
+  { label: "Contact", value: "Contact" },
+];
+
 export default function ShopPage() {
   const storefront = useOutletContext();
+  const navigate = useNavigate();
   const [activeCategory, setActiveCategory] = useState("All");
   const [search, setSearch] = useState("");
   const [customOnly, setCustomOnly] = useState(false);
+  const [moissaniteOnly, setMoissaniteOnly] = useState(false);
   const { data, isLoading } = useQuery({
-    queryKey: ["products", activeCategory, search, customOnly],
-    queryFn: () => fetchProducts({ category: activeCategory, search, customizable_only: customOnly }),
+    queryKey: ["products", activeCategory, search, customOnly, moissaniteOnly],
+    queryFn: () => fetchProducts({
+      category: activeCategory,
+      search,
+      customizable_only: customOnly,
+      material: moissaniteOnly ? "Moissanite" : undefined,
+    }),
   });
 
-  const categoryButtons = useMemo(() => data?.categories ?? ["All"], [data]);
+  const categoryButtons = useMemo(() => [{ label: "All", value: "All" }, ...curatedCategories], []);
 
   return (
     <div className="mx-auto max-w-7xl px-6 py-10 md:px-10 lg:px-16" data-testid="shop-page">
@@ -47,15 +65,21 @@ export default function ShopPage() {
             <div className="mt-4 flex flex-wrap gap-2">
               {categoryButtons.map((category) => (
                 <button
-                  key={category}
+                  key={category.label}
                   type="button"
-                  onClick={() => setActiveCategory(category)}
+                  onClick={() => {
+                    if (category.value === "Contact") {
+                      navigate("/contact");
+                      return;
+                    }
+                    setActiveCategory(category.value);
+                  }}
                   className={`rounded-full px-4 py-2 text-xs uppercase tracking-[0.24em] transition ${
-                    activeCategory === category ? "bg-[#d8b85d] text-[#081226]" : "border border-white/10 bg-white/5 text-[#d9e0ff] hover:bg-white/10"
+                    activeCategory === category.value ? "bg-[#d8b85d] text-[#081226]" : "border border-white/10 bg-white/5 text-[#d9e0ff] hover:bg-white/10"
                   }`}
-                  data-testid={`shop-category-${category.toLowerCase().replace(/\s+/g, "-")}`}
+                  data-testid={`shop-category-${category.label.toLowerCase().replace(/\s+/g, "-")}`}
                 >
-                  {category}
+                  {category.label}
                 </button>
               ))}
             </div>
@@ -71,6 +95,19 @@ export default function ShopPage() {
             />
             <label htmlFor="custom-only-toggle" className="text-sm text-[#d9e0ff]" data-testid="shop-custom-only-label">
               Show only customizable pieces
+            </label>
+          </div>
+
+          <div className="mt-4 flex items-center gap-3 rounded-[24px] border border-white/10 bg-white/5 p-4">
+            <Checkbox
+              id="moissanite-only-toggle"
+              checked={moissaniteOnly}
+              onCheckedChange={(checked) => setMoissaniteOnly(Boolean(checked))}
+              className="border-[#d8b85d] data-[state=checked]:bg-[#d8b85d] data-[state=checked]:text-[#081226]"
+              data-testid="shop-moissanite-only-checkbox"
+            />
+            <label htmlFor="moissanite-only-toggle" className="text-sm text-[#d9e0ff]" data-testid="shop-moissanite-only-label">
+              Show Moissanite only
             </label>
           </div>
         </aside>

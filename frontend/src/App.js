@@ -6,6 +6,7 @@ import { Layout } from "@/components/Layout";
 import { Toaster } from "@/components/ui/sonner";
 import { useStorefrontState } from "@/hooks/useStorefrontState";
 import BespokePage from "@/pages/BespokePage";
+import ContactPage from "@/pages/ContactPage";
 import HomePage from "@/pages/HomePage";
 import ProductDetailPage from "@/pages/ProductDetailPage";
 import ShopPage from "@/pages/ShopPage";
@@ -23,6 +24,7 @@ function App() {
               <Route path="shop" element={<ShopPage />} />
               <Route path="shop/:slug" element={<ProductDetailPage />} />
               <Route path="bespoke" element={<BespokePage />} />
+              <Route path="contact" element={<ContactPage />} />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Route>
           </Routes>

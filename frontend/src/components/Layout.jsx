@@ -10,6 +10,7 @@ const navItems = [
   { to: "/", label: "Home" },
   { to: "/shop", label: "Shop" },
   { to: "/bespoke", label: "Bespoke" },
+  { to: "/contact", label: "Contact" },
 ];
 
 export const Layout = ({ storefront }) => {

@@ -89,10 +89,22 @@ export default function HomePage() {
       <section className="mx-auto max-w-7xl px-6 py-20 md:px-10 lg:px-16" data-testid="featured-collections-section">
         <div className="mb-10 flex items-end justify-between gap-4">
           <div>
-            <p className="text-xs uppercase tracking-[0.32em] text-[#d8b85d]" data-testid="collections-eyebrow">Curated pathways</p>
-            <h2 className="mt-3 font-display text-4xl text-white" data-testid="collections-heading">Collections shaped for sparkle-first selling</h2>
+          <p className="text-xs uppercase tracking-[0.32em] text-[#d8b85d]" data-testid="collections-eyebrow">Curated pathways</p>
+          <h2 className="mt-3 font-display text-4xl text-white" data-testid="collections-heading">Collections shaped for sparkle-first selling</h2>
           </div>
           <Link to="/shop" className="text-sm uppercase tracking-[0.24em] text-[#d8b85d]" data-testid="collections-view-all-link">View all</Link>
+        </div>
+
+        <div className="mb-8 flex flex-wrap gap-3" data-testid="homepage-category-chip-row">
+          {["Chains", "Bangles", "Grillz", "Charms", "Rings", "Earrings", "Bracelets", "Moissanite", "Contact"].map((item) => (
+            <span
+              key={item}
+              className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs uppercase tracking-[0.24em] text-[#d9e0ff]"
+              data-testid={`homepage-category-chip-${item.toLowerCase()}`}
+            >
+              {item}
+            </span>
+          ))}
         </div>
 
         <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr_0.8fr]">

@@ -49,7 +49,7 @@ PRODUCTS = [
         "category": "Rings",
         "price": 3890,
         "currency": "USD",
-        "materials": ["14K White Gold", "Lab Diamond"],
+        "materials": ["14K White Gold", "Moissanite"],
         "is_customizable": True,
         "featured": True,
         "short_description": "A bright-cut solitaire ring inspired by high-shine showroom campaigns.",
@@ -93,6 +93,30 @@ PRODUCTS = [
         ]
     },
     {
+        "id": "starlight-moissanite-earrings",
+        "name": "Starlight Moissanite Earrings",
+        "slug": "starlight-moissanite-earrings",
+        "category": "Earrings",
+        "price": 1485,
+        "currency": "USD",
+        "materials": ["925 Silver", "Moissanite"],
+        "is_customizable": False,
+        "featured": False,
+        "short_description": "Brilliant moissanite studs designed for strong sparkle and daily wear.",
+        "description": "These Royal Spark earrings bring bright moissanite fire, clean silver framing, and versatile styling for clients who want a classic luxury gift piece.",
+        "hero_image": ASSET_RING_CAMPAIGN,
+        "gallery": [
+            ASSET_RING_CAMPAIGN,
+            "https://supremejewelers.com/cdn/shop/files/Earrings.jpg?v=1746694447&width=768"
+        ],
+        "rating": 4.7,
+        "review_count": 19,
+        "highlights": ["Moissanite brilliance", "Gift-ready", "Classic stud styling"],
+        "reviews": [
+            {"author": "Kay", "rating": 5, "title": "Bright and wearable", "comment": "Great sparkle for everyday styling.", "date": "2026-03-18"}
+        ]
+    },
+    {
         "id": "diamond-smile-grill-set",
         "name": "Diamond Smile Grill Set",
         "slug": "diamond-smile-grill-set",
@@ -117,6 +141,30 @@ PRODUCTS = [
         ]
     },
     {
+        "id": "crown-link-charm",
+        "name": "Crown Link Charm",
+        "slug": "crown-link-charm",
+        "category": "Charms",
+        "price": 945,
+        "currency": "USD",
+        "materials": ["14K Gold", "Diamond Accent"],
+        "is_customizable": True,
+        "featured": False,
+        "short_description": "A crown-inspired charm for chains, bracelets, or custom keepsake builds.",
+        "description": "The Crown Link Charm gives Royal Spark a smaller-ticket luxury piece with strong gifting appeal and easy layering across chains or bracelet stacks.",
+        "hero_image": ASSET_GRILL_CROWN,
+        "gallery": [
+            ASSET_GRILL_CROWN,
+            ASSET_CHAIN_IMAGE
+        ],
+        "rating": 4.8,
+        "review_count": 12,
+        "highlights": ["Charm-ready clasp", "Giftable luxury", "Engravable back"],
+        "reviews": [
+            {"author": "Lena", "rating": 5, "title": "Small but premium", "comment": "A really strong charm option with luxury detail.", "date": "2026-03-10"}
+        ]
+    },
+    {
         "id": "gold-classic-grill-set",
         "name": "Gold Classic Grill Set",
         "slug": "gold-classic-grill-set",
@@ -138,6 +186,30 @@ PRODUCTS = [
         "highlights": ["Smooth gold finish", "Custom top/bottom options", "Street-luxury style"],
         "reviews": [
             {"author": "Marcus", "rating": 5, "title": "Clean gold look", "comment": "Simple, bold, and exactly right for a classic setup.", "date": "2026-03-12"}
+        ]
+    },
+    {
+        "id": "royal-radiance-bangle",
+        "name": "Royal Radiance Bangle",
+        "slug": "royal-radiance-bangle",
+        "category": "Bangles",
+        "price": 5125,
+        "currency": "USD",
+        "materials": ["14K Gold", "Diamond"],
+        "is_customizable": True,
+        "featured": False,
+        "short_description": "A structured diamond bangle designed for luxury stacking and gifting.",
+        "description": "This Royal Spark bangle adds formal shine and strong display value, making it ideal for premium bracelet and wedding-season selling.",
+        "hero_image": "https://supremejewelers.com/cdn/shop/files/21MHBI05056.jpg?v=1744108714",
+        "gallery": [
+            "https://supremejewelers.com/cdn/shop/files/21MHBI05056.jpg?v=1744108714",
+            "https://supremejewelers.com/cdn/shop/files/2MHBI05056.jpg?v=1744108714&width=533"
+        ],
+        "rating": 4.8,
+        "review_count": 17,
+        "highlights": ["Rigid luxury profile", "Stackable", "Statement sparkle"],
+        "reviews": [
+            {"author": "Ava", "rating": 5, "title": "Feels high-end", "comment": "This bangle looks rich and polished in person.", "date": "2026-03-12"}
         ]
     },
     {
@@ -235,6 +307,13 @@ COLLECTIONS = [
         "category": "Chains",
         "description": "Retail-ready necklace and bracelet styles prepared for the next catalog expansion.",
         "image": ASSET_CHAIN_IMAGE
+    },
+    {
+        "id": "contact-collection",
+        "name": "Contact Royal Spark",
+        "category": "Contact",
+        "description": "Visit, call, or request a private consultation in Houston, Texas.",
+        "image": ASSET_GRILL_BEFORE_AFTER
     }
 ]
 
@@ -409,6 +488,7 @@ async def get_products(
     category: Optional[str] = Query(default=None),
     search: Optional[str] = Query(default=None),
     customizable_only: bool = Query(default=False),
+    material: Optional[str] = Query(default=None),
 ):
     filtered = PRODUCTS
     if category and category.lower() != "all":
@@ -424,6 +504,12 @@ async def get_products(
         ]
     if customizable_only:
         filtered = [item for item in filtered if item["is_customizable"]]
+    if material:
+        material_term = material.lower().strip()
+        filtered = [
+            item for item in filtered
+            if any(material_term in product_material.lower() for product_material in item["materials"])
+        ]
 
     categories = sorted({product["category"] for product in PRODUCTS})
     return CatalogResponse(
