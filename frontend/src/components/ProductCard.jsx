@@ -13,9 +13,10 @@ export const ProductCard = ({ product, isWishlisted, onToggleWishlist, onAddToCa
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true, amount: 0.2 }}
     transition={{ duration: 0.55 }}
+    className="h-full"
   >
-    <Card className="group overflow-hidden rounded-[32px] border border-white/10 bg-[#111d3a]/90 text-white shadow-[0_0_30px_rgba(8,18,38,0.35)]" data-testid={`product-card-${product.slug}`}>
-      <div className="relative overflow-hidden">
+    <Card className="group flex h-full flex-col overflow-hidden rounded-[32px] border border-white/10 bg-[#111d3a]/90 text-white shadow-[0_0_30px_rgba(8,18,38,0.35)]" data-testid={`product-card-${product.slug}`}>
+      <Link to={`/shop/${product.slug}`} className="relative block overflow-hidden">
         <img
           src={product.hero_image}
           alt={product.name}
@@ -30,9 +31,9 @@ export const ProductCard = ({ product, isWishlisted, onToggleWishlist, onAddToCa
         >
           <Heart className={`h-4 w-4 ${isWishlisted ? "fill-[#d8b85d] text-[#d8b85d]" : ""}`} />
         </button>
-      </div>
+      </Link>
 
-      <div className="space-y-4 p-5">
+      <div className="flex h-full flex-col space-y-4 p-5">
         <div className="flex items-start justify-between gap-3">
           <div>
             <p className="text-xs uppercase tracking-[0.24em] text-[#d8b85d]" data-testid={`product-category-${product.slug}`}>
@@ -67,7 +68,7 @@ export const ProductCard = ({ product, isWishlisted, onToggleWishlist, onAddToCa
           ) : null}
         </div>
 
-        <div className="grid gap-3 sm:grid-cols-2">
+        <div className="mt-auto grid gap-3 sm:grid-cols-2">
           <Button
             type="button"
             onClick={() => onAddToCart(product)}
