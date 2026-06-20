@@ -1,0 +1,12 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="256" height="256" rx="48" fill="#081226"/>
+  <g transform="translate(48 28)">
+    <path d="M80 0L92 30L120 20L112 52L146 49L132 86H28L14 49L48 52L40 20L68 30L80 0Z" fill="#D8B85D"/>
+    <path d="M80 70C96 70 111 81 116 98H44C49 81 64 70 80 70Z" fill="#D8B85D"/>
+    <circle cx="80" cy="12" r="6" fill="#F7E5A3"/>
+    <circle cx="116" cy="26" r="5" fill="#F7E5A3"/>
+    <circle cx="44" cy="26" r="5" fill="#F7E5A3"/>
+    <rect x="43" y="97" width="74" height="7" rx="3.5" fill="#D8B85D"/>
+  </g>
+  <text x="68" y="188" fill="#D8B85D" font-size="56" font-family="Cormorant Garamond, Georgia, serif" font-weight="700">RS</text>
+</svg>

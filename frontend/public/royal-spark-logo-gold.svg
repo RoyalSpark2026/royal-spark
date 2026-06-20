@@ -1,0 +1,13 @@
+<svg width="640" height="200" viewBox="0 0 640 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="640" height="200" fill="none"/>
+  <g transform="translate(28 22)">
+    <path d="M72 0L82 24L104 16L99 42L124 40L114 70H30L20 40L45 42L40 16L62 24L72 0Z" fill="#D8B85D"/>
+    <path d="M72 55C85 55 96 64 100 78H44C48 64 59 55 72 55Z" fill="#D8B85D"/>
+    <circle cx="72" cy="10" r="5" fill="#F7E5A3"/>
+    <circle cx="101" cy="22" r="4" fill="#F7E5A3"/>
+    <circle cx="43" cy="22" r="4" fill="#F7E5A3"/>
+    <rect x="40" y="78" width="64" height="6" rx="3" fill="#D8B85D"/>
+  </g>
+  <text x="180" y="102" fill="#D8B85D" font-size="72" font-family="Cormorant Garamond, Georgia, serif" font-weight="600">Royal Spark</text>
+  <text x="184" y="145" fill="#D8B85D" font-size="26" font-family="Outfit, Arial, sans-serif" letter-spacing="10">JEWELRY</text>
+</svg>

@@ -1,10 +1,10 @@
-import { Gem, Heart, Menu, ShoppingBag } from "lucide-react";
+import { Heart, Menu, ShoppingBag } from "lucide-react";
 import { useState } from "react";
 import { Link, NavLink, Outlet } from "react-router-dom";
 
 import { CartSheet } from "@/components/CartSheet";
 
-const fullLogo = "/royal-spark-logo-extracted.png";
+const fullLogo = "/royal-spark-logo-gold.svg";
 
 const navItems = [
   { to: "/", label: "Home" },
@@ -34,8 +34,8 @@ export const Layout = ({ storefront }) => {
       <header className="sticky top-0 z-40 border-b border-white/10 bg-[#081226]/80 backdrop-blur-xl" data-testid="site-header">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-4 md:px-10 lg:px-16">
           <NavLink to="/" className="flex items-center text-white" data-testid="brand-home-link">
-            <div className="overflow-hidden rounded-[18px] border border-[#d8b85d]/30 bg-[#071126] px-4 py-3 shadow-[0_0_28px_rgba(78,126,255,0.2)]" data-testid="header-logo-image-wrapper">
-              <img src={fullLogo} alt="Royal Spark logo" className="h-14 w-auto object-contain" data-testid="header-logo-image" />
+            <div className="overflow-hidden rounded-[18px] border border-[#d8b85d]/20 bg-transparent px-2 py-2" data-testid="header-logo-image-wrapper">
+              <img src={fullLogo} alt="Royal Spark logo" className="h-20 w-auto object-contain" data-testid="header-logo-image" />
             </div>
           </NavLink>
 
@@ -112,8 +112,8 @@ export const Layout = ({ storefront }) => {
       <footer className="border-t border-white/10 bg-[#081226]/70" data-testid="site-footer">
         <div className="mx-auto grid max-w-7xl gap-6 px-6 py-10 md:grid-cols-3 md:px-10 lg:px-16">
           <div className="flex flex-col gap-4">
-            <div className="w-fit overflow-hidden rounded-[24px] border border-[#d8b85d]/30 bg-[#071126] px-5 py-4" data-testid="footer-logo-image-wrapper">
-              <img src={fullLogo} alt="Royal Spark Jewelry logo" className="h-16 w-auto object-contain" data-testid="footer-logo-image" />
+            <div className="w-fit overflow-hidden rounded-[24px] border border-[#d8b85d]/20 bg-transparent px-2 py-2" data-testid="footer-logo-image-wrapper">
+              <img src={fullLogo} alt="Royal Spark Jewelry logo" className="h-20 w-auto object-contain" data-testid="footer-logo-image" />
             </div>
             <p className="mt-3 max-w-sm text-sm leading-relaxed text-[#c6cff0]" data-testid="footer-description">
               A cinematic luxury storefront shaped by the Royal Spark brand film, premium craftsmanship, and a Shopify-ready catalog launch.

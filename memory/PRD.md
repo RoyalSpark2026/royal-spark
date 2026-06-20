@@ -71,3 +71,5 @@ can a build Jwellary Store and connect to Shopify for Jewllary Store ?
 - Expand bespoke intake with attachments and consultation scheduling
 
 - Extracted a cleaner logo crop from the latest uploaded artwork and replaced the site logo usage across the shared header/footer layout
+
+- Replaced the cropped screenshot logo with a redrawn gold transparent logo system plus square icon and favicon files for consistent branding across the site
