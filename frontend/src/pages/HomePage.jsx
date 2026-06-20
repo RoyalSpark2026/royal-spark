@@ -60,7 +60,7 @@ export default function HomePage() {
                   Where luxury meets craftsmanship.
                 </h1>
                 <p className="mt-3 max-w-lg text-sm leading-relaxed text-white/76" data-testid="hero-description">
-                  Royal Spark now opens with a full cinematic brand experience — rich navy, regal gold, fine jewelry detail, and premium storytelling for the upcoming Shopify launch.
+                  Royal Spark presents regal detail, refined craftsmanship, and bold jewelry with a polished luxury presence.
                 </p>
                 <div className="mt-5 flex flex-wrap gap-3">
                   <Button asChild className="h-10 rounded-full bg-[#d8b85d] px-4 text-[#081226] hover:bg-[#f0d78d]" data-testid="hero-shop-button">
@@ -79,27 +79,27 @@ export default function HomePage() {
       <section className="mx-auto max-w-7xl px-6 py-10 md:px-10 lg:px-16" data-testid="feature-grid-section">
         <div className="mb-10 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl">
-            <p className="text-xs uppercase tracking-[0.32em] text-[#d8b85d]" data-testid="feature-grid-eyebrow">Royal Spark features</p>
-            <h2 className="mt-4 font-display text-5xl leading-none text-white" data-testid="feature-grid-heading">A cleaner luxury section instead of the second video.</h2>
+            <p className="text-xs uppercase tracking-[0.32em] text-[#d8b85d]" data-testid="feature-grid-eyebrow">Signature categories</p>
+            <h2 className="mt-4 font-display text-5xl leading-none text-white" data-testid="feature-grid-heading">Three signature directions for the collection.</h2>
           </div>
           <p className="max-w-xl text-sm leading-relaxed text-[#cbd2ec]" data-testid="feature-grid-description">
-            This 3-grid feature block keeps the homepage lighter and lets the main hero video stay the star.
+            A refined edit of the categories that define the Royal Spark identity.
           </p>
         </div>
 
         <div className="grid gap-6 lg:grid-cols-3" data-testid="feature-grid-cards">
           {[
             {
-              title: "Luxury Craftsmanship",
-              copy: "Built around rich navy, gold details, and premium storytelling for a high-end first impression.",
+              title: "Rings",
+              copy: "Statement silhouettes with refined brilliance and a strong ceremonial feel.",
             },
             {
-              title: "Shopify-Ready Structure",
-              copy: "The storefront is prepared to switch from coming-soon placeholders to the client’s live Shopify catalog.",
+              title: "Grillz",
+              copy: "Bold custom expression shaped with polished metal finishes and standout shine.",
             },
             {
-              title: "Private Concierge Feel",
-              copy: "Every section is designed to guide customers smoothly into categories, product pages, and direct inquiries.",
+              title: "Chains",
+              copy: "Layering pieces and strong links designed to complete a premium jewelry wardrobe.",
             },
           ].map((feature, index) => (
             <motion.div
@@ -121,28 +121,22 @@ export default function HomePage() {
 
       <section className="mx-auto max-w-7xl px-6 py-10 md:px-10 lg:px-16" data-testid="brand-image-section">
         <div className="rounded-[38px] border border-white/10 bg-[linear-gradient(160deg,_rgba(11,23,50,1),_rgba(7,16,36,0.98))] p-6 md:p-8">
-          <div className="mb-8 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
-            <div className="max-w-3xl">
-              <p className="text-xs uppercase tracking-[0.32em] text-[#d8b85d]" data-testid="brand-image-eyebrow">Royal Spark feature image</p>
-              <h2 className="mt-4 font-display text-5xl leading-none text-white" data-testid="brand-image-heading">A matching full-frame image section.</h2>
+          <div className="mb-8 max-w-3xl">
+              <p className="text-xs uppercase tracking-[0.32em] text-[#d8b85d]" data-testid="brand-image-eyebrow">Royal Spark editorial</p>
+              <h2 className="mt-4 font-display text-5xl leading-none text-white" data-testid="brand-image-heading">A full-frame image section for campaign storytelling.</h2>
               <p className="mt-5 text-sm leading-relaxed text-[#cbd2ec]" data-testid="brand-image-description">
-                Upload one premium campaign image here later so it visually matches the brand film section and keeps the landing page balanced.
+                One strong visual here can carry the mood of the collection with a cleaner editorial feel.
               </p>
-            </div>
-            <div className="flex flex-wrap gap-3 text-xs uppercase tracking-[0.22em] text-[#d9e0ff]">
-              <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2" data-testid="brand-image-chip-size">Best size: 1920 × 1080</span>
-              <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2" data-testid="brand-image-chip-style">Luxury campaign still</span>
-            </div>
           </div>
 
           <div className="relative aspect-[16/9] w-full overflow-hidden rounded-[32px] border border-white/10 bg-[linear-gradient(145deg,_rgba(14,28,58,1),_rgba(7,16,36,0.98))] p-6 md:p-8" data-testid="brand-image-frame">
             <div className="flex h-full flex-col justify-between rounded-[28px] border border-dashed border-[#d8b85d]/25 bg-white/5 p-6 md:p-8" data-testid="brand-image-placeholder">
               <div>
-                <p className="text-xs uppercase tracking-[0.28em] text-[#d8b85d]" data-testid="brand-image-placeholder-eyebrow">Image needed</p>
-                <h3 className="mt-4 max-w-2xl font-display text-4xl text-white" data-testid="brand-image-placeholder-heading">Add one full-width luxury image here.</h3>
+                <p className="text-xs uppercase tracking-[0.28em] text-[#d8b85d]" data-testid="brand-image-placeholder-eyebrow">Editorial image</p>
+                <h3 className="mt-4 max-w-2xl font-display text-4xl text-white" data-testid="brand-image-placeholder-heading">A full-width luxury still belongs here.</h3>
               </div>
               <p className="max-w-xl text-sm leading-relaxed text-[#cbd2ec]" data-testid="brand-image-placeholder-description">
-                Best for this section: model wearing jewelry, product collage banner, or logo-focused luxury campaign still.
+                Best suited for a model portrait, campaign image, or refined brand banner.
               </p>
             </div>
           </div>
@@ -240,16 +234,22 @@ export default function HomePage() {
 
       <section className="mx-auto max-w-7xl px-6 py-20 md:px-10 lg:px-16" data-testid="featured-products-section">
         <div className="mb-10 max-w-2xl">
-          <p className="text-xs uppercase tracking-[0.32em] text-[#d8b85d]" data-testid="featured-products-eyebrow">Most loved pieces</p>
-          <h2 className="mt-4 font-display text-4xl text-white" data-testid="featured-products-heading">Selected for fast client approval</h2>
+          <p className="text-xs uppercase tracking-[0.32em] text-[#d8b85d]" data-testid="featured-products-eyebrow">Featured products</p>
+          <h2 className="mt-4 font-display text-4xl text-white" data-testid="featured-products-heading">A product section ready for the collection.</h2>
         </div>
         {homeData.featured_products.length === 0 ? (
-          <div className="rounded-[34px] border border-[#d8b85d]/20 bg-[#111d3a] px-8 py-16 text-center" data-testid="homepage-coming-soon-products">
-            <p className="text-xs uppercase tracking-[0.28em] text-[#d8b85d]" data-testid="homepage-coming-soon-eyebrow">Coming soon</p>
-            <h3 className="mt-4 font-display text-4xl text-white" data-testid="homepage-coming-soon-heading">Product collections are being prepared.</h3>
-            <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-[#cbd2ec]" data-testid="homepage-coming-soon-description">
-              We’re replacing sample items with the client’s real Shopify catalog. The launch collection will appear here once product images, pricing, and categories are finalized.
-            </p>
+          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3" data-testid="homepage-coming-soon-products">
+            {[
+              { title: "Rings", copy: "Elegant hero pieces for engagements, milestones, and daily luxury." },
+              { title: "Grillz", copy: "Custom statement pieces with polished metal, stones, and standout presence." },
+              { title: "Chains", copy: "Strong links and layered silhouettes to complete the collection." },
+            ].map((item, index) => (
+              <div key={item.title} className="rounded-[32px] border border-[#d8b85d]/20 bg-[#111d3a] p-7" data-testid={`homepage-product-placeholder-${index}`}>
+                <p className="text-xs uppercase tracking-[0.28em] text-[#d8b85d]" data-testid={`homepage-product-placeholder-eyebrow-${index}`}>Featured category</p>
+                <h3 className="mt-4 font-display text-4xl text-white" data-testid={`homepage-product-placeholder-heading-${index}`}>{item.title}</h3>
+                <p className="mt-4 text-sm leading-relaxed text-[#cbd2ec]" data-testid={`homepage-product-placeholder-description-${index}`}>{item.copy}</p>
+              </div>
+            ))}
           </div>
         ) : (
           <div className="grid gap-6 lg:grid-cols-3">
