@@ -39,7 +39,7 @@ export const Layout = ({ storefront }) => {
             </div>
             <div>
               <p className="font-display text-3xl leading-none text-[#f5f7ff]" data-testid="brand-name">Royal Spark</p>
-              <p className="text-[10px] uppercase tracking-[0.32em] text-[#d8b85d]" data-testid="brand-tagline">Diamond rings & grillz studio</p>
+              <p className="text-[10px] uppercase tracking-[0.32em] text-[#d8b85d]" data-testid="brand-tagline">Where luxury meets craftsmanship</p>
             </div>
           </NavLink>
 
@@ -121,7 +121,7 @@ export const Layout = ({ storefront }) => {
             </div>
             <p className="font-display text-3xl text-[#f5f7ff]" data-testid="footer-brand">Royal Spark</p>
             <p className="mt-3 max-w-sm text-sm leading-relaxed text-[#c6cff0]" data-testid="footer-description">
-              A blue-label storefront for diamond rings, custom grillz, and high-visibility showroom styling.
+              A cinematic luxury storefront shaped by the Royal Spark brand film, premium craftsmanship, and a Shopify-ready catalog launch.
             </p>
           </div>
           <div className="text-sm text-[#e1e6ff]">

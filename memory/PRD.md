@@ -46,6 +46,7 @@ can a build Jwellary Store and connect to Shopify for Jewllary Store ?
 - Re-themed the storefront with a blue-and-gold campaign style, loaded uploaded PNG campaign visuals, and refreshed the seeded catalog toward rings, grillz, chains, and bracelets
 - Added requested category structure: Chains, Bangles, Grillz, Charms, Rings, Earrings, Bracelets, Moissanite filter, and Contact page/section
 - Removed all existing sample products and replaced homepage/category product areas with luxury Coming Soon states to prepare for live Shopify catalog connection
+- Added homepage brand-film section using the uploaded video, updated copy/tagline toward the video mood, and removed landing-page images in favor of elegant placeholders for final assets
 
 ## Prioritized Backlog
 ### P0

@@ -5,7 +5,10 @@ import { useQuery } from "@tanstack/react-query";
 
 import { Button } from "@/components/ui/button";
 import { ProductCard } from "@/components/ProductCard";
+import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { fetchHomeData, fetchShopifyReadiness } from "@/lib/api";
+
+const brandFilmUrl = "https://customer-assets.emergentagent.com/job_shopify-gems-2/artifacts/rqmkr4b1_generated_video.mp4";
 
 export default function HomePage() {
   const storefront = useOutletContext();
@@ -28,12 +31,12 @@ export default function HomePage() {
         >
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(77,124,255,0.28),_transparent_32%),radial-gradient(circle_at_bottom_right,_rgba(216,184,93,0.2),_transparent_24%)]" />
           <div className="relative z-10 max-w-xl">
-            <p className="text-xs uppercase tracking-[0.32em] text-[#d8b85d]" data-testid="hero-eyebrow">Blue label jewelry campaign</p>
+            <p className="text-xs uppercase tracking-[0.32em] text-[#d8b85d]" data-testid="hero-eyebrow">Discover exquisite elegance</p>
             <h1 className="mt-6 font-display text-5xl leading-[0.95] md:text-6xl" data-testid="hero-heading">
-              Rings and grillz with a high-shine luxury edge.
+              Where luxury meets craftsmanship.
             </h1>
             <p className="mt-6 max-w-lg text-sm leading-relaxed text-white/75 md:text-base" data-testid="hero-description">
-              Royal Spark now presents a polished luxury storefront while the live Shopify catalog is being prepared for launch.
+              Royal Spark presents a polished navy, gold, and diamond-white identity inspired by the brand film while the live Shopify catalog is being prepared for launch.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
               <Button asChild className="h-12 rounded-full bg-[#d8b85d] px-6 text-[#081226] hover:bg-[#f0d78d]" data-testid="hero-shop-button">
@@ -45,7 +48,7 @@ export default function HomePage() {
             </div>
             <div className="mt-10 flex flex-wrap gap-3 text-xs uppercase tracking-[0.24em] text-[#d9e0ff]">
               <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2" data-testid="hero-feature-rings">Shopify-ready catalog</span>
-              <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2" data-testid="hero-feature-grills">Curated categories</span>
+              <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2" data-testid="hero-feature-grills">Brand-film styling</span>
               <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2" data-testid="hero-feature-chains">Luxury launch in progress</span>
             </div>
           </div>
@@ -88,6 +91,69 @@ export default function HomePage() {
             </div>
           </div>
         </motion.div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-6 py-10 md:px-10 lg:px-16" data-testid="brand-film-section">
+        <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr]">
+          <div className="rounded-[38px] border border-white/10 bg-[linear-gradient(160deg,_rgba(11,23,50,1),_rgba(7,16,36,0.98))] p-8" data-testid="brand-film-copy-card">
+            <p className="text-xs uppercase tracking-[0.32em] text-[#d8b85d]" data-testid="brand-film-eyebrow">Royal Spark brand film</p>
+            <h2 className="mt-5 font-display text-5xl leading-none text-white" data-testid="brand-film-heading">A cinematic look for the launch story.</h2>
+            <p className="mt-6 max-w-2xl text-sm leading-relaxed text-[#cbd2ec]" data-testid="brand-film-description">
+              This video now guides the mood of the site — deep midnight blue, rich gold, diamond-white highlights, and a refined luxury message built around elegance, craftsmanship, and premium presentation.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3 text-xs uppercase tracking-[0.22em] text-[#d9e0ff]">
+              <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2" data-testid="brand-film-chip-navy">Deep navy</span>
+              <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2" data-testid="brand-film-chip-gold">Gold accents</span>
+              <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2" data-testid="brand-film-chip-diamond">Diamond white</span>
+            </div>
+          </div>
+
+          <Dialog>
+            <DialogTrigger asChild>
+              <button
+                type="button"
+                className="group overflow-hidden rounded-[38px] border border-white/10 bg-[#111d3a] text-left"
+                data-testid="brand-film-trigger"
+              >
+                <div className="relative aspect-[16/10] overflow-hidden">
+                  <video
+                    src={brandFilmUrl}
+                    className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.02]"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    data-testid="brand-film-inline-video"
+                  />
+                  <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,18,38,0.05),rgba(8,18,38,0.55))]" />
+                  <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between gap-4">
+                    <div>
+                      <p className="text-xs uppercase tracking-[0.28em] text-[#d8b85d]" data-testid="brand-film-inline-label">Autoplay preview</p>
+                      <p className="mt-2 font-display text-3xl text-white" data-testid="brand-film-inline-heading">Click to expand the full brand video</p>
+                    </div>
+                    <span className="shrink-0 rounded-full border border-[#d8b85d]/40 bg-[#d8b85d]/15 px-4 py-2 text-xs uppercase tracking-[0.24em] text-[#f5d98d]" data-testid="brand-film-inline-button">
+                      Watch full video
+                    </span>
+                  </div>
+                </div>
+              </button>
+            </DialogTrigger>
+            <DialogContent className="max-w-5xl border-white/10 bg-[#081226] p-3 text-white" data-testid="brand-film-dialog">
+              <DialogTitle className="sr-only">Royal Spark Brand Film</DialogTitle>
+              <DialogDescription className="sr-only">Expanded video preview for the Royal Spark homepage brand film.</DialogDescription>
+              <video
+                src={brandFilmUrl}
+                className="aspect-video w-full rounded-[24px] object-cover"
+                controls
+                autoPlay
+                muted
+                loop
+                playsInline
+                data-testid="brand-film-dialog-video"
+              />
+            </DialogContent>
+          </Dialog>
+        </div>
       </section>
 
       <section className="mx-auto max-w-7xl px-6 py-20 md:px-10 lg:px-16" data-testid="featured-collections-section">
