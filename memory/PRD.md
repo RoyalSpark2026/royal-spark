@@ -69,3 +69,5 @@ can a build Jwellary Store and connect to Shopify for Jewllary Store ?
 - Map local product schema to Shopify products, collections, and inventory fields
 - Add checkout redirection and live product sync status in the UI
 - Expand bespoke intake with attachments and consultation scheduling
+
+- Extracted a cleaner logo crop from the latest uploaded artwork and replaced the site logo usage across the shared header/footer layout
