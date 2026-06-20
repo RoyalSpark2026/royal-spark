@@ -94,14 +94,16 @@ export default function HomePage() {
       </section>
 
       <section className="mx-auto max-w-7xl px-6 py-10 md:px-10 lg:px-16" data-testid="brand-film-section">
-        <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr]">
-          <div className="rounded-[38px] border border-white/10 bg-[linear-gradient(160deg,_rgba(11,23,50,1),_rgba(7,16,36,0.98))] p-8" data-testid="brand-film-copy-card">
-            <p className="text-xs uppercase tracking-[0.32em] text-[#d8b85d]" data-testid="brand-film-eyebrow">Royal Spark brand film</p>
-            <h2 className="mt-5 font-display text-5xl leading-none text-white" data-testid="brand-film-heading">A cinematic look for the launch story.</h2>
-            <p className="mt-6 max-w-2xl text-sm leading-relaxed text-[#cbd2ec]" data-testid="brand-film-description">
-              This video now guides the mood of the site — deep midnight blue, rich gold, diamond-white highlights, and a refined luxury message built around elegance, craftsmanship, and premium presentation.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3 text-xs uppercase tracking-[0.22em] text-[#d9e0ff]">
+        <div className="rounded-[38px] border border-white/10 bg-[linear-gradient(160deg,_rgba(11,23,50,1),_rgba(7,16,36,0.98))] p-6 md:p-8">
+          <div className="mb-8 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+            <div className="max-w-3xl">
+              <p className="text-xs uppercase tracking-[0.32em] text-[#d8b85d]" data-testid="brand-film-eyebrow">Royal Spark brand film</p>
+              <h2 className="mt-4 font-display text-5xl leading-none text-white" data-testid="brand-film-heading">A full cinematic section for the launch story.</h2>
+              <p className="mt-5 text-sm leading-relaxed text-[#cbd2ec]" data-testid="brand-film-description">
+                This video now guides the mood of the site — deep midnight blue, rich gold, diamond-white highlights, and a refined luxury message built around elegance, craftsmanship, and premium presentation.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-3 text-xs uppercase tracking-[0.22em] text-[#d9e0ff]">
               <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2" data-testid="brand-film-chip-navy">Deep navy</span>
               <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2" data-testid="brand-film-chip-gold">Gold accents</span>
               <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2" data-testid="brand-film-chip-diamond">Diamond white</span>
@@ -112,21 +114,22 @@ export default function HomePage() {
             <DialogTrigger asChild>
               <button
                 type="button"
-                className="group overflow-hidden rounded-[38px] border border-white/10 bg-[#111d3a] text-left"
+                className="group w-full overflow-hidden rounded-[32px] border border-white/10 bg-[#050b18] text-left"
                 data-testid="brand-film-trigger"
               >
-                <div className="relative aspect-[16/10] overflow-hidden">
+                <div className="relative aspect-video w-full overflow-hidden bg-black">
                   <video
                     src={brandFilmUrl}
-                    className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.02]"
+                    className="h-full w-full object-contain transition duration-700 group-hover:scale-[1.01]"
                     autoPlay
                     muted
                     loop
                     playsInline
+                    preload="auto"
                     data-testid="brand-film-inline-video"
                   />
-                  <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,18,38,0.05),rgba(8,18,38,0.55))]" />
-                  <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between gap-4">
+                  <div className="absolute inset-x-0 bottom-0 bg-[linear-gradient(180deg,rgba(8,18,38,0),rgba(8,18,38,0.82))] px-6 py-5 md:px-8" />
+                  <div className="absolute bottom-5 left-6 right-6 flex flex-wrap items-end justify-between gap-4 md:left-8 md:right-8" data-testid="brand-film-inline-overlay">
                     <div>
                       <p className="text-xs uppercase tracking-[0.28em] text-[#d8b85d]" data-testid="brand-film-inline-label">Autoplay preview</p>
                       <p className="mt-2 font-display text-3xl text-white" data-testid="brand-film-inline-heading">Click to expand the full brand video</p>
@@ -138,17 +141,18 @@ export default function HomePage() {
                 </div>
               </button>
             </DialogTrigger>
-            <DialogContent className="max-w-5xl border-white/10 bg-[#081226] p-3 text-white" data-testid="brand-film-dialog">
+            <DialogContent className="max-w-6xl border-white/10 bg-[#081226] p-3 text-white" data-testid="brand-film-dialog">
               <DialogTitle className="sr-only">Royal Spark Brand Film</DialogTitle>
               <DialogDescription className="sr-only">Expanded video preview for the Royal Spark homepage brand film.</DialogDescription>
               <video
                 src={brandFilmUrl}
-                className="aspect-video w-full rounded-[24px] object-cover"
+                className="aspect-video w-full rounded-[24px] bg-black object-contain"
                 controls
                 autoPlay
                 muted
                 loop
                 playsInline
+                preload="auto"
                 data-testid="brand-film-dialog-video"
               />
             </DialogContent>
