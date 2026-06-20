@@ -116,26 +116,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-6 pb-20 md:px-10 lg:px-16" data-testid="featured-products-section">
-        <div className="mb-10 max-w-2xl">
-          <p className="text-xs uppercase tracking-[0.32em] text-[#d8b85d]" data-testid="featured-products-eyebrow">Featured products</p>
-          <h2 className="mt-4 font-display text-4xl text-white" data-testid="featured-products-heading">A product section ready for the collection.</h2>
-        </div>
-
-        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3" data-testid="homepage-coming-soon-products">
-          {[
-            { title: "Rings", copy: "Elegant hero pieces for engagements, milestones, and daily luxury." },
-            { title: "Grillz", copy: "Custom statement pieces with polished metal, stones, and standout presence." },
-            { title: "Chains", copy: "Strong links and layered silhouettes to complete the collection." },
-          ].map((item, index) => (
-            <div key={item.title} className="rounded-[32px] border border-[#d8b85d]/20 bg-[#111d3a] p-7" data-testid={`homepage-product-placeholder-${index}`}>
-              <p className="text-xs uppercase tracking-[0.28em] text-[#d8b85d]" data-testid={`homepage-product-placeholder-eyebrow-${index}`}>Featured category</p>
-              <h3 className="mt-4 font-display text-4xl text-white" data-testid={`homepage-product-placeholder-heading-${index}`}>{item.title}</h3>
-              <p className="mt-4 text-sm leading-relaxed text-[#cbd2ec]" data-testid={`homepage-product-placeholder-description-${index}`}>{item.copy}</p>
-            </div>
-          ))}
-        </div>
-      </section>
     </div>
   );
 }
