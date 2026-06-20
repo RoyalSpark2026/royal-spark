@@ -6,10 +6,8 @@ import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { ProductCard } from "@/components/ProductCard";
-import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { fetchHomeData, fetchShopifyReadiness } from "@/lib/api";
 
-const brandFilmUrl = "https://customer-assets.emergentagent.com/job_shopify-gems-2/artifacts/rqmkr4b1_generated_video.mp4";
 const heroFilmUrl = "https://customer-assets.emergentagent.com/job_shopify-gems-2/artifacts/yj0dyksy_generated_video%20%281%29.mp4";
 
 export default function HomePage() {
@@ -78,70 +76,46 @@ export default function HomePage() {
         </motion.div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-6 py-10 md:px-10 lg:px-16" data-testid="brand-film-section">
-        <div className="rounded-[38px] border border-white/10 bg-[linear-gradient(160deg,_rgba(11,23,50,1),_rgba(7,16,36,0.98))] p-6 md:p-8">
-          <div className="mb-8 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
-            <div className="max-w-3xl">
-              <p className="text-xs uppercase tracking-[0.32em] text-[#d8b85d]" data-testid="brand-film-eyebrow">Royal Spark brand film</p>
-              <h2 className="mt-4 font-display text-5xl leading-none text-white" data-testid="brand-film-heading">A full cinematic section for the launch story.</h2>
-              <p className="mt-5 text-sm leading-relaxed text-[#cbd2ec]" data-testid="brand-film-description">
-                This video now guides the mood of the site — deep midnight blue, rich gold, diamond-white highlights, and a refined luxury message built around elegance, craftsmanship, and premium presentation.
-              </p>
-            </div>
-            <div className="flex flex-wrap gap-3 text-xs uppercase tracking-[0.22em] text-[#d9e0ff]">
-              <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2" data-testid="brand-film-chip-navy">Deep navy</span>
-              <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2" data-testid="brand-film-chip-gold">Gold accents</span>
-              <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2" data-testid="brand-film-chip-diamond">Diamond white</span>
-            </div>
+      <section className="mx-auto max-w-7xl px-6 py-10 md:px-10 lg:px-16" data-testid="feature-grid-section">
+        <div className="mb-10 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+          <div className="max-w-3xl">
+            <p className="text-xs uppercase tracking-[0.32em] text-[#d8b85d]" data-testid="feature-grid-eyebrow">Royal Spark features</p>
+            <h2 className="mt-4 font-display text-5xl leading-none text-white" data-testid="feature-grid-heading">A cleaner luxury section instead of the second video.</h2>
           </div>
+          <p className="max-w-xl text-sm leading-relaxed text-[#cbd2ec]" data-testid="feature-grid-description">
+            This 3-grid feature block keeps the homepage lighter and lets the main hero video stay the star.
+          </p>
+        </div>
 
-          <Dialog>
-            <DialogTrigger asChild>
-              <button
-                type="button"
-                className="group w-full overflow-hidden rounded-[32px] border border-white/10 bg-[#050b18] text-left"
-                data-testid="brand-film-trigger"
-              >
-                <div className="relative aspect-[16/9] w-full overflow-hidden rounded-[28px] bg-black">
-                  <video
-                    src={brandFilmUrl}
-                    className="h-full w-full object-cover object-center transition duration-700 group-hover:scale-[1.01]"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    preload="auto"
-                    data-testid="brand-film-inline-video"
-                  />
-                  <div className="absolute inset-x-0 bottom-0 bg-[linear-gradient(180deg,rgba(8,18,38,0),rgba(8,18,38,0.82))] px-6 py-5 md:px-8" />
-                  <div className="absolute bottom-5 left-6 right-6 flex flex-wrap items-end justify-between gap-4 md:left-8 md:right-8" data-testid="brand-film-inline-overlay">
-                    <div>
-                      <p className="text-xs uppercase tracking-[0.28em] text-[#d8b85d]" data-testid="brand-film-inline-label">Autoplay preview</p>
-                      <p className="mt-2 font-display text-3xl text-white" data-testid="brand-film-inline-heading">Click to expand the full brand video</p>
-                    </div>
-                    <span className="shrink-0 rounded-full border border-[#d8b85d]/40 bg-[#d8b85d]/15 px-4 py-2 text-xs uppercase tracking-[0.24em] text-[#f5d98d]" data-testid="brand-film-inline-button">
-                      Watch full video
-                    </span>
-                  </div>
-                </div>
-              </button>
-            </DialogTrigger>
-            <DialogContent className="max-w-6xl border-white/10 bg-[#081226] p-3 text-white" data-testid="brand-film-dialog">
-              <DialogTitle className="sr-only">Royal Spark Brand Film</DialogTitle>
-              <DialogDescription className="sr-only">Expanded video preview for the Royal Spark homepage brand film.</DialogDescription>
-              <video
-                src={brandFilmUrl}
-                className="aspect-video w-full rounded-[24px] bg-black object-cover object-center"
-                controls
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="auto"
-                data-testid="brand-film-dialog-video"
-              />
-            </DialogContent>
-          </Dialog>
+        <div className="grid gap-6 lg:grid-cols-3" data-testid="feature-grid-cards">
+          {[
+            {
+              title: "Luxury Craftsmanship",
+              copy: "Built around rich navy, gold details, and premium storytelling for a high-end first impression.",
+            },
+            {
+              title: "Shopify-Ready Structure",
+              copy: "The storefront is prepared to switch from coming-soon placeholders to the client’s live Shopify catalog.",
+            },
+            {
+              title: "Private Concierge Feel",
+              copy: "Every section is designed to guide customers smoothly into categories, product pages, and direct inquiries.",
+            },
+          ].map((feature, index) => (
+            <motion.div
+              key={feature.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.45, delay: index * 0.08 }}
+              className="rounded-[32px] border border-white/10 bg-[linear-gradient(160deg,_rgba(14,28,58,1),_rgba(7,16,36,0.98))] p-7"
+              data-testid={`feature-grid-card-${index}`}
+            >
+              <p className="text-xs uppercase tracking-[0.28em] text-[#d8b85d]" data-testid={`feature-grid-card-eyebrow-${index}`}>Feature {index + 1}</p>
+              <h3 className="mt-5 font-display text-4xl text-white" data-testid={`feature-grid-card-title-${index}`}>{feature.title}</h3>
+              <p className="mt-4 text-sm leading-relaxed text-[#cbd2ec]" data-testid={`feature-grid-card-copy-${index}`}>{feature.copy}</p>
+            </motion.div>
+          ))}
         </div>
       </section>
 
