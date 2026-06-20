@@ -2,7 +2,7 @@ import { ArrowRight, Volume2 } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { fetchHomeData } from "@/lib/api";
@@ -28,7 +28,40 @@ const signatureCategoryImages = [
 
 export default function HomePage() {
   const { data: homeData, isLoading } = useQuery({ queryKey: ["home-data"], queryFn: fetchHomeData });
-  const [heroMuted, setHeroMuted] = useState(false);
+  const [heroMuted, setHeroMuted] = useState(true);
+  const heroVideoRef = useRef(null);
+
+  useEffect(() => {
+    const videoElement = heroVideoRef.current;
+    if (!videoElement) return;
+
+    videoElement.muted = heroMuted;
+    if (!heroMuted) {
+      videoElement.play().catch(() => {
+        setHeroMuted(true);
+      });
+    }
+  }, [heroMuted]);
+
+  useEffect(() => {
+    const videoElement = heroVideoRef.current;
+    const heroWrapper = document.querySelector('[data-testid="home-hero-video-wrapper"]');
+    if (!videoElement || !heroWrapper) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          videoElement.play().catch(() => {});
+        } else {
+          videoElement.pause();
+        }
+      },
+      { threshold: 0.35 },
+    );
+
+    observer.observe(heroWrapper);
+    return () => observer.disconnect();
+  }, []);
 
   if (isLoading || !homeData) {
     return <div className="px-6 py-24 text-center text-sm text-[#666666]" data-testid="home-loading-state">Curating the collection…</div>;
@@ -46,6 +79,7 @@ export default function HomePage() {
         >
           <div className="relative aspect-[16/10] w-full overflow-hidden bg-black">
             <video
+              ref={heroVideoRef}
               src={heroFilmUrl}
               className="h-full w-full object-cover"
               autoPlay
@@ -64,7 +98,7 @@ export default function HomePage() {
                 className="inline-flex items-center gap-2 rounded-full border border-[#d8b85d]/40 bg-[#081226]/70 px-4 py-2 text-xs uppercase tracking-[0.22em] text-[#f4d98e] backdrop-blur"
                 data-testid="hero-video-sound-toggle"
               >
-                <Volume2 className="h-4 w-4" /> {heroMuted ? "Enable sound" : "Sound on"}
+                <Volume2 className="h-4 w-4" /> {heroMuted ? "Enable sound" : "Mute sound"}
               </button>
             </div>
             <div className="absolute left-0 right-0 top-0 px-5 py-5 md:px-8 md:py-8">
