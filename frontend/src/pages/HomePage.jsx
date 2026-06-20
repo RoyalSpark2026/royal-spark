@@ -8,6 +8,23 @@ import { Button } from "@/components/ui/button";
 import { fetchHomeData } from "@/lib/api";
 
 const heroFilmUrl = "https://customer-assets.emergentagent.com/job_shopify-gems-2/artifacts/yj0dyksy_generated_video%20%281%29.mp4";
+const signatureCategoryImages = [
+  {
+    title: "Rings",
+    copy: "Statement silhouettes with refined brilliance and a strong ceremonial feel.",
+    image: "https://customer-assets.emergentagent.com/job_shopify-gems-2/artifacts/zunjm4jc_426b8562-73d0-4980-b0fa-67c1b86f59ff.jpg",
+  },
+  {
+    title: "Grillz",
+    copy: "Bold custom expression shaped with polished metal finishes and standout shine.",
+    image: "https://customer-assets.emergentagent.com/job_shopify-gems-2/artifacts/2ho4vbhh_92778eea-ecad-464d-b41f-0d1ec4466d99.jpg",
+  },
+  {
+    title: "Chains",
+    copy: "Layering pieces and strong links designed to complete a premium jewelry wardrobe.",
+    image: "https://customer-assets.emergentagent.com/job_shopify-gems-2/artifacts/6wsdgjdk_de550993-6d1f-44b3-a299-5e507be1f0e6.jpg",
+  },
+];
 
 export default function HomePage() {
   const { data: homeData, isLoading } = useQuery({ queryKey: ["home-data"], queryFn: fetchHomeData });
@@ -73,7 +90,7 @@ export default function HomePage() {
         </motion.div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-6 py-10 md:px-10 lg:px-16" data-testid="feature-grid-section">
+      <section className="mx-auto max-w-7xl px-6 py-6 md:px-10 lg:px-16" data-testid="feature-grid-section">
         <div className="mb-10 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl">
             <p className="text-xs uppercase tracking-[0.32em] text-[#d8b85d]" data-testid="feature-grid-eyebrow">Signature categories</p>
@@ -85,32 +102,29 @@ export default function HomePage() {
         </div>
 
         <div className="grid gap-6 lg:grid-cols-3" data-testid="feature-grid-cards">
-          {[
-            {
-              title: "Rings",
-              copy: "Statement silhouettes with refined brilliance and a strong ceremonial feel.",
-            },
-            {
-              title: "Grillz",
-              copy: "Bold custom expression shaped with polished metal finishes and standout shine.",
-            },
-            {
-              title: "Chains",
-              copy: "Layering pieces and strong links designed to complete a premium jewelry wardrobe.",
-            },
-          ].map((feature, index) => (
+          {signatureCategoryImages.map((feature, index) => (
             <motion.div
               key={feature.title}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.45, delay: index * 0.08 }}
-              className="rounded-[32px] border border-white/10 bg-[linear-gradient(160deg,_rgba(14,28,58,1),_rgba(7,16,36,0.98))] p-7"
+              className="overflow-hidden rounded-[32px] border border-white/10 bg-[linear-gradient(160deg,_rgba(14,28,58,1),_rgba(7,16,36,0.98))]"
               data-testid={`feature-grid-card-${index}`}
             >
-              <p className="text-xs uppercase tracking-[0.28em] text-[#d8b85d]" data-testid={`feature-grid-card-eyebrow-${index}`}>Feature {index + 1}</p>
-              <h3 className="mt-5 font-display text-4xl text-white" data-testid={`feature-grid-card-title-${index}`}>{feature.title}</h3>
-              <p className="mt-4 text-sm leading-relaxed text-[#cbd2ec]" data-testid={`feature-grid-card-copy-${index}`}>{feature.copy}</p>
+              <div className="aspect-[4/5] overflow-hidden border-b border-white/10 bg-[#071126]" data-testid={`feature-grid-card-image-wrapper-${index}`}>
+                <img
+                  src={feature.image}
+                  alt={feature.title}
+                  className="h-full w-full object-cover"
+                  data-testid={`feature-grid-card-image-${index}`}
+                />
+              </div>
+              <div className="p-7">
+                <p className="text-xs uppercase tracking-[0.28em] text-[#d8b85d]" data-testid={`feature-grid-card-eyebrow-${index}`}>Feature {index + 1}</p>
+                <h3 className="mt-5 font-display text-4xl text-white" data-testid={`feature-grid-card-title-${index}`}>{feature.title}</h3>
+                <p className="mt-4 text-sm leading-relaxed text-[#cbd2ec]" data-testid={`feature-grid-card-copy-${index}`}>{feature.copy}</p>
+              </div>
             </motion.div>
           ))}
         </div>
