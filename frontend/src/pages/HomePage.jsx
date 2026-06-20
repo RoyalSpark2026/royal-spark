@@ -1,7 +1,8 @@
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles, Volume2 } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link, useOutletContext } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { ProductCard } from "@/components/ProductCard";
@@ -9,11 +10,13 @@ import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } 
 import { fetchHomeData, fetchShopifyReadiness } from "@/lib/api";
 
 const brandFilmUrl = "https://customer-assets.emergentagent.com/job_shopify-gems-2/artifacts/rqmkr4b1_generated_video.mp4";
+const heroFilmUrl = "https://customer-assets.emergentagent.com/job_shopify-gems-2/artifacts/yj0dyksy_generated_video%20%281%29.mp4";
 
 export default function HomePage() {
   const storefront = useOutletContext();
   const { data: homeData, isLoading } = useQuery({ queryKey: ["home-data"], queryFn: fetchHomeData });
   const { data: shopifyReadiness } = useQuery({ queryKey: ["shopify-readiness"], queryFn: fetchShopifyReadiness });
+  const [heroMuted, setHeroMuted] = useState(false);
 
   if (isLoading || !homeData) {
     return <div className="px-6 py-24 text-center text-sm text-[#666666]" data-testid="home-loading-state">Curating the collection…</div>;
@@ -21,72 +24,59 @@ export default function HomePage() {
 
   return (
     <div data-testid="home-page">
-      <section className="mx-auto grid max-w-7xl gap-8 px-6 py-8 md:px-10 lg:grid-cols-[1.05fr_0.95fr] lg:px-16 lg:py-12">
+      <section className="mx-auto max-w-7xl px-6 py-8 md:px-10 lg:px-16 lg:py-12" data-testid="home-hero-section">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
-          className="relative overflow-hidden rounded-[38px] border border-white/10 bg-[linear-gradient(145deg,_rgba(13,24,53,0.98),_rgba(10,18,38,0.92))] p-8 text-[#fdfbf7] md:p-12"
-          data-testid="home-hero-content"
+          className="relative overflow-hidden rounded-[38px] border border-white/10 bg-[#050b18]"
+          data-testid="home-hero-video-wrapper"
         >
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(77,124,255,0.28),_transparent_32%),radial-gradient(circle_at_bottom_right,_rgba(216,184,93,0.2),_transparent_24%)]" />
-          <div className="relative z-10 max-w-xl">
-            <p className="text-xs uppercase tracking-[0.32em] text-[#d8b85d]" data-testid="hero-eyebrow">Discover exquisite elegance</p>
-            <h1 className="mt-6 font-display text-5xl leading-[0.95] md:text-6xl" data-testid="hero-heading">
-              Where luxury meets craftsmanship.
-            </h1>
-            <p className="mt-6 max-w-lg text-sm leading-relaxed text-white/75 md:text-base" data-testid="hero-description">
-              Royal Spark presents a polished navy, gold, and diamond-white identity inspired by the brand film while the live Shopify catalog is being prepared for launch.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-4">
-              <Button asChild className="h-12 rounded-full bg-[#d8b85d] px-6 text-[#081226] hover:bg-[#f0d78d]" data-testid="hero-shop-button">
-                <Link to="/shop">Browse categories <ArrowRight className="h-4 w-4" /></Link>
-              </Button>
-              <Button asChild variant="outline" className="h-12 rounded-full border-[#d8b85d]/40 bg-transparent text-white hover:bg-white/10" data-testid="hero-bespoke-button">
-                <Link to="/bespoke">Start bespoke request</Link>
-              </Button>
+          <div className="relative aspect-[16/9] w-full overflow-hidden bg-black">
+            <video
+              src={heroFilmUrl}
+              className="h-full w-full object-cover"
+              autoPlay
+              controls
+              loop
+              playsInline
+              muted={heroMuted}
+              preload="auto"
+              data-testid="hero-full-video"
+            />
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(6,12,28,0.08),rgba(6,12,28,0.55))]" />
+            <div className="absolute inset-x-0 top-0 flex justify-end p-5 md:p-6">
+              <button
+                type="button"
+                onClick={() => setHeroMuted((current) => !current)}
+                className="inline-flex items-center gap-2 rounded-full border border-[#d8b85d]/40 bg-[#081226]/70 px-4 py-2 text-xs uppercase tracking-[0.22em] text-[#f4d98e] backdrop-blur"
+                data-testid="hero-video-sound-toggle"
+              >
+                <Volume2 className="h-4 w-4" /> {heroMuted ? "Enable sound" : "Sound on"}
+              </button>
             </div>
-            <div className="mt-10 flex flex-wrap gap-3 text-xs uppercase tracking-[0.24em] text-[#d9e0ff]">
-              <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2" data-testid="hero-feature-rings">Shopify-ready catalog</span>
-              <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2" data-testid="hero-feature-grills">Brand-film styling</span>
-              <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2" data-testid="hero-feature-chains">Luxury launch in progress</span>
-            </div>
-          </div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, x: 30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.7, delay: 0.15 }}
-          className="grid gap-4"
-          data-testid="home-hero-visual"
-        >
-          <div className="rounded-[38px] border border-white/10 bg-[radial-gradient(circle_at_top,_rgba(216,184,93,0.18),_transparent_28%),linear-gradient(180deg,_rgba(18,31,63,1),_rgba(8,18,38,0.98))] p-8 backdrop-blur" data-testid="hero-image-card">
-            <div className="aspect-[4/5] rounded-[30px] border border-white/10 bg-[linear-gradient(160deg,_rgba(255,255,255,0.03),_rgba(255,255,255,0.01))] p-8">
-              <div className="flex h-full flex-col justify-between rounded-[24px] border border-dashed border-[#d8b85d]/25 bg-[#0c1733]/50 p-6" data-testid="hero-image-placeholder">
-                <div>
-                  <p className="text-xs uppercase tracking-[0.28em] text-[#d8b85d]" data-testid="hero-placeholder-eyebrow">Landing visual needed</p>
-                  <h2 className="mt-4 font-display text-4xl leading-none text-white" data-testid="hero-product-name">Model wearing jewelry</h2>
-                </div>
-                <p className="max-w-sm text-sm leading-relaxed text-[#cbd2ec]" data-testid="hero-product-price">
-                  Upload a luxury portrait hero image here later. Recommended size: 1920 × 1080 or 1600 × 900.
+            <div className="absolute bottom-0 left-0 right-0 bg-[linear-gradient(180deg,rgba(6,12,28,0),rgba(6,12,28,0.88))] px-6 py-8 md:px-10 md:py-10">
+              <div className="max-w-3xl">
+                <p className="text-xs uppercase tracking-[0.32em] text-[#d8b85d]" data-testid="hero-eyebrow">Discover exquisite elegance</p>
+                <h1 className="mt-4 font-display text-5xl leading-[0.95] text-white md:text-6xl" data-testid="hero-heading">
+                  Where luxury meets craftsmanship.
+                </h1>
+                <p className="mt-5 max-w-2xl text-sm leading-relaxed text-white/80 md:text-base" data-testid="hero-description">
+                  Royal Spark now opens with a full cinematic brand experience — rich navy, regal gold, fine jewelry detail, and premium storytelling for the upcoming Shopify launch.
                 </p>
-              </div>
-            </div>
-          </div>
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div className="aspect-[4/3] rounded-[28px] border border-white/10 bg-[linear-gradient(145deg,_rgba(16,32,67,1),_rgba(9,17,36,0.98))] p-6" data-testid="hero-promo-image-one">
-              <div className="flex h-full flex-col justify-between rounded-[22px] border border-dashed border-[#d8b85d]/20 bg-white/5 p-5">
-                <p className="text-xs uppercase tracking-[0.24em] text-[#d8b85d]">Future banner 01</p>
-                <p className="font-display text-3xl text-white">Product collage / banner</p>
-                <p className="text-sm text-[#cbd2ec]">Best size: 1920 × 1080</p>
-              </div>
-            </div>
-            <div className="aspect-[4/3] rounded-[28px] border border-white/10 bg-[linear-gradient(145deg,_rgba(16,32,67,1),_rgba(9,17,36,0.98))] p-6" data-testid="hero-promo-image-two">
-              <div className="flex h-full flex-col justify-between rounded-[22px] border border-dashed border-[#d8b85d]/20 bg-white/5 p-5">
-                <p className="text-xs uppercase tracking-[0.24em] text-[#d8b85d]">Future banner 02</p>
-                <p className="font-display text-3xl text-white">Logo-focused luxury banner</p>
-                <p className="text-sm text-[#cbd2ec]">Best size: 1920 × 1080</p>
+                <div className="mt-7 flex flex-wrap gap-4">
+                  <Button asChild className="h-12 rounded-full bg-[#d8b85d] px-6 text-[#081226] hover:bg-[#f0d78d]" data-testid="hero-shop-button">
+                    <Link to="/shop">Browse categories <ArrowRight className="h-4 w-4" /></Link>
+                  </Button>
+                  <Button asChild variant="outline" className="h-12 rounded-full border-[#d8b85d]/40 bg-transparent text-white hover:bg-white/10" data-testid="hero-bespoke-button">
+                    <Link to="/bespoke">Start bespoke request</Link>
+                  </Button>
+                </div>
+                <div className="mt-8 flex flex-wrap gap-3 text-xs uppercase tracking-[0.24em] text-[#d9e0ff]">
+                  <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2" data-testid="hero-feature-rings">Full-screen brand film</span>
+                  <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2" data-testid="hero-feature-grills">Gold and navy luxury</span>
+                  <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2" data-testid="hero-feature-chains">Shopify launch in progress</span>
+                </div>
               </div>
             </div>
           </div>
