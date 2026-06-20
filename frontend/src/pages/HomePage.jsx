@@ -7,17 +7,10 @@ import { Button } from "@/components/ui/button";
 import { ProductCard } from "@/components/ProductCard";
 import { fetchHomeData, fetchShopifyReadiness } from "@/lib/api";
 
-const promoPanels = [
-  "https://customer-assets.emergentagent.com/job_shopify-gems-2/artifacts/y62y0h0m_fashion-%26-beauty-design-2x%20%282%29%20%281%29.png",
-  "https://customer-assets.emergentagent.com/job_shopify-gems-2/artifacts/rqlc637n_fashion-%26-beauty-design-2x%20%284%29%20%281%29.png",
-  "https://customer-assets.emergentagent.com/job_shopify-gems-2/artifacts/yruo7fl8_fashion-%26-beauty-design-2x%20%285%29%20%281%29.png",
-];
-
 export default function HomePage() {
   const storefront = useOutletContext();
   const { data: homeData, isLoading } = useQuery({ queryKey: ["home-data"], queryFn: fetchHomeData });
   const { data: shopifyReadiness } = useQuery({ queryKey: ["shopify-readiness"], queryFn: fetchShopifyReadiness });
-  const hasLiveProducts = Boolean(homeData?.hero_product);
 
   if (isLoading || !homeData) {
     return <div className="px-6 py-24 text-center text-sm text-[#666666]" data-testid="home-loading-state">Curating the collection…</div>;
@@ -65,24 +58,34 @@ export default function HomePage() {
           className="grid gap-4"
           data-testid="home-hero-visual"
         >
-          <div className="overflow-hidden rounded-[38px] border border-white/10 bg-white/5 p-3 backdrop-blur" data-testid="hero-image-card">
-            <img
-              src={hasLiveProducts ? homeData.hero_product.hero_image : promoPanels[0]}
-              alt={hasLiveProducts ? homeData.hero_product.name : "Royal Spark campaign"}
-              className="aspect-[4/5] w-full rounded-[30px] object-cover"
-              data-testid="hero-image"
-            />
-            <div className="grid gap-3 px-3 py-5 sm:grid-cols-[1fr_auto] sm:items-end">
-              <div>
-                <p className="text-xs uppercase tracking-[0.24em] text-[#d8b85d]" data-testid="hero-product-category">{hasLiveProducts ? "Featured ring" : "Catalog preview"}</p>
-                <h2 className="mt-2 font-display text-4xl leading-none text-white" data-testid="hero-product-name">{hasLiveProducts ? homeData.hero_product.name : "Royal Spark product launch"}</h2>
+          <div className="rounded-[38px] border border-white/10 bg-[radial-gradient(circle_at_top,_rgba(216,184,93,0.18),_transparent_28%),linear-gradient(180deg,_rgba(18,31,63,1),_rgba(8,18,38,0.98))] p-8 backdrop-blur" data-testid="hero-image-card">
+            <div className="aspect-[4/5] rounded-[30px] border border-white/10 bg-[linear-gradient(160deg,_rgba(255,255,255,0.03),_rgba(255,255,255,0.01))] p-8">
+              <div className="flex h-full flex-col justify-between rounded-[24px] border border-dashed border-[#d8b85d]/25 bg-[#0c1733]/50 p-6" data-testid="hero-image-placeholder">
+                <div>
+                  <p className="text-xs uppercase tracking-[0.28em] text-[#d8b85d]" data-testid="hero-placeholder-eyebrow">Landing visual needed</p>
+                  <h2 className="mt-4 font-display text-4xl leading-none text-white" data-testid="hero-product-name">Model wearing jewelry</h2>
+                </div>
+                <p className="max-w-sm text-sm leading-relaxed text-[#cbd2ec]" data-testid="hero-product-price">
+                  Upload a luxury portrait hero image here later. Recommended size: 1920 × 1080 or 1600 × 900.
+                </p>
               </div>
-              <p className="text-sm text-[#d8b85d]" data-testid="hero-product-price">{hasLiveProducts ? homeData.hero_product.formatted_price : "Coming soon"}</p>
             </div>
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
-            <img src={promoPanels[0]} alt="Royal Spark grill campaign" className="aspect-[4/3] w-full rounded-[28px] border border-white/10 object-cover" data-testid="hero-promo-image-one" />
-            <img src={promoPanels[1]} alt="Royal Spark before after grills" className="aspect-[4/3] w-full rounded-[28px] border border-white/10 object-cover" data-testid="hero-promo-image-two" />
+            <div className="aspect-[4/3] rounded-[28px] border border-white/10 bg-[linear-gradient(145deg,_rgba(16,32,67,1),_rgba(9,17,36,0.98))] p-6" data-testid="hero-promo-image-one">
+              <div className="flex h-full flex-col justify-between rounded-[22px] border border-dashed border-[#d8b85d]/20 bg-white/5 p-5">
+                <p className="text-xs uppercase tracking-[0.24em] text-[#d8b85d]">Future banner 01</p>
+                <p className="font-display text-3xl text-white">Product collage / banner</p>
+                <p className="text-sm text-[#cbd2ec]">Best size: 1920 × 1080</p>
+              </div>
+            </div>
+            <div className="aspect-[4/3] rounded-[28px] border border-white/10 bg-[linear-gradient(145deg,_rgba(16,32,67,1),_rgba(9,17,36,0.98))] p-6" data-testid="hero-promo-image-two">
+              <div className="flex h-full flex-col justify-between rounded-[22px] border border-dashed border-[#d8b85d]/20 bg-white/5 p-5">
+                <p className="text-xs uppercase tracking-[0.24em] text-[#d8b85d]">Future banner 02</p>
+                <p className="font-display text-3xl text-white">Logo-focused luxury banner</p>
+                <p className="text-sm text-[#cbd2ec]">Best size: 1920 × 1080</p>
+              </div>
+            </div>
           </div>
         </motion.div>
       </section>
@@ -119,7 +122,13 @@ export default function HomePage() {
               className="group overflow-hidden rounded-[34px] border border-white/10 bg-[#111d3a]"
               data-testid={`collection-card-${collection.id}`}
             >
-              <img src={collection.image} alt={collection.name} className="aspect-[4/3] w-full object-cover transition duration-700 group-hover:scale-105" data-testid={`collection-image-${collection.id}`} />
+              <div className="aspect-[4/3] border-b border-white/10 bg-[linear-gradient(160deg,_rgba(16,32,67,1),_rgba(9,17,36,0.98))] p-6" data-testid={`collection-image-${collection.id}`}>
+                <div className="flex h-full flex-col justify-between rounded-[24px] border border-dashed border-[#d8b85d]/20 bg-white/5 p-5">
+                  <p className="text-xs uppercase tracking-[0.24em] text-[#d8b85d]">Category image needed</p>
+                  <p className="font-display text-3xl text-white">{collection.name}</p>
+                  <p className="text-sm text-[#cbd2ec]">Best size: 1200 × 1500</p>
+                </div>
+              </div>
               <div className="space-y-3 p-6">
                 <p className="text-xs uppercase tracking-[0.24em] text-[#d8b85d]" data-testid={`collection-category-${collection.id}`}>{collection.category}</p>
                 <h3 className="font-display text-3xl text-white" data-testid={`collection-name-${collection.id}`}>{collection.name}</h3>
@@ -132,7 +141,13 @@ export default function HomePage() {
 
       <section className="bg-[linear-gradient(180deg,_rgba(7,17,38,0.9),_rgba(12,27,57,0.95))] py-20 text-[#fdfbf7]" data-testid="atelier-section">
         <div className="mx-auto grid max-w-7xl gap-10 px-6 md:px-10 lg:grid-cols-[0.9fr_1.1fr] lg:px-16">
-          <img src={homeData.atelier_story.image} alt="Jewelry craftsmanship" className="aspect-[4/5] w-full rounded-[34px] object-cover" data-testid="atelier-image" />
+          <div className="aspect-[4/5] rounded-[34px] border border-white/10 bg-[linear-gradient(160deg,_rgba(16,32,67,1),_rgba(9,17,36,0.98))] p-6" data-testid="atelier-image">
+            <div className="flex h-full flex-col justify-between rounded-[28px] border border-dashed border-[#d8b85d]/20 bg-white/5 p-6">
+              <p className="text-xs uppercase tracking-[0.28em] text-[#d8b85d]">Brand / story image needed</p>
+              <p className="font-display text-4xl text-white">Luxury showroom or close-up craftsmanship</p>
+              <p className="text-sm text-[#cbd2ec]">Best size: 1200 × 1500 or 1600 × 2000</p>
+            </div>
+          </div>
           <div className="self-center">
             <p className="text-xs uppercase tracking-[0.32em] text-[#d8b85d]" data-testid="atelier-eyebrow">Royal Spark campaign</p>
             <h2 className="mt-4 font-display text-4xl md:text-5xl" data-testid="atelier-heading">{homeData.atelier_story.title}</h2>
@@ -147,12 +162,18 @@ export default function HomePage() {
       <section className="mx-auto max-w-7xl px-6 py-20 md:px-10 lg:px-16" data-testid="campaign-gallery-section">
         <div className="mb-10 max-w-2xl">
           <p className="text-xs uppercase tracking-[0.32em] text-[#d8b85d]" data-testid="campaign-gallery-eyebrow">Uploaded campaign visuals</p>
-          <h2 className="mt-4 font-display text-4xl text-white" data-testid="campaign-gallery-heading">Your PNG posters are now part of the brand story</h2>
+          <h2 className="mt-4 font-display text-4xl text-white" data-testid="campaign-gallery-heading">Future landing banners are ready for replacement</h2>
         </div>
         <div className="grid gap-6 lg:grid-cols-3">
-          {promoPanels.map((panel, index) => (
-            <div key={panel} className="overflow-hidden rounded-[34px] border border-white/10 bg-[#111d3a] p-3" data-testid={`campaign-panel-${index}`}>
-              <img src={panel} alt={`Royal Spark campaign ${index + 1}`} className="aspect-[4/5] w-full rounded-[26px] object-cover" data-testid={`campaign-panel-image-${index}`} />
+          {["Hero model wearing jewelry", "Product collage / collection banner", "Logo-focused campaign graphic"].map((label, index) => (
+            <div key={label} className="overflow-hidden rounded-[34px] border border-white/10 bg-[#111d3a] p-3" data-testid={`campaign-panel-${index}`}>
+              <div className="aspect-[4/5] rounded-[26px] bg-[linear-gradient(160deg,_rgba(16,32,67,1),_rgba(9,17,36,0.98))] p-6" data-testid={`campaign-panel-image-${index}`}>
+                <div className="flex h-full flex-col justify-between rounded-[22px] border border-dashed border-[#d8b85d]/20 bg-white/5 p-5">
+                  <p className="text-xs uppercase tracking-[0.24em] text-[#d8b85d]">Landing image needed</p>
+                  <p className="font-display text-3xl text-white">{label}</p>
+                  <p className="text-sm text-[#cbd2ec]">Best size: 1920 × 1080</p>
+                </div>
+              </div>
             </div>
           ))}
         </div>
