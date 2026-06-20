@@ -119,30 +119,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-6 py-10 md:px-10 lg:px-16" data-testid="brand-image-section">
-        <div className="rounded-[38px] border border-white/10 bg-[linear-gradient(160deg,_rgba(11,23,50,1),_rgba(7,16,36,0.98))] p-6 md:p-8">
-          <div className="mb-8 max-w-3xl">
-              <p className="text-xs uppercase tracking-[0.32em] text-[#d8b85d]" data-testid="brand-image-eyebrow">Royal Spark editorial</p>
-              <h2 className="mt-4 font-display text-5xl leading-none text-white" data-testid="brand-image-heading">A full-frame image section for campaign storytelling.</h2>
-              <p className="mt-5 text-sm leading-relaxed text-[#cbd2ec]" data-testid="brand-image-description">
-                One strong visual here can carry the mood of the collection with a cleaner editorial feel.
-              </p>
-          </div>
-
-          <div className="relative aspect-[16/9] w-full overflow-hidden rounded-[32px] border border-white/10 bg-[linear-gradient(145deg,_rgba(14,28,58,1),_rgba(7,16,36,0.98))] p-6 md:p-8" data-testid="brand-image-frame">
-            <div className="flex h-full flex-col justify-between rounded-[28px] border border-dashed border-[#d8b85d]/25 bg-white/5 p-6 md:p-8" data-testid="brand-image-placeholder">
-              <div>
-                <p className="text-xs uppercase tracking-[0.28em] text-[#d8b85d]" data-testid="brand-image-placeholder-eyebrow">Editorial image</p>
-                <h3 className="mt-4 max-w-2xl font-display text-4xl text-white" data-testid="brand-image-placeholder-heading">A full-width luxury still belongs here.</h3>
-              </div>
-              <p className="max-w-xl text-sm leading-relaxed text-[#cbd2ec]" data-testid="brand-image-placeholder-description">
-                Best suited for a model portrait, campaign image, or refined brand banner.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <section className="mx-auto max-w-7xl px-6 py-20 md:px-10 lg:px-16" data-testid="featured-collections-section">
         <div className="mb-10 flex items-end justify-between gap-4">
           <div>
