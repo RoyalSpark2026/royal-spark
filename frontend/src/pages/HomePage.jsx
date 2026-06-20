@@ -55,26 +55,22 @@ export default function HomePage() {
                 <Volume2 className="h-4 w-4" /> {heroMuted ? "Enable sound" : "Sound on"}
               </button>
             </div>
-            <div className="absolute bottom-0 left-0 right-0 px-5 py-5 md:px-8 md:py-8">
-              <div className="max-w-2xl rounded-[28px] border border-white/10 bg-[#081226]/58 p-5 backdrop-blur-md md:p-7">
+            <div className="absolute left-0 right-0 top-0 px-5 py-5 md:px-8 md:py-8">
+              <div className="max-w-xl rounded-[24px] border border-white/10 bg-[#081226]/46 p-4 backdrop-blur-md md:p-5">
                 <p className="text-xs uppercase tracking-[0.32em] text-[#d8b85d]" data-testid="hero-eyebrow">Discover exquisite elegance</p>
-                <h1 className="mt-3 font-display text-4xl leading-[0.95] text-white md:text-5xl" data-testid="hero-heading">
+                <h1 className="mt-2 font-display text-3xl leading-[0.98] text-white md:text-4xl" data-testid="hero-heading">
                   Where luxury meets craftsmanship.
                 </h1>
-                <p className="mt-4 max-w-xl text-sm leading-relaxed text-white/78 md:text-base" data-testid="hero-description">
+                <p className="mt-3 max-w-lg text-sm leading-relaxed text-white/76" data-testid="hero-description">
                   Royal Spark now opens with a full cinematic brand experience — rich navy, regal gold, fine jewelry detail, and premium storytelling for the upcoming Shopify launch.
                 </p>
-                <div className="mt-6 flex flex-wrap gap-3">
-                  <Button asChild className="h-11 rounded-full bg-[#d8b85d] px-5 text-[#081226] hover:bg-[#f0d78d]" data-testid="hero-shop-button">
+                <div className="mt-5 flex flex-wrap gap-3">
+                  <Button asChild className="h-10 rounded-full bg-[#d8b85d] px-4 text-[#081226] hover:bg-[#f0d78d]" data-testid="hero-shop-button">
                     <Link to="/shop">Browse categories <ArrowRight className="h-4 w-4" /></Link>
                   </Button>
-                  <Button asChild variant="outline" className="h-11 rounded-full border-[#d8b85d]/40 bg-transparent text-white hover:bg-white/10" data-testid="hero-bespoke-button">
+                  <Button asChild variant="outline" className="h-10 rounded-full border-[#d8b85d]/40 bg-transparent text-white hover:bg-white/10" data-testid="hero-bespoke-button">
                     <Link to="/bespoke">Start bespoke request</Link>
                   </Button>
-                </div>
-                <div className="mt-5 flex flex-wrap gap-2 text-[11px] uppercase tracking-[0.24em] text-[#d9e0ff]">
-                  <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2" data-testid="hero-feature-rings">Full-screen brand film</span>
-                  <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2" data-testid="hero-feature-grills">Gold and navy luxury</span>
                 </div>
               </div>
             </div>
