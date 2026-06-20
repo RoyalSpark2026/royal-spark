@@ -1,6 +1,6 @@
 import { Heart, ShoppingBag, Star } from "lucide-react";
 import { useMemo, useState } from "react";
-import { useOutletContext, useParams } from "react-router-dom";
+import { Link, useOutletContext, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -18,8 +18,27 @@ export default function ProductDetailPage() {
 
   const currentMaterial = useMemo(() => selectedMaterial || product?.materials?.[0] || "Signature", [product, selectedMaterial]);
 
-  if (isLoading || !product) {
+  if (isLoading) {
     return <div className="px-6 py-24 text-center text-sm text-[#666666]" data-testid="product-loading-state">Preparing the product story…</div>;
+  }
+
+  if (!product) {
+    return (
+      <div className="mx-auto max-w-4xl px-6 py-20 text-center" data-testid="product-missing-state">
+        <p className="text-xs uppercase tracking-[0.28em] text-[#d8b85d]" data-testid="product-missing-eyebrow">Coming soon</p>
+        <h1 className="mt-4 font-display text-5xl text-white" data-testid="product-missing-heading">This product will appear after Shopify connection.</h1>
+        <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-[#cbd2ec]" data-testid="product-missing-description">
+          Royal Spark is clearing sample products now so the client’s live Shopify catalog can be added next.
+        </p>
+        <Link
+          to="/shop"
+          className="mt-8 inline-flex rounded-full border border-[#d8b85d]/30 bg-[#d8b85d]/10 px-6 py-3 text-xs uppercase tracking-[0.24em] text-[#d8b85d]"
+          data-testid="product-missing-back-link"
+        >
+          Back to collections
+        </Link>
+      </div>
+    );
   }
 
   return (

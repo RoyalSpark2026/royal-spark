@@ -41,249 +41,16 @@ ASSET_NECKLACE_IMAGE = "https://supremejewelers.com/cdn/shop/files/NCK00706FINAL
 ASSET_BRACELET_IMAGE = "https://supremejewelers.com/cdn/shop/files/21LBR00824.jpg?v=1743759681"
 
 
-PRODUCTS = [
-    {
-        "id": "royal-solitaire-spark-ring",
-        "name": "Royal Solitaire Spark Ring",
-        "slug": "royal-solitaire-spark-ring",
-        "category": "Rings",
-        "price": 3890,
-        "currency": "USD",
-        "materials": ["14K White Gold", "Moissanite"],
-        "is_customizable": True,
-        "featured": True,
-        "short_description": "A bright-cut solitaire ring inspired by high-shine showroom campaigns.",
-        "description": "Designed for the Royal Spark signature look, this solitaire profile delivers clean brilliance, polished shoulders, and a modern showroom finish for everyday luxury.",
-        "hero_image": ASSET_RING_CAMPAIGN,
-        "gallery": [
-            ASSET_RING_CAMPAIGN,
-            "https://supremejewelers.com/cdn/shop/files/Male_ring.jpg?v=1746694447&width=768"
-        ],
-        "rating": 4.9,
-        "review_count": 44,
-        "highlights": ["Center-stone focus", "High-polish finish", "Custom sizing available"],
-        "reviews": [
-            {"author": "Amelia", "rating": 5, "title": "Bright and clean", "comment": "The shine is strong and the setting feels premium.", "date": "2026-02-11"},
-            {"author": "Nora", "rating": 5, "title": "Looks expensive in person", "comment": "Exactly the type of ring I wanted for a standout piece.", "date": "2026-01-28"}
-        ]
-    },
-    {
-        "id": "emerald-halo-royal-ring",
-        "name": "Emerald Halo Royal Ring",
-        "slug": "emerald-halo-royal-ring",
-        "category": "Rings",
-        "price": 4625,
-        "currency": "USD",
-        "materials": ["14K White Gold", "Natural Diamond"],
-        "is_customizable": True,
-        "featured": True,
-        "short_description": "Halo styling with a bold rectangular center silhouette and extra sparkle.",
-        "description": "Inspired by statement showroom campaigns, this halo ring layers crisp lines, brilliant framing stones, and a tall-profile look for clients who want maximum presence.",
-        "hero_image": ASSET_RING_CAMPAIGN,
-        "gallery": [
-            ASSET_RING_CAMPAIGN,
-            "https://supremejewelers.com/cdn/shop/files/Female_band.jpg?v=1746694447&width=768"
-        ],
-        "rating": 4.8,
-        "review_count": 29,
-        "highlights": ["Halo brilliance", "Engagement-ready", "Luxury gift presentation"],
-        "reviews": [
-            {"author": "Ella", "rating": 5, "title": "Strong sparkle", "comment": "The halo catches light beautifully from every angle.", "date": "2026-03-01"},
-            {"author": "Sofia", "rating": 4, "title": "Feels very premium", "comment": "Looks like a showcase piece right out of a luxury catalog.", "date": "2026-02-03"}
-        ]
-    },
-    {
-        "id": "starlight-moissanite-earrings",
-        "name": "Starlight Moissanite Earrings",
-        "slug": "starlight-moissanite-earrings",
-        "category": "Earrings",
-        "price": 1485,
-        "currency": "USD",
-        "materials": ["925 Silver", "Moissanite"],
-        "is_customizable": False,
-        "featured": False,
-        "short_description": "Brilliant moissanite studs designed for strong sparkle and daily wear.",
-        "description": "These Royal Spark earrings bring bright moissanite fire, clean silver framing, and versatile styling for clients who want a classic luxury gift piece.",
-        "hero_image": ASSET_RING_CAMPAIGN,
-        "gallery": [
-            ASSET_RING_CAMPAIGN,
-            "https://supremejewelers.com/cdn/shop/files/Earrings.jpg?v=1746694447&width=768"
-        ],
-        "rating": 4.7,
-        "review_count": 19,
-        "highlights": ["Moissanite brilliance", "Gift-ready", "Classic stud styling"],
-        "reviews": [
-            {"author": "Kay", "rating": 5, "title": "Bright and wearable", "comment": "Great sparkle for everyday styling.", "date": "2026-03-18"}
-        ]
-    },
-    {
-        "id": "diamond-smile-grill-set",
-        "name": "Diamond Smile Grill Set",
-        "slug": "diamond-smile-grill-set",
-        "category": "Grills",
-        "price": 2150,
-        "currency": "USD",
-        "materials": ["Silver Tone", "Iced Stones"],
-        "is_customizable": False,
-        "featured": True,
-        "short_description": "Statement grill styling with a bright iced-out finish for instant impact.",
-        "description": "Built for bold smiles and campaign-ready shine, this full-set grill design gives clients a strong entry point into Royal Spark’s custom grill offering.",
-        "hero_image": ASSET_GRILL_SMILES,
-        "gallery": [
-            ASSET_GRILL_SMILES,
-            ASSET_GRILL_DETAIL
-        ],
-        "rating": 4.9,
-        "review_count": 37,
-        "highlights": ["Custom-fit ready", "Photo-ready sparkle", "Popular starter grill style"],
-        "reviews": [
-            {"author": "Jay", "rating": 5, "title": "Exactly the shine I wanted", "comment": "The look pops on camera and feels like a premium custom set.", "date": "2026-02-14"}
-        ]
-    },
-    {
-        "id": "crown-link-charm",
-        "name": "Crown Link Charm",
-        "slug": "crown-link-charm",
-        "category": "Charms",
-        "price": 945,
-        "currency": "USD",
-        "materials": ["14K Gold", "Diamond Accent"],
-        "is_customizable": True,
-        "featured": False,
-        "short_description": "A crown-inspired charm for chains, bracelets, or custom keepsake builds.",
-        "description": "The Crown Link Charm gives Royal Spark a smaller-ticket luxury piece with strong gifting appeal and easy layering across chains or bracelet stacks.",
-        "hero_image": ASSET_GRILL_CROWN,
-        "gallery": [
-            ASSET_GRILL_CROWN,
-            ASSET_CHAIN_IMAGE
-        ],
-        "rating": 4.8,
-        "review_count": 12,
-        "highlights": ["Charm-ready clasp", "Giftable luxury", "Engravable back"],
-        "reviews": [
-            {"author": "Lena", "rating": 5, "title": "Small but premium", "comment": "A really strong charm option with luxury detail.", "date": "2026-03-10"}
-        ]
-    },
-    {
-        "id": "gold-classic-grill-set",
-        "name": "Gold Classic Grill Set",
-        "slug": "gold-classic-grill-set",
-        "category": "Grills",
-        "price": 1795,
-        "currency": "USD",
-        "materials": ["Yellow Gold Finish", "Mirror Polish"],
-        "is_customizable": False,
-        "featured": False,
-        "short_description": "A polished gold grill look with a smoother, classic street-luxury finish.",
-        "description": "For clients who want a cleaner metal-first statement, this gold grill concept emphasizes shape, polish, and boldness over heavy stone coverage.",
-        "hero_image": ASSET_GRILL_DETAIL,
-        "gallery": [
-            ASSET_GRILL_DETAIL,
-            ASSET_GRILL_SMILES
-        ],
-        "rating": 4.8,
-        "review_count": 24,
-        "highlights": ["Smooth gold finish", "Custom top/bottom options", "Street-luxury style"],
-        "reviews": [
-            {"author": "Marcus", "rating": 5, "title": "Clean gold look", "comment": "Simple, bold, and exactly right for a classic setup.", "date": "2026-03-12"}
-        ]
-    },
-    {
-        "id": "royal-radiance-bangle",
-        "name": "Royal Radiance Bangle",
-        "slug": "royal-radiance-bangle",
-        "category": "Bangles",
-        "price": 5125,
-        "currency": "USD",
-        "materials": ["14K Gold", "Diamond"],
-        "is_customizable": True,
-        "featured": False,
-        "short_description": "A structured diamond bangle designed for luxury stacking and gifting.",
-        "description": "This Royal Spark bangle adds formal shine and strong display value, making it ideal for premium bracelet and wedding-season selling.",
-        "hero_image": "https://supremejewelers.com/cdn/shop/files/21MHBI05056.jpg?v=1744108714",
-        "gallery": [
-            "https://supremejewelers.com/cdn/shop/files/21MHBI05056.jpg?v=1744108714",
-            "https://supremejewelers.com/cdn/shop/files/2MHBI05056.jpg?v=1744108714&width=533"
-        ],
-        "rating": 4.8,
-        "review_count": 17,
-        "highlights": ["Rigid luxury profile", "Stackable", "Statement sparkle"],
-        "reviews": [
-            {"author": "Ava", "rating": 5, "title": "Feels high-end", "comment": "This bangle looks rich and polished in person.", "date": "2026-03-12"}
-        ]
-    },
-    {
-        "id": "vvs-before-after-grill-set",
-        "name": "VVS Before & After Grill Set",
-        "slug": "vvs-before-after-grill-set",
-        "category": "Grills",
-        "price": 2890,
-        "currency": "USD",
-        "materials": ["Gold Tone", "VVS-style stones"],
-        "is_customizable": True,
-        "featured": False,
-        "short_description": "A high-contrast grill concept built around dramatic before-and-after presentation.",
-        "description": "This custom grill concept is perfect for ad campaigns, showroom consultations, and transformation-led selling that highlights the final smile upgrade.",
-        "hero_image": ASSET_GRILL_BEFORE_AFTER,
-        "gallery": [
-            ASSET_GRILL_BEFORE_AFTER,
-            ASSET_GRILL_CROWN
-        ],
-        "rating": 5.0,
-        "review_count": 16,
-        "highlights": ["Before/after presentation", "Premium custom consultation", "Ideal for social content"],
-        "reviews": [
-            {"author": "Dre", "rating": 5, "title": "This sells itself", "comment": "The before-and-after look makes it easy for clients to imagine the result.", "date": "2026-01-09"}
-        ]
-    },
-    {
-        "id": "radiant-bezel-chain-necklace",
-        "name": "Radiant Bezel Chain Necklace",
-        "slug": "radiant-bezel-chain-necklace",
-        "category": "Chains",
-        "price": 5345,
-        "currency": "USD",
-        "materials": ["14K Gold", "Diamond"],
-        "is_customizable": True,
-        "featured": False,
-        "short_description": "A high-visibility chain necklace with bezel-set sparkle and retail-ready appeal.",
-        "description": "Inspired by luxury showroom best sellers, this chain style adds a polished, high-ticket necklace option to the Royal Spark range for future expansion.",
-        "hero_image": ASSET_CHAIN_IMAGE,
-        "gallery": [
-            ASSET_CHAIN_IMAGE,
-            ASSET_NECKLACE_IMAGE
-        ],
-        "rating": 4.7,
-        "review_count": 18,
-        "highlights": ["Diamond bezel links", "Layering-friendly", "Future Shopify bestseller"],
-        "reviews": [
-            {"author": "Noah", "rating": 5, "title": "Looks strong in the showcase", "comment": "This is the type of chain clients ask about immediately.", "date": "2026-02-19"}
-        ]
-    },
-    {
-        "id": "mixed-cut-tennis-bracelet",
-        "name": "Mixed Cut Tennis Bracelet",
-        "slug": "mixed-cut-tennis-bracelet",
-        "category": "Bracelets",
-        "price": 6825,
-        "currency": "USD",
-        "materials": ["14K White Gold", "Mixed Cut Diamonds"],
-        "is_customizable": True,
-        "featured": False,
-        "short_description": "A refined bracelet option for clients who want classic sparkle beyond rings.",
-        "description": "This mixed-cut tennis bracelet adds a future-ready bracelet category with premium styling, high perceived value, and strong cross-sell potential.",
-        "hero_image": ASSET_BRACELET_IMAGE,
-        "gallery": [
-            ASSET_BRACELET_IMAGE,
-            "https://supremejewelers.com/cdn/shop/files/2LBR00824.jpg?v=1743759681&width=533"
-        ],
-        "rating": 4.8,
-        "review_count": 15,
-        "highlights": ["Mixed diamond cuts", "Luxury gifting option", "Classic tennis profile"],
-        "reviews": [
-            {"author": "Mia", "rating": 5, "title": "Balanced and elegant", "comment": "A strong bracelet option with serious shine.", "date": "2026-02-19"}
-        ]
-    }
+PRODUCTS = []
+
+CATEGORY_LIST = [
+    "Bangles",
+    "Bracelets",
+    "Chains",
+    "Charms",
+    "Earrings",
+    "Grills",
+    "Rings",
 ]
 
 COLLECTIONS = [
@@ -389,7 +156,7 @@ class CatalogResponse(BaseModel):
 
 
 class HomeResponse(BaseModel):
-    hero_product: ProductSummary
+    hero_product: Optional[ProductSummary] = None
     featured_products: List[ProductSummary]
     collections: List[Collection]
     atelier_story: dict
@@ -471,7 +238,7 @@ async def get_home_catalog():
     featured_products = [build_product_summary(product) for product in PRODUCTS if product["featured"]]
     testimonials = [review for product in PRODUCTS for review in product["reviews"][:1]][:4]
     return HomeResponse(
-        hero_product=featured_products[0],
+        hero_product=featured_products[0] if featured_products else None,
         featured_products=featured_products,
         collections=[Collection(**collection) for collection in COLLECTIONS],
         atelier_story={
@@ -511,7 +278,7 @@ async def get_products(
             if any(material_term in product_material.lower() for product_material in item["materials"])
         ]
 
-    categories = sorted({product["category"] for product in PRODUCTS})
+    categories = CATEGORY_LIST
     return CatalogResponse(
         items=[build_product_summary(product) for product in filtered],
         total=len(filtered),

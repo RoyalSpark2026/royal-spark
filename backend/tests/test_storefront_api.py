@@ -47,8 +47,8 @@ def test_catalog_home(api_client):
     assert response.status_code == 200
     data = response.json()
 
-    assert data["hero_product"]["slug"] == "royal-solitaire-spark-ring"
-    assert isinstance(data["featured_products"], list) and len(data["featured_products"]) > 0
+    assert data["hero_product"] is None
+    assert isinstance(data["featured_products"], list) and len(data["featured_products"]) == 0
     assert isinstance(data["collections"], list) and len(data["collections"]) > 0
     assert "atelier_story" in data and isinstance(data["atelier_story"], dict)
 

@@ -17,6 +17,7 @@ export default function HomePage() {
   const storefront = useOutletContext();
   const { data: homeData, isLoading } = useQuery({ queryKey: ["home-data"], queryFn: fetchHomeData });
   const { data: shopifyReadiness } = useQuery({ queryKey: ["shopify-readiness"], queryFn: fetchShopifyReadiness });
+  const hasLiveProducts = Boolean(homeData?.hero_product);
 
   if (isLoading || !homeData) {
     return <div className="px-6 py-24 text-center text-sm text-[#666666]" data-testid="home-loading-state">Curating the collection…</div>;
@@ -39,20 +40,20 @@ export default function HomePage() {
               Rings and grillz with a high-shine luxury edge.
             </h1>
             <p className="mt-6 max-w-lg text-sm leading-relaxed text-white/75 md:text-base" data-testid="hero-description">
-              Royal Spark now spotlights diamond rings, custom grillz, chains, and bracelets with a bold navy-and-gold visual identity inspired by your uploaded campaign art.
+              Royal Spark now presents a polished luxury storefront while the live Shopify catalog is being prepared for launch.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
               <Button asChild className="h-12 rounded-full bg-[#d8b85d] px-6 text-[#081226] hover:bg-[#f0d78d]" data-testid="hero-shop-button">
-                <Link to="/shop">Shop collection <ArrowRight className="h-4 w-4" /></Link>
+                <Link to="/shop">Browse categories <ArrowRight className="h-4 w-4" /></Link>
               </Button>
               <Button asChild variant="outline" className="h-12 rounded-full border-[#d8b85d]/40 bg-transparent text-white hover:bg-white/10" data-testid="hero-bespoke-button">
                 <Link to="/bespoke">Start bespoke request</Link>
               </Button>
             </div>
             <div className="mt-10 flex flex-wrap gap-3 text-xs uppercase tracking-[0.24em] text-[#d9e0ff]">
-              <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2" data-testid="hero-feature-rings">Diamond rings</span>
-              <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2" data-testid="hero-feature-grills">Custom grillz</span>
-              <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2" data-testid="hero-feature-chains">Chains & bracelets</span>
+              <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2" data-testid="hero-feature-rings">Shopify-ready catalog</span>
+              <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2" data-testid="hero-feature-grills">Curated categories</span>
+              <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2" data-testid="hero-feature-chains">Luxury launch in progress</span>
             </div>
           </div>
         </motion.div>
@@ -66,17 +67,17 @@ export default function HomePage() {
         >
           <div className="overflow-hidden rounded-[38px] border border-white/10 bg-white/5 p-3 backdrop-blur" data-testid="hero-image-card">
             <img
-              src={homeData.hero_product.hero_image}
-              alt={homeData.hero_product.name}
+              src={hasLiveProducts ? homeData.hero_product.hero_image : promoPanels[0]}
+              alt={hasLiveProducts ? homeData.hero_product.name : "Royal Spark campaign"}
               className="aspect-[4/5] w-full rounded-[30px] object-cover"
               data-testid="hero-image"
             />
             <div className="grid gap-3 px-3 py-5 sm:grid-cols-[1fr_auto] sm:items-end">
               <div>
-                <p className="text-xs uppercase tracking-[0.24em] text-[#d8b85d]" data-testid="hero-product-category">Featured ring</p>
-                <h2 className="mt-2 font-display text-4xl leading-none text-white" data-testid="hero-product-name">{homeData.hero_product.name}</h2>
+                <p className="text-xs uppercase tracking-[0.24em] text-[#d8b85d]" data-testid="hero-product-category">{hasLiveProducts ? "Featured ring" : "Catalog preview"}</p>
+                <h2 className="mt-2 font-display text-4xl leading-none text-white" data-testid="hero-product-name">{hasLiveProducts ? homeData.hero_product.name : "Royal Spark product launch"}</h2>
               </div>
-              <p className="text-sm text-[#d8b85d]" data-testid="hero-product-price">{homeData.hero_product.formatted_price}</p>
+              <p className="text-sm text-[#d8b85d]" data-testid="hero-product-price">{hasLiveProducts ? homeData.hero_product.formatted_price : "Coming soon"}</p>
             </div>
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
@@ -162,17 +163,27 @@ export default function HomePage() {
           <p className="text-xs uppercase tracking-[0.32em] text-[#d8b85d]" data-testid="featured-products-eyebrow">Most loved pieces</p>
           <h2 className="mt-4 font-display text-4xl text-white" data-testid="featured-products-heading">Selected for fast client approval</h2>
         </div>
-        <div className="grid gap-6 lg:grid-cols-3">
-          {homeData.featured_products.map((product) => (
-            <ProductCard
-              key={product.id}
-              product={product}
-              isWishlisted={storefront.wishlistIds.includes(product.id)}
-              onToggleWishlist={storefront.toggleWishlist}
-              onAddToCart={storefront.addToCart}
-            />
-          ))}
-        </div>
+        {homeData.featured_products.length === 0 ? (
+          <div className="rounded-[34px] border border-[#d8b85d]/20 bg-[#111d3a] px-8 py-16 text-center" data-testid="homepage-coming-soon-products">
+            <p className="text-xs uppercase tracking-[0.28em] text-[#d8b85d]" data-testid="homepage-coming-soon-eyebrow">Coming soon</p>
+            <h3 className="mt-4 font-display text-4xl text-white" data-testid="homepage-coming-soon-heading">Product collections are being prepared.</h3>
+            <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-[#cbd2ec]" data-testid="homepage-coming-soon-description">
+              We’re replacing sample items with the client’s real Shopify catalog. The launch collection will appear here once product images, pricing, and categories are finalized.
+            </p>
+          </div>
+        ) : (
+          <div className="grid gap-6 lg:grid-cols-3">
+            {homeData.featured_products.map((product) => (
+              <ProductCard
+                key={product.id}
+                product={product}
+                isWishlisted={storefront.wishlistIds.includes(product.id)}
+                onToggleWishlist={storefront.toggleWishlist}
+                onAddToCart={storefront.addToCart}
+              />
+            ))}
+          </div>
+        )}
       </section>
 
       <section className="mx-auto max-w-7xl px-6 pb-24 md:px-10 lg:px-16" data-testid="testimonials-section">

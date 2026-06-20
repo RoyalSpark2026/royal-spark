@@ -45,6 +45,7 @@ can a build Jwellary Store and connect to Shopify for Jewllary Store ?
 - Updated storefront branding to Royal Spark, with phone in the header and full contact details in the footer
 - Re-themed the storefront with a blue-and-gold campaign style, loaded uploaded PNG campaign visuals, and refreshed the seeded catalog toward rings, grillz, chains, and bracelets
 - Added requested category structure: Chains, Bangles, Grillz, Charms, Rings, Earrings, Bracelets, Moissanite filter, and Contact page/section
+- Removed all existing sample products and replaced homepage/category product areas with luxury Coming Soon states to prepare for live Shopify catalog connection
 
 ## Prioritized Backlog
 ### P0
