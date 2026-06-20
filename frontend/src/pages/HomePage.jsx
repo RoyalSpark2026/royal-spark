@@ -102,10 +102,10 @@ export default function HomePage() {
                 className="group w-full overflow-hidden rounded-[32px] border border-white/10 bg-[#050b18] text-left"
                 data-testid="brand-film-trigger"
               >
-                <div className="relative aspect-video w-full overflow-hidden bg-black">
+                <div className="relative aspect-[16/9] w-full overflow-hidden rounded-[28px] bg-black">
                   <video
                     src={brandFilmUrl}
-                    className="h-full w-full object-contain transition duration-700 group-hover:scale-[1.01]"
+                    className="h-full w-full object-cover object-center transition duration-700 group-hover:scale-[1.01]"
                     autoPlay
                     muted
                     loop
@@ -131,7 +131,7 @@ export default function HomePage() {
               <DialogDescription className="sr-only">Expanded video preview for the Royal Spark homepage brand film.</DialogDescription>
               <video
                 src={brandFilmUrl}
-                className="aspect-video w-full rounded-[24px] bg-black object-contain"
+                className="aspect-video w-full rounded-[24px] bg-black object-cover object-center"
                 controls
                 autoPlay
                 muted
@@ -142,6 +142,36 @@ export default function HomePage() {
               />
             </DialogContent>
           </Dialog>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-6 py-10 md:px-10 lg:px-16" data-testid="brand-image-section">
+        <div className="rounded-[38px] border border-white/10 bg-[linear-gradient(160deg,_rgba(11,23,50,1),_rgba(7,16,36,0.98))] p-6 md:p-8">
+          <div className="mb-8 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+            <div className="max-w-3xl">
+              <p className="text-xs uppercase tracking-[0.32em] text-[#d8b85d]" data-testid="brand-image-eyebrow">Royal Spark feature image</p>
+              <h2 className="mt-4 font-display text-5xl leading-none text-white" data-testid="brand-image-heading">A matching full-frame image section.</h2>
+              <p className="mt-5 text-sm leading-relaxed text-[#cbd2ec]" data-testid="brand-image-description">
+                Upload one premium campaign image here later so it visually matches the brand film section and keeps the landing page balanced.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-3 text-xs uppercase tracking-[0.22em] text-[#d9e0ff]">
+              <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2" data-testid="brand-image-chip-size">Best size: 1920 × 1080</span>
+              <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2" data-testid="brand-image-chip-style">Luxury campaign still</span>
+            </div>
+          </div>
+
+          <div className="relative aspect-[16/9] w-full overflow-hidden rounded-[32px] border border-white/10 bg-[linear-gradient(145deg,_rgba(14,28,58,1),_rgba(7,16,36,0.98))] p-6 md:p-8" data-testid="brand-image-frame">
+            <div className="flex h-full flex-col justify-between rounded-[28px] border border-dashed border-[#d8b85d]/25 bg-white/5 p-6 md:p-8" data-testid="brand-image-placeholder">
+              <div>
+                <p className="text-xs uppercase tracking-[0.28em] text-[#d8b85d]" data-testid="brand-image-placeholder-eyebrow">Image needed</p>
+                <h3 className="mt-4 max-w-2xl font-display text-4xl text-white" data-testid="brand-image-placeholder-heading">Add one full-width luxury image here.</h3>
+              </div>
+              <p className="max-w-xl text-sm leading-relaxed text-[#cbd2ec]" data-testid="brand-image-placeholder-description">
+                Best for this section: model wearing jewelry, product collage banner, or logo-focused luxury campaign still.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
