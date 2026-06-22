@@ -4,7 +4,7 @@ import { Link, NavLink, Outlet } from "react-router-dom";
 
 import { CartSheet } from "@/components/CartSheet";
 
-const fullLogo = "/royal-spark-logo-user-final.png";
+const fullLogo = "https://customer-assets.emergentagent.com/job_shopify-gems-2/artifacts/aqul3ig0_image.png";
 
 const navItems = [
   { to: "/", label: "Home" },
@@ -113,7 +113,7 @@ export const Layout = ({ storefront }) => {
         <div className="mx-auto grid max-w-7xl gap-6 px-6 py-10 md:grid-cols-3 md:px-10 lg:px-16">
           <div className="flex flex-col gap-4">
             <div className="w-fit overflow-hidden rounded-[24px] border border-[#d8b85d]/20 bg-transparent px-2 py-2" data-testid="footer-logo-image-wrapper">
-              <img src={fullLogo} alt="Royal Spark Jewelry logo" className="h-20 w-auto object-contain" data-testid="footer-logo-image" />
+              <img src={fullLogo} alt="Royal Spark Jewelry logo" className="h-12 w-auto object-contain" data-testid="footer-logo-image" />
             </div>
             <p className="mt-3 max-w-sm text-sm leading-relaxed text-[#c6cff0]" data-testid="footer-description">
               A cinematic luxury storefront shaped by the Royal Spark brand film, premium craftsmanship, and a Shopify-ready catalog launch.
