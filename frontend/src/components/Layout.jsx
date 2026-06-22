@@ -34,8 +34,8 @@ export const Layout = ({ storefront }) => {
       <header className="sticky top-0 z-40 border-b border-white/10 bg-[#081226]/80 backdrop-blur-xl" data-testid="site-header">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-4 md:px-10 lg:px-16">
           <NavLink to="/" className="flex items-center text-white" data-testid="brand-home-link">
-            <div className="overflow-hidden rounded-[18px] border border-[#d8b85d]/20 bg-transparent px-2 py-2" data-testid="header-logo-image-wrapper">
-              <img src={fullLogo} alt="Royal Spark logo" className="h-20 w-auto object-contain" data-testid="header-logo-image" />
+            <div className="overflow-hidden rounded-[16px] border border-[#d8b85d]/15 bg-transparent px-2 py-1.5" data-testid="header-logo-image-wrapper">
+              <img src={fullLogo} alt="Royal Spark logo" className="h-16 w-auto object-contain drop-shadow-[0_1px_6px_rgba(216,184,93,0.18)]" data-testid="header-logo-image" />
             </div>
           </NavLink>
 
