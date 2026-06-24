@@ -1,6 +1,8 @@
 import logging
 import os
+import re
 from datetime import datetime, timezone
+from html import unescape
 from pathlib import Path
 from typing import List, Literal, Optional
 from uuid import uuid4
@@ -9,6 +11,7 @@ from dotenv import load_dotenv
 from fastapi import APIRouter, FastAPI, HTTPException, Query
 from motor.motor_asyncio import AsyncIOMotorClient
 from pydantic import BaseModel, ConfigDict, Field
+import requests
 from starlette.middleware.cors import CORSMiddleware
 
 
@@ -29,6 +32,166 @@ api_router = APIRouter(prefix="/api")
 
 def format_money(value: float) -> str:
     return f"${value:,.0f}"
+
+
+def strip_html(value: str) -> str:
+    if not value:
+        return ""
+    text = re.sub(r"<[^>]+>", " ", value)
+    text = unescape(text)
+    return re.sub(r"\s+", " ", text).strip()
+
+
+def truncate_text(value: str, max_length: int = 120) -> str:
+    if len(value) <= max_length:
+        return value
+    return value[: max_length - 1].rstrip() + "…"
+
+
+def get_shopify_store_domain() -> Optional[str]:
+    return os.environ.get("SHOPIFY_STORE_DOMAIN")
+
+
+def get_shopify_admin_token() -> Optional[str]:
+    return os.environ.get("SHOPIFY_ADMIN_TOKEN")
+
+
+def shopify_is_configured() -> bool:
+    return bool(get_shopify_store_domain() and get_shopify_admin_token())
+
+
+def shopify_headers() -> dict:
+    token = get_shopify_admin_token()
+    if not token:
+        raise HTTPException(status_code=503, detail="Shopify is not configured")
+    return {
+        "X-Shopify-Access-Token": token,
+        "Content-Type": "application/json",
+    }
+
+
+def fetch_shopify_resource(path: str, params: Optional[dict] = None) -> dict:
+    store_domain = get_shopify_store_domain()
+    if not store_domain:
+        raise HTTPException(status_code=503, detail="Shopify store domain missing")
+
+    response = requests.get(
+        f"https://{store_domain}/admin/api/2025-04/{path}",
+        headers=shopify_headers(),
+        params=params or {},
+        timeout=30,
+    )
+    if response.status_code >= 400:
+        raise HTTPException(status_code=502, detail=f"Shopify API error: {response.text[:200]}")
+    return response.json()
+
+
+def derive_product_category(product: dict) -> str:
+    product_type = (product.get("product_type") or "").strip()
+    if product_type in CATEGORY_LIST:
+        return product_type
+
+    tags = [tag.strip() for tag in (product.get("tags") or "").split(",") if tag.strip()]
+    for category in CATEGORY_LIST:
+        if category.lower() in {tag.lower() for tag in tags}:
+            return category
+
+    title = (product.get("title") or "").lower()
+    if "grill" in title:
+        return "Grills"
+    if "ring" in title:
+        return "Rings"
+    if "earring" in title:
+        return "Earrings"
+    if "bangle" in title:
+        return "Bangles"
+    if "bracelet" in title:
+        return "Bracelets"
+    if "chain" in title:
+        return "Chains"
+    if "charm" in title:
+        return "Charms"
+    return "Rings"
+
+
+def derive_materials(product: dict) -> List[str]:
+    tags = [tag.strip() for tag in (product.get("tags") or "").split(",") if tag.strip()]
+    known_materials = ["Moissanite", "Gold", "Silver", "Diamond", "Platinum", "White Gold", "Yellow Gold"]
+    materials = [material for material in known_materials if any(material.lower() in tag.lower() for tag in tags)]
+
+    if not materials:
+        options = product.get("options") or []
+        for option in options:
+            if option.get("name", "").lower() in {"material", "metal"}:
+                values = option.get("values") or []
+                materials.extend([value for value in values if value])
+
+    return materials or ["Signature Finish"]
+
+
+def transform_shopify_product(product: dict) -> dict:
+    description = strip_html(product.get("body_html") or "")
+    variants = product.get("variants") or []
+    first_variant = variants[0] if variants else {}
+    images = product.get("images") or []
+    gallery = [image.get("src") for image in images if image.get("src")]
+    hero_image = gallery[0] if gallery else ASSET_RING_CAMPAIGN
+    tags = [tag.strip() for tag in (product.get("tags") or "").split(",") if tag.strip()]
+    featured = any(tag.lower() in {"featured", "best seller", "bestseller"} for tag in tags)
+    customizable = any(tag.lower() in {"custom", "customizable", "bespoke"} for tag in tags)
+    price_value = float(first_variant.get("price") or 0)
+    category = derive_product_category(product)
+    materials = derive_materials(product)
+
+    return {
+        "id": str(product.get("id")),
+        "name": product.get("title") or "Untitled Product",
+        "slug": product.get("handle") or str(product.get("id")),
+        "category": category,
+        "price": price_value,
+        "currency": "USD",
+        "materials": materials,
+        "is_customizable": customizable,
+        "featured": featured,
+        "short_description": truncate_text(description or f"{category} by Royal Spark", 110),
+        "description": description or f"{category} by Royal Spark.",
+        "hero_image": hero_image,
+        "gallery": gallery or [hero_image],
+        "rating": 5.0,
+        "review_count": 0,
+        "highlights": materials[:3] if materials else ["Luxury Finish"],
+        "reviews": [],
+    }
+
+
+def fetch_live_shopify_products() -> List[dict]:
+    if not shopify_is_configured():
+        return PRODUCTS
+    payload = fetch_shopify_resource("products.json", {"limit": 250, "status": "active"})
+    products = payload.get("products") or []
+    return [transform_shopify_product(product) for product in products]
+
+
+def fetch_live_shopify_collections() -> List[dict]:
+    if not shopify_is_configured():
+        return COLLECTIONS
+
+    collections: List[dict] = []
+    for path, key in (("custom_collections.json", "custom_collections"), ("smart_collections.json", "smart_collections")):
+        payload = fetch_shopify_resource(path, {"limit": 50})
+        for collection in payload.get(key) or []:
+            title = collection.get("title") or "Collection"
+            collections.append(
+                {
+                    "id": str(collection.get("id")),
+                    "name": title,
+                    "category": title,
+                    "description": f"Explore the {title} collection.",
+                    "image": ASSET_RING_CAMPAIGN,
+                }
+            )
+
+    return collections or COLLECTIONS
 
 
 ASSET_RING_CAMPAIGN = "https://customer-assets.emergentagent.com/job_shopify-gems-2/artifacts/8jfge9he_fashion-%26-beauty-design-2x%20%281%29%20%281%29.png"
@@ -235,12 +398,13 @@ async def get_status_checks():
 
 @api_router.get("/catalog/home", response_model=HomeResponse)
 async def get_home_catalog():
-    featured_products = [build_product_summary(product) for product in PRODUCTS if product["featured"]]
-    testimonials = [review for product in PRODUCTS for review in product["reviews"][:1]][:4]
+    live_products = fetch_live_shopify_products()
+    featured_products = [build_product_summary(product) for product in live_products if product["featured"]][:3]
+    testimonials = [review for product in live_products for review in product["reviews"][:1]][:4]
     return HomeResponse(
         hero_product=featured_products[0] if featured_products else None,
         featured_products=featured_products,
-        collections=[Collection(**collection) for collection in COLLECTIONS],
+        collections=[Collection(**collection) for collection in fetch_live_shopify_collections()],
         atelier_story={
             "title": "Blue Label Campaign",
             "description": "Royal Spark now blends deep midnight blue, gold highlights, diamond rings, and custom grill concepts into one client-ready luxury storefront.",
@@ -257,7 +421,7 @@ async def get_products(
     customizable_only: bool = Query(default=False),
     material: Optional[str] = Query(default=None),
 ):
-    filtered = PRODUCTS
+    filtered = fetch_live_shopify_products()
     if category and category.lower() != "all":
         filtered = [item for item in filtered if item["category"].lower() == category.lower()]
     if search:
@@ -278,7 +442,7 @@ async def get_products(
             if any(material_term in product_material.lower() for product_material in item["materials"])
         ]
 
-    categories = CATEGORY_LIST
+    categories = sorted({*CATEGORY_LIST, *{product["category"] for product in filtered}})
     return CatalogResponse(
         items=[build_product_summary(product) for product in filtered],
         total=len(filtered),
@@ -288,7 +452,8 @@ async def get_products(
 
 @api_router.get("/catalog/products/{slug}", response_model=Product)
 async def get_product_detail(slug: str):
-    product = next((item for item in PRODUCTS if item["slug"] == slug), None)
+    live_products = fetch_live_shopify_products()
+    product = next((item for item in live_products if item["slug"] == slug), None)
     if not product:
         raise HTTPException(status_code=404, detail="Product not found")
     return Product(**product)
@@ -296,7 +461,7 @@ async def get_product_detail(slug: str):
 
 @api_router.get("/catalog/collections", response_model=List[Collection])
 async def get_collections():
-    return [Collection(**collection) for collection in COLLECTIONS]
+    return [Collection(**collection) for collection in fetch_live_shopify_collections()]
 
 
 @api_router.post("/bespoke-inquiries", response_model=BespokeInquiryResponse, status_code=201)
@@ -322,9 +487,14 @@ async def create_bespoke_inquiry(payload: BespokeInquiryCreate):
 
 @api_router.get("/shopify/readiness", response_model=ShopifyReadiness)
 async def get_shopify_readiness():
+    configured = shopify_is_configured()
     return ShopifyReadiness(
-        connection_ready=False,
-        next_step="Create your Shopify store, generate Storefront/Admin credentials, then map products and checkout redirects.",
+        connection_ready=configured,
+        next_step=(
+            "Shopify is connected. Add active products and collections in Shopify to populate the storefront."
+            if configured
+            else "Create your Shopify store, generate Storefront/Admin credentials, then map products and checkout redirects."
+        ),
         supported_sync_targets=[
             "products",
             "collections",
