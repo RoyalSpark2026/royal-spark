@@ -146,19 +146,25 @@ export default function HomePage() {
               className="overflow-hidden rounded-[32px] border border-white/10 bg-[linear-gradient(160deg,_rgba(14,28,58,1),_rgba(7,16,36,0.98))]"
               data-testid={`feature-grid-card-${index}`}
             >
-              <div className="aspect-[4/5] overflow-hidden border-b border-white/10 bg-[#071126]" data-testid={`feature-grid-card-image-wrapper-${index}`}>
-                <img
-                  src={feature.image}
-                  alt={feature.title}
-                  className="h-full w-full object-cover"
-                  data-testid={`feature-grid-card-image-${index}`}
-                />
-              </div>
-              <div className="p-7">
-                <p className="text-xs uppercase tracking-[0.28em] text-[#d8b85d]" data-testid={`feature-grid-card-eyebrow-${index}`}>Feature {index + 1}</p>
-                <h3 className="mt-5 font-display text-4xl text-white" data-testid={`feature-grid-card-title-${index}`}>{feature.title}</h3>
-                <p className="mt-4 text-sm leading-relaxed text-[#cbd2ec]" data-testid={`feature-grid-card-copy-${index}`}>{feature.copy}</p>
-              </div>
+              <Link
+                to={`/shop?category=${feature.title === "Grillz" ? "Grills" : feature.title}`}
+                className="block h-full transition hover:bg-white/5"
+                data-testid={`feature-grid-card-link-${index}`}
+              >
+                <div className="aspect-[4/5] overflow-hidden border-b border-white/10 bg-[#071126]" data-testid={`feature-grid-card-image-wrapper-${index}`}>
+                  <img
+                    src={feature.image}
+                    alt={feature.title}
+                    className="h-full w-full object-cover transition duration-700 hover:scale-105"
+                    data-testid={`feature-grid-card-image-${index}`}
+                  />
+                </div>
+                <div className="p-7">
+                  <p className="text-xs uppercase tracking-[0.28em] text-[#d8b85d]" data-testid={`feature-grid-card-eyebrow-${index}`}>Feature {index + 1}</p>
+                  <h3 className="mt-5 font-display text-4xl text-white" data-testid={`feature-grid-card-title-${index}`}>{feature.title}</h3>
+                  <p className="mt-4 text-sm leading-relaxed text-[#cbd2ec]" data-testid={`feature-grid-card-copy-${index}`}>{feature.copy}</p>
+                </div>
+              </Link>
             </motion.div>
           ))}
         </div>
