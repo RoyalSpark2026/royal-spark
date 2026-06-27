@@ -78,7 +78,7 @@ export const Layout = ({ storefront }) => {
             <div className="mt-3 rounded-[24px] border border-white/10 bg-white/5 p-4 text-sm text-[#e9edff] md:hidden" data-testid="mobile-header-contact-card">
               <p className="text-xs uppercase tracking-[0.24em] text-[#d8b85d]">Contact</p>
               <p className="mt-2" data-testid="mobile-header-phone">+1 832 329 7145</p>
-              <p className="mt-1" data-testid="mobile-header-address">Sharps Town Plaza, Houston, Texas, USA</p>
+              <p className="mt-1" data-testid="mobile-header-address">100 Sharpstown Center #2090, Houston, TX 77036, USA</p>
             </div>
           </nav>
 
@@ -152,7 +152,7 @@ export const Layout = ({ storefront }) => {
           <div className="text-sm text-[#e1e6ff]">
             <p className="text-xs uppercase tracking-[0.24em] text-[#d8b85d]" data-testid="footer-contact-label">Contact</p>
             <p className="mt-3" data-testid="footer-contact-phone">+1 832 329 7145</p>
-            <p className="mt-2" data-testid="footer-contact-address">Sharps Town Plaza, Houston, Texas, USA</p>
+            <p className="mt-2" data-testid="footer-contact-address">100 Sharpstown Center #2090, Houston, TX 77036, USA</p>
           </div>
         </div>
       </footer>

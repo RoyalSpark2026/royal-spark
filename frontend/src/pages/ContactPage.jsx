@@ -15,7 +15,7 @@ export default function ContactPage() {
               <MapPin className="mt-0.5 h-5 w-5 text-[#d8b85d]" />
               <div>
                 <p className="text-xs uppercase tracking-[0.24em] text-[#d8b85d]">Address</p>
-                <p className="mt-1" data-testid="contact-address-text">Sharps Town Plaza, Houston, Texas, USA</p>
+                <p className="mt-1" data-testid="contact-address-text">100 Sharpstown Center #2090, Houston, TX 77036, USA</p>
               </div>
             </div>
             <div className="flex items-start gap-3 rounded-[24px] border border-white/10 bg-white/5 p-4" data-testid="contact-phone-card">
