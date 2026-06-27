@@ -347,6 +347,8 @@ class ShopifyReadiness(BaseModel):
     connection_ready: bool
     next_step: str
     supported_sync_targets: List[str]
+    has_store_domain: Optional[bool] = None
+    has_admin_token: Optional[bool] = None
 
 
 def build_product_summary(product: dict) -> ProductSummary:
@@ -502,6 +504,8 @@ async def get_shopify_readiness():
             "checkout redirect",
             "custom jewelry intake tagging",
         ],
+        has_store_domain=bool(get_shopify_store_domain()),
+        has_admin_token=bool(get_shopify_admin_token()),
     )
 
 # Include the router in the main app
