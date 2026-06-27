@@ -1,10 +1,11 @@
 import { ArrowRight, Volume2 } from "lucide-react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useOutletContext } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { ProductCard } from "@/components/ProductCard";
 import { fetchHomeData } from "@/lib/api";
 
 const heroFilmUrl = "https://customer-assets.emergentagent.com/job_shopify-gems-2/artifacts/yj0dyksy_generated_video%20%281%29.mp4";
@@ -27,6 +28,7 @@ const signatureCategoryImages = [
 ];
 
 export default function HomePage() {
+  const storefront = useOutletContext();
   const { data: homeData, isLoading } = useQuery({ queryKey: ["home-data"], queryFn: fetchHomeData });
   const [heroMuted, setHeroMuted] = useState(true);
   const heroVideoRef = useRef(null);
@@ -169,6 +171,30 @@ export default function HomePage() {
           ))}
         </div>
       </section>
+
+      {homeData.featured_products?.length ? (
+        <section className="mx-auto max-w-7xl px-6 pb-20 pt-8 md:px-10 lg:px-16" data-testid="homepage-live-products-section">
+          <div className="mb-10 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+            <div className="max-w-3xl">
+              <p className="text-xs uppercase tracking-[0.32em] text-[#d8b85d]" data-testid="homepage-live-products-eyebrow">Latest arrivals</p>
+              <h2 className="mt-4 font-display text-5xl leading-none text-white" data-testid="homepage-live-products-heading">Live pieces from the Royal Spark collection.</h2>
+            </div>
+            <Link to="/shop" className="text-sm uppercase tracking-[0.24em] text-[#d8b85d]" data-testid="homepage-live-products-link">View all products</Link>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3" data-testid="homepage-live-products-grid">
+            {homeData.featured_products.map((product) => (
+              <ProductCard
+                key={product.id}
+                product={product}
+                isWishlisted={storefront.wishlistIds.includes(product.id)}
+                onToggleWishlist={storefront.toggleWishlist}
+                onAddToCart={storefront.addToCart}
+              />
+            ))}
+          </div>
+        </section>
+      ) : null}
 
     </div>
   );

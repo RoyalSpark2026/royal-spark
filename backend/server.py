@@ -403,7 +403,9 @@ async def get_status_checks():
 @api_router.get("/catalog/home", response_model=HomeResponse)
 async def get_home_catalog():
     live_products = fetch_live_shopify_products()
-    featured_products = [build_product_summary(product) for product in live_products if product["featured"]][:3]
+    featured_products = [build_product_summary(product) for product in live_products if product["featured"]][:6]
+    if not featured_products:
+        featured_products = [build_product_summary(product) for product in live_products[:6]]
     testimonials = [review for product in live_products for review in product["reviews"][:1]][:4]
     return HomeResponse(
         hero_product=featured_products[0] if featured_products else None,
