@@ -1,0 +1,22 @@
+{
+  "summary": "Retest of the 'Enable sound' desktop click-intercept regression on the Royal Spark homepage hero video. The pointer-events fix in /app/frontend/src/pages/HomePage.jsx (sound-toggle wrapper pointer-events-none + button pointer-events-auto + z-10; text-overlay outer wrapper pointer-events-none + inner max-w-xl card pointer-events-auto) RESOLVES the regression. Both desktop (1280x900) and mobile (390x844) now fully pass. No regressions detected on hero headline / CTAs / layout.",
+  "backend_issues": { "critical": [], "minor": [] },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "Fix is minimal, correct, and idiomatic Tailwind: pointer-events-none on the outer absolute wrappers, pointer-events-auto on interactive children. Both the sound toggle and the headline card remain interactive without z-index conflicts."
+  ],
+  "updated_files": [],
+  "success_rate": { "backend": "N/A (frontend-only)", "frontend": "Desktop 100%, Mobile 100%" },
+  "test_credentials": "N/A (public homepage)",
+  "seed_data_creation": "None",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Hero sound-toggle bug is fully resolved on both desktop and mobile. Acceptance criteria verified: (1) Desktop 1280x900: document.elementFromPoint at button center returns the BUTTON (data-testid='hero-video-sound-toggle'), NOT the overlay. (2) Real (non-force) Playwright click reaches the button on desktop. (3) After click: video.muted=false (immediate AND 1.5s later), video.volume=1, label 'Enable sound' -> 'Mute sound'. (4) Second click: muted=true, label back to 'Enable sound'. (5) Mobile 390x844 same toggle behavior works. (6) Hero wrapper bounding box height = 720.75px (desktop) and 427px (mobile) - both > 100. (7) Hero CTAs (hero-shop-button, hero-bespoke-button, hero-heading) still visible and clickable on desktop. (8) Mobile content (hero-mobile-content) rendered BELOW the video (videoBottom=636, mobileTop=656).",
+  "rca_of_the_issue": "Original RCA (from iteration_9): two sibling absolute-positioned divs at top-0 inside the hero video container — the sound-toggle wrapper (line 105) and the text-overlay wrapper (line 115) — overlapped on desktop (md+). The text overlay rendered later in the DOM, so its bounding box covered the entire top strip of the hero and intercepted pointer events over the right-side sound button. Fix applied by main agent in HomePage.jsx: added pointer-events-none (and z-10) to the sound-toggle outer wrapper with pointer-events-auto on the button itself, and added pointer-events-none to the text-overlay outer wrapper with pointer-events-auto on the inner max-w-xl card. Verification: elementFromPoint at the button center now returns the BUTTON element (was returning the overlay div). Real Playwright click (no force=true) now succeeds and toggles video.muted from true->false; the state persists 1.5s later confirming the React re-render no longer reverts. All 8 acceptance assertions pass on both viewports."
+}

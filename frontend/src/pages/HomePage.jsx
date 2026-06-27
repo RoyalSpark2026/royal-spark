@@ -102,18 +102,18 @@ export default function HomePage() {
               data-testid="hero-full-video"
             />
             <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(6,12,28,0.06),rgba(6,12,28,0.2))]" />
-            <div className="absolute inset-x-0 top-0 flex justify-end p-5 md:p-6">
+            <div className="pointer-events-none absolute inset-x-0 top-0 z-10 flex justify-end p-5 md:p-6">
               <button
                 type="button"
                 onClick={handleToggleSound}
-                className="inline-flex items-center gap-2 rounded-full border border-[#d8b85d]/40 bg-[#081226]/70 px-4 py-2 text-xs uppercase tracking-[0.22em] text-[#f4d98e] backdrop-blur"
+                className="pointer-events-auto inline-flex items-center gap-2 rounded-full border border-[#d8b85d]/40 bg-[#081226]/70 px-4 py-2 text-xs uppercase tracking-[0.22em] text-[#f4d98e] backdrop-blur"
                 data-testid="hero-video-sound-toggle"
               >
                 <Volume2 className="h-4 w-4" /> {heroMuted ? "Enable sound" : "Mute sound"}
               </button>
             </div>
-            <div className="absolute left-0 right-0 top-0 hidden px-5 py-5 md:block md:px-8 md:py-8">
-              <div className="max-w-xl rounded-[24px] border border-white/10 bg-[#081226]/46 p-4 backdrop-blur-md md:p-5">
+            <div className="pointer-events-none absolute left-0 right-0 top-0 hidden px-5 py-5 md:block md:px-8 md:py-8">
+              <div className="pointer-events-auto max-w-xl rounded-[24px] border border-white/10 bg-[#081226]/46 p-4 backdrop-blur-md md:p-5">
                 <p className="text-xs uppercase tracking-[0.32em] text-[#d8b85d]" data-testid="hero-eyebrow">Discover exquisite elegance</p>
                 <h1 className="mt-2 font-display text-3xl leading-[0.98] text-white md:text-4xl" data-testid="hero-heading">
                   Where luxury meets craftsmanship.
