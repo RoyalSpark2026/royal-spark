@@ -26,7 +26,7 @@ const signatureCategoryImages = [
     image: "https://customer-assets.emergentagent.com/job_shopify-gems-2/artifacts/2ho4vbhh_92778eea-ecad-464d-b41f-0d1ec4466d99.jpg",
   },
   {
-    title: "Men's Championship Ring",
+    title: "Men's Rings",
     eyebrow: "Feature 3",
     category: "Rings",
     copy: "Layering pieces and strong links designed to complete a premium jewelry wardrobe.",
