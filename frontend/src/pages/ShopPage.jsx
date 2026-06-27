@@ -22,6 +22,8 @@ export default function ShopPage() {
     }),
   });
 
+  const items = data?.items ?? [];
+
   return (
     <div className="mx-auto max-w-7xl px-6 py-10 md:px-10 lg:px-16" data-testid="shop-page">
       <section data-testid="shop-results-section">
@@ -52,7 +54,7 @@ export default function ShopPage() {
           <div className="rounded-[34px] border border-white/10 bg-[#111d3a] p-10 text-center text-sm text-[#cbd2ec]" data-testid="shop-loading-state">
             Arranging the showcase…
           </div>
-        ) : data?.items?.length === 0 ? (
+        ) : items.length === 0 ? (
           <div className="rounded-[34px] border border-[#d8b85d]/20 bg-[#111d3a] px-8 py-16 text-center" data-testid="shop-empty-state">
             <p className="text-xs uppercase tracking-[0.28em] text-[#d8b85d]" data-testid="shop-empty-state-eyebrow">Coming soon</p>
             <h2 className="mt-4 font-display text-4xl text-white" data-testid="shop-empty-state-heading">This collection is being prepared.</h2>
@@ -62,7 +64,7 @@ export default function ShopPage() {
           </div>
         ) : (
           <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4" data-testid="shop-product-grid">
-            {data?.items.map((product) => (
+            {items.map((product) => (
               <ProductCard
                 key={product.id}
                 product={product}
