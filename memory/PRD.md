@@ -73,3 +73,12 @@ can a build Jwellary Store and connect to Shopify for Jewllary Store ?
 - Extracted a cleaner logo crop from the latest uploaded artwork and replaced the site logo usage across the shared header/footer layout
 
 - Replaced the cropped screenshot logo with a redrawn gold transparent logo system plus square icon and favicon files for consistent branding across the site
+
+
+## Mobile UI Polish (2026-06-27)
+- ProductCard: responsive — mobile shows square image (aspect-square object-cover) + compact name/price + small "Add" button; desktop (md:) keeps aspect-[4/5], description, rating, full action row. Removed h-full/mt-auto on mobile to eliminate empty space below cards.
+- ShopPage: grid is grid-cols-2 on mobile, xl:grid-cols-4 on desktop.
+- Layout: mobile category bar converted to a <select> dropdown (navigates on change); desktop horizontal scroll bar retained.
+- HomePage: hero wrapper aspect-[4/5] sm:aspect-[16/10] (fits frame on mobile); Signature categories + Latest arrivals now 2-col square grids on mobile.
+- Verified by testing agent (iteration_7.json): 100% pass on mobile (390x844) and desktop (1920x800), no regressions.
+- Note: production is on Vercel/Railway — user must commit to GitHub + redeploy to see live.
