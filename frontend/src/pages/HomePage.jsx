@@ -29,6 +29,7 @@ const signatureCategoryImages = [
     title: "Men's Rings",
     eyebrow: "Feature 3",
     category: "Rings",
+    video: "https://customer-assets.emergentagent.com/job_c39a65ef-6910-4bb2-af06-21144a36a681/artifacts/3igdaj3q_generated_video%20ring.mp4",
     copy: "Layering pieces and strong links designed to complete a premium jewelry wardrobe.",
     image: "https://customer-assets.emergentagent.com/job_shopify-gems-2/artifacts/6wsdgjdk_de550993-6d1f-44b3-a299-5e507be1f0e6.jpg",
   },
@@ -181,12 +182,26 @@ export default function HomePage() {
                 data-testid={`feature-grid-card-link-${index}`}
               >
                 <div className="aspect-square overflow-hidden border-b border-white/10 bg-[#071126] md:aspect-[4/5]" data-testid={`feature-grid-card-image-wrapper-${index}`}>
-                  <img
-                    src={feature.image}
-                    alt={feature.title}
-                    className="h-full w-full object-cover transition duration-700 hover:scale-105"
-                    data-testid={`feature-grid-card-image-${index}`}
-                  />
+                  {feature.video ? (
+                    <video
+                      src={feature.video}
+                      poster={feature.image}
+                      className="h-full w-full object-cover transition duration-700 hover:scale-105"
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      preload="auto"
+                      data-testid={`feature-grid-card-video-${index}`}
+                    />
+                  ) : (
+                    <img
+                      src={feature.image}
+                      alt={feature.title}
+                      className="h-full w-full object-cover transition duration-700 hover:scale-105"
+                      data-testid={`feature-grid-card-image-${index}`}
+                    />
+                  )}
                 </div>
                 <div className="p-3 md:p-7">
                   <p className="hidden text-xs uppercase tracking-[0.28em] text-[#d8b85d] md:block" data-testid={`feature-grid-card-eyebrow-${index}`}>{feature.eyebrow}</p>
