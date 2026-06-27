@@ -26,9 +26,9 @@ export default function ProductDetailPage() {
     return (
       <div className="mx-auto max-w-4xl px-6 py-20 text-center" data-testid="product-missing-state">
         <p className="text-xs uppercase tracking-[0.28em] text-[#d8b85d]" data-testid="product-missing-eyebrow">Coming soon</p>
-        <h1 className="mt-4 font-display text-5xl text-white" data-testid="product-missing-heading">This product will appear after Shopify connection.</h1>
+        <h1 className="mt-4 font-display text-5xl text-white" data-testid="product-missing-heading">This piece isn't available right now.</h1>
         <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-[#cbd2ec]" data-testid="product-missing-description">
-          Royal Spark is clearing sample products now so the client’s live Shopify catalog can be added next.
+          It may have sold out or moved. Explore the rest of the Royal Spark collection for more signature pieces.
         </p>
         <Link
           to="/shop"

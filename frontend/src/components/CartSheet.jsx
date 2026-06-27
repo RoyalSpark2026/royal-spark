@@ -143,7 +143,7 @@ export const CartSheet = ({
             {isRedirecting ? "Redirecting to secure checkout…" : "Proceed to checkout"}
           </Button>
           <p className="text-center text-xs text-[#9aa6cf]" data-testid="cart-secure-note">
-            Secure payment & checkout handled by Shopify.
+            Secure payment & checkout.
           </p>
           <div className="grid gap-3 sm:grid-cols-2">
             <SheetClose asChild>

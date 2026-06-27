@@ -142,7 +142,7 @@ export const Layout = ({ storefront }) => {
           <div className="flex flex-col gap-4">
             <img src={fullLogo} alt="Royal Spark Jewelry logo" className="h-12 w-auto max-w-[210px] object-contain object-left drop-shadow-[0_2px_6px_rgba(216,184,93,0.14)]" data-testid="footer-logo-image" />
             <p className="mt-3 max-w-sm text-sm leading-relaxed text-[#c6cff0]" data-testid="footer-description">
-              A cinematic luxury storefront shaped by the Royal Spark brand film, premium craftsmanship, and a Shopify-ready catalog launch.
+              A cinematic luxury storefront shaped by the Royal Spark brand film, premium craftsmanship, and a curated jewelry collection.
             </p>
           </div>
           <div className="text-sm text-[#e1e6ff]">

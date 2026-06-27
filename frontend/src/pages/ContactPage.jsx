@@ -46,7 +46,7 @@ export default function ContactPage() {
                   <Sparkles className="h-4 w-4" />
                   <p className="text-xs uppercase tracking-[0.22em]">{item}</p>
                 </div>
-                <p className="mt-3 text-sm text-[#cbd2ec]">Available for purchase guidance, custom requests, and future Shopify product consultation.</p>
+                <p className="mt-3 text-sm text-[#cbd2ec]">Available for purchase guidance, custom requests, and private product consultation.</p>
               </div>
             ))}
           </div>
