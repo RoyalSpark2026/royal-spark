@@ -13,16 +13,19 @@ const heroFilmUrl = "https://customer-assets.emergentagent.com/job_shopify-gems-
 const signatureCategoryImages = [
   {
     title: "Rings",
+    eyebrow: "Feature 1",
     copy: "Statement silhouettes with refined brilliance and a strong ceremonial feel.",
     image: "https://customer-assets.emergentagent.com/job_shopify-gems-2/artifacts/zunjm4jc_426b8562-73d0-4980-b0fa-67c1b86f59ff.jpg",
   },
   {
     title: "Grillz",
+    eyebrow: "Custom Art",
     copy: "Bold custom expression shaped with polished metal finishes and standout shine.",
     image: "https://customer-assets.emergentagent.com/job_shopify-gems-2/artifacts/2ho4vbhh_92778eea-ecad-464d-b41f-0d1ec4466d99.jpg",
   },
   {
     title: "Chains",
+    eyebrow: "Men's Championship Ring",
     copy: "Layering pieces and strong links designed to complete a premium jewelry wardrobe.",
     image: "https://customer-assets.emergentagent.com/job_shopify-gems-2/artifacts/6wsdgjdk_de550993-6d1f-44b3-a299-5e507be1f0e6.jpg",
   },
@@ -164,7 +167,7 @@ export default function HomePage() {
                   />
                 </div>
                 <div className="p-3 md:p-7">
-                  <p className="hidden text-xs uppercase tracking-[0.28em] text-[#d8b85d] md:block" data-testid={`feature-grid-card-eyebrow-${index}`}>Feature {index + 1}</p>
+                  <p className="hidden text-xs uppercase tracking-[0.28em] text-[#d8b85d] md:block" data-testid={`feature-grid-card-eyebrow-${index}`}>{feature.eyebrow}</p>
                   <h3 className="font-display text-lg text-white md:mt-5 md:text-4xl" data-testid={`feature-grid-card-title-${index}`}>{feature.title}</h3>
                   <p className="mt-4 hidden text-sm leading-relaxed text-[#cbd2ec] md:block" data-testid={`feature-grid-card-copy-${index}`}>{feature.copy}</p>
                 </div>
