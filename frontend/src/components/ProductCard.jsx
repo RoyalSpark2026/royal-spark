@@ -33,7 +33,7 @@ export const ProductCard = ({ product, isWishlisted, onToggleWishlist, onAddToCa
         </button>
       </Link>
 
-      <div className="flex flex-col space-y-2 p-3 md:h-full md:space-y-4 md:p-5">
+      <div className="flex flex-col space-y-2 p-3 md:flex-1 md:space-y-4 md:p-5">
         <div className="flex items-start justify-between gap-3">
           <div>
             <p className="text-[0.65rem] uppercase tracking-[0.2em] text-[#d8b85d] md:text-xs md:tracking-[0.24em]" data-testid={`product-category-${product.slug}`}>
