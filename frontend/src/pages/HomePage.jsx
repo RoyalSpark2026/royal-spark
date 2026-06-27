@@ -40,17 +40,18 @@ export default function HomePage() {
   const [heroMuted, setHeroMuted] = useState(true);
   const heroVideoRef = useRef(null);
 
-  useEffect(() => {
+  const handleToggleSound = () => {
     const videoElement = heroVideoRef.current;
     if (!videoElement) return;
-
-    videoElement.muted = heroMuted;
-    if (!heroMuted) {
-      videoElement.play().catch(() => {
-        setHeroMuted(true);
-      });
+    const nextMuted = !videoElement.muted;
+    videoElement.muted = nextMuted;
+    if (!nextMuted) {
+      videoElement.volume = 1;
     }
-  }, [heroMuted]);
+    setHeroMuted(nextMuted);
+    const playPromise = videoElement.play();
+    if (playPromise) playPromise.catch(() => {});
+  };
 
   useEffect(() => {
     const videoElement = heroVideoRef.current;
@@ -96,7 +97,7 @@ export default function HomePage() {
               controls
               loop
               playsInline
-              muted={heroMuted}
+              muted
               preload="auto"
               data-testid="hero-full-video"
             />
@@ -104,7 +105,7 @@ export default function HomePage() {
             <div className="absolute inset-x-0 top-0 flex justify-end p-5 md:p-6">
               <button
                 type="button"
-                onClick={() => setHeroMuted((current) => !current)}
+                onClick={handleToggleSound}
                 className="inline-flex items-center gap-2 rounded-full border border-[#d8b85d]/40 bg-[#081226]/70 px-4 py-2 text-xs uppercase tracking-[0.22em] text-[#f4d98e] backdrop-blur"
                 data-testid="hero-video-sound-toggle"
               >
