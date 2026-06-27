@@ -1,4 +1,4 @@
-import { Heart, Menu, ShoppingBag } from "lucide-react";
+import { Heart, Menu, Phone, ShoppingBag } from "lucide-react";
 import { useState } from "react";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 
@@ -38,14 +38,26 @@ export const Layout = ({ storefront }) => {
             <img src={fullLogo} alt="Royal Spark logo" className="h-20 w-auto max-w-[290px] object-contain object-left brightness-110 saturate-150 contrast-110 drop-shadow-[0_2px_6px_rgba(216,184,93,0.18)]" data-testid="header-logo-image" />
           </NavLink>
 
-          <button
-            type="button"
-            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-white md:hidden"
-            onClick={() => setMenuOpen((current) => !current)}
-            data-testid="mobile-menu-button"
-          >
-            <Menu className="h-5 w-5" />
-          </button>
+          <div className="flex items-center gap-2 md:hidden">
+            <a
+              href="tel:+18323297145"
+              className="inline-flex h-11 items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 text-xs text-[#f0f3ff]"
+              data-testid="mobile-header-call-link"
+            >
+              <Phone className="h-4 w-4 text-[#d8b85d]" /> Call
+            </a>
+            <div className="inline-flex h-11 items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-3 text-xs text-[#dfe5ff]" data-testid="mobile-wishlist-count-chip">
+              <Heart className="h-4 w-4 text-[#d8b85d]" /> {storefront.wishlistIds.length}
+            </div>
+            <button
+              type="button"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-white"
+              onClick={() => setMenuOpen((current) => !current)}
+              data-testid="mobile-menu-button"
+            >
+              <Menu className="h-5 w-5" />
+            </button>
+          </div>
 
           <nav className={`${menuOpen ? "flex" : "hidden"} absolute left-0 top-full w-full flex-col gap-2 border-b border-white/10 bg-[#0f1b37] px-6 py-4 md:static md:flex md:w-auto md:flex-row md:items-center md:border-none md:bg-transparent md:p-0`} data-testid="main-navigation">
             {navItems.map((item) => (
