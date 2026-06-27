@@ -4,6 +4,7 @@ import { Link, useOutletContext } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
 
+import { AmbientDiamondLights } from "@/components/AmbientDiamondLights";
 import { Button } from "@/components/ui/button";
 import { ProductCard } from "@/components/ProductCard";
 import { fetchHomeData } from "@/lib/api";
@@ -70,8 +71,9 @@ export default function HomePage() {
   }
 
   return (
-    <div data-testid="home-page">
-      <section className="mx-auto max-w-7xl px-6 py-8 md:px-10 lg:px-16 lg:py-12" data-testid="home-hero-section">
+    <div className="relative overflow-hidden" data-testid="home-page">
+      <AmbientDiamondLights />
+      <section className="relative z-[1] mx-auto max-w-7xl px-6 py-8 md:px-10 lg:px-16 lg:py-12" data-testid="home-hero-section">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -126,7 +128,7 @@ export default function HomePage() {
         </motion.div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-6 py-6 md:px-10 lg:px-16" data-testid="feature-grid-section">
+      <section className="relative z-[1] mx-auto max-w-7xl px-6 py-6 md:px-10 lg:px-16" data-testid="feature-grid-section">
         <div className="mb-10 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl">
             <p className="text-xs uppercase tracking-[0.32em] text-[#d8b85d]" data-testid="feature-grid-eyebrow">Signature categories</p>
@@ -173,7 +175,7 @@ export default function HomePage() {
       </section>
 
       {homeData.featured_products?.length ? (
-        <section className="mx-auto max-w-7xl px-6 pb-20 pt-8 md:px-10 lg:px-16" data-testid="homepage-live-products-section">
+        <section className="relative z-[1] mx-auto max-w-7xl px-6 pb-20 pt-8 md:px-10 lg:px-16" data-testid="homepage-live-products-section">
           <div className="mb-10 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-3xl">
               <p className="text-xs uppercase tracking-[0.32em] text-[#d8b85d]" data-testid="homepage-live-products-eyebrow">Latest arrivals</p>
