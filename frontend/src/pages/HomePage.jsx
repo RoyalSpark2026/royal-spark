@@ -23,6 +23,7 @@ const signatureCategoryImages = [
     title: "Custom Art",
     eyebrow: "Feature 2",
     category: "Grills",
+    video: "/customart-feature.mp4",
     copy: "Bold custom expression shaped with polished metal finishes and standout shine.",
     image: "https://customer-assets.emergentagent.com/job_shopify-gems-2/artifacts/2ho4vbhh_92778eea-ecad-464d-b41f-0d1ec4466d99.jpg",
   },
