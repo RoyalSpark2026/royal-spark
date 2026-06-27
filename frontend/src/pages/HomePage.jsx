@@ -14,18 +14,21 @@ const signatureCategoryImages = [
   {
     title: "Rings",
     eyebrow: "Feature 1",
+    category: "Rings",
     copy: "Statement silhouettes with refined brilliance and a strong ceremonial feel.",
     image: "https://customer-assets.emergentagent.com/job_shopify-gems-2/artifacts/zunjm4jc_426b8562-73d0-4980-b0fa-67c1b86f59ff.jpg",
   },
   {
-    title: "Grillz",
-    eyebrow: "Custom Art",
+    title: "Custom Art",
+    eyebrow: "Feature 2",
+    category: "Grills",
     copy: "Bold custom expression shaped with polished metal finishes and standout shine.",
     image: "https://customer-assets.emergentagent.com/job_shopify-gems-2/artifacts/2ho4vbhh_92778eea-ecad-464d-b41f-0d1ec4466d99.jpg",
   },
   {
-    title: "Chains",
-    eyebrow: "Men's Championship Ring",
+    title: "Men's Championship Ring",
+    eyebrow: "Feature 3",
+    category: "Rings",
     copy: "Layering pieces and strong links designed to complete a premium jewelry wardrobe.",
     image: "https://customer-assets.emergentagent.com/job_shopify-gems-2/artifacts/6wsdgjdk_de550993-6d1f-44b3-a299-5e507be1f0e6.jpg",
   },
@@ -154,7 +157,7 @@ export default function HomePage() {
               data-testid={`feature-grid-card-${index}`}
             >
               <Link
-                to={`/shop?category=${feature.title === "Grillz" ? "Grills" : feature.title}`}
+                to={`/shop?category=${feature.category}`}
                 className="block h-full transition hover:bg-white/5"
                 data-testid={`feature-grid-card-link-${index}`}
               >
