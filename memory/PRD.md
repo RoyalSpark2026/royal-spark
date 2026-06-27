@@ -1,84 +1,64 @@
 # PRD — Royal Spark
 
-Date: 2026-06-14
+Date created: 2026-06-14 · Last updated: 2026-06-27
 
 ## Original Problem Statement
-can a build Jwellary Store and connect to Shopify for Jewllary Store ?
+"can a build Jwellary Store and connect to Shopify for Jewllary Store ?"
+Build a luxury jewelry web app (React + FastAPI + MongoDB) named "Royal Spark" with a deep navy & gold theme. Custom frontend (homepage, shop, product details, bespoke inquiries) using Shopify as the backend engine for live product sync, inventory, and checkout.
 
-## User Choices
-- Full storefront with cart, wishlist, categories, search, and reviews
-- Luxury and elegant brand direction
-- Mixed jewelry catalog plus custom/made-to-order jewelry
-- Build the store first; connect Shopify later when credentials/store are available
+## User's preferred language: English
 
-## Architecture Decisions
-- Frontend: React with routed pages for Home, Shop, Product Detail, and Bespoke Inquiry
-- Backend: FastAPI with catalog, product detail, bespoke inquiry, and Shopify-readiness endpoints
-- Database: MongoDB used for bespoke inquiry submissions
-- Store state: local browser persistence for cart and wishlist
-- Shopify strategy: storefront structured for later Shopify mapping of products, collections, inventory, and checkout redirects
+## Hosting / Deployment (IMPORTANT)
+- Frontend: **Vercel**. Backend: **Railway**. DB: **MongoDB Atlas**. Shopify: live Admin API.
+- Changes made here are in the Emergent workspace — user must commit to GitHub + redeploy on Vercel/Railway to go live.
+- Custom domain: **royalsparkjewelry.com** registered at GoDaddy, root-only, pointing to Vercel (A record 76.76.21.21). User said "all done".
 
-## User Personas
-- Style-conscious shoppers browsing fine jewelry collections
-- Bridal and milestone buyers comparing premium pieces
-- Custom jewelry clients seeking bespoke commissions
-- Store owner preparing to connect a future Shopify catalog
+## Architecture
+```
+/app
+├── backend/server.py     FastAPI: Shopify Admin API sync, catalog, bespoke, checkout
+├── backend/tests/        test_checkout.py, test_shopify_live_integration.py
+├── frontend/src
+│   ├── components/        Layout.jsx, ProductCard.jsx, CartSheet.jsx, AmbientDiamondLights.jsx
+│   ├── pages/             HomePage, ShopPage, ProductDetailPage, BespokePage, ContactPage
+│   ├── hooks/             useStorefrontState.js (cart/wishlist in localStorage)
+│   └── lib/api.js         axios API calls
+└── frontend/public/       logos, favicon, feature videos
+```
 
-## Core Requirements
-- Elegant luxury storefront experience
-- Product discovery via categories and search
-- Product detail pages with reviews and material choices
-- Cart and wishlist flow
-- Bespoke/custom jewelry inquiry submission
-- Future-ready Shopify connection path
+## Key API Endpoints
+- GET /api/catalog/home — featured collections + latest 6 products (incl. variant_id)
+- GET /api/catalog/products — live Shopify products (incl. variant_id)
+- GET /api/catalog/products/{slug} — product detail
+- POST /api/checkout — body {items:[{variant_id,quantity}]} → {checkout_url} (Shopify cart permalink)
+- POST /api/bespoke-inquiries — stores custom inquiry in Mongo
+- GET /api/shopify/readiness — Shopify connection health
 
-## What's Been Implemented
-### 2026-06-14
-- Built Maison Aurelle luxury storefront UI with editorial homepage, hero section, collections, atelier story, and testimonials
-- Added Shop page with category filters, search, and customizable-only filtering
-- Added Product Detail page with image gallery, material selection, reviews, and add-to-cart / wishlist actions
-- Added slide-out cart with quantity controls and removal
-- Added Bespoke Inquiry page connected to backend submission API
-- Added FastAPI catalog APIs, product detail API, bespoke inquiry API, and Shopify readiness API
-- Stored bespoke inquiries in MongoDB
-- Added responsive navigation, mobile menu, and complete data-testid coverage for key UI flows
-- Updated storefront branding to Royal Spark, with phone in the header and full contact details in the footer
-- Re-themed the storefront with a blue-and-gold campaign style, loaded uploaded PNG campaign visuals, and refreshed the seeded catalog toward rings, grillz, chains, and bracelets
-- Added requested category structure: Chains, Bangles, Grillz, Charms, Rings, Earrings, Bracelets, Moissanite filter, and Contact page/section
-- Removed all existing sample products and replaced homepage/category product areas with luxury Coming Soon states to prepare for live Shopify catalog connection
-- Added homepage brand-film section using the uploaded video, updated copy/tagline toward the video mood, and removed landing-page images in favor of elegant placeholders for final assets
-- Replaced the split homepage hero with one full-width top video hero using the uploaded brand film, including on-page controls and cinematic copy
+## Shopify config (backend/.env)
+- SHOPIFY_STORE_DOMAIN (e.g. royal-spark-jewelry-3.myshopify.com), SHOPIFY_ADMIN_TOKEN
+- Checkout = cart permalink https://{store}/cart/{variant_id}:{qty},... → Shopify hosted checkout/payment
+
+## Implemented (2026-06-27 session)
+- Mobile UI polish: square product images, 2-col grids on mobile; desktop unchanged (verified iter 7).
+- Fixed desktop product-card empty space below buttons (md:flex-1) (iter 8).
+- Hero "Enable sound" toggle fixed (direct ref toggle + static muted; pointer-events layering) (iter 9,10).
+- Mobile hero: text moved below video so video isn't covered.
+- Scroll-aware hero sound: plays through sections 1–2, auto-mutes from section 3 (Latest arrivals), restores on scroll up.
+- Mobile header: added "Call" click-to-dial + wishlist count chip.
+- Feature section renamed: Rings→Memories, Grillz→Custom Art, Chains→Men's Rings; all three now play compressed videos (memories/customart/ring -feature.mp4 in public/, ~750KB–2MB, H.264 CRF24, audio stripped) with image poster fallback.
+- Favicon: full logo (crown + ROYAL SPARK JEWELRY) on landing-page navy gradient, rounded corners (v=8).
+- Landing page header/footer logos: removed brightness/saturate/contrast filters to match favicon's natural gold.
+- **Checkout → payment (iter 11, 100% pass):** backend exposes variant_id + POST /api/checkout (Shopify cart permalink); CartSheet has "Proceed to checkout" button → redirects to Shopify hosted checkout. Cart now lazy-inits from localStorage (survives reload).
 
 ## Prioritized Backlog
-### P0
-- Connect real Shopify store credentials and replace local catalog with Shopify product/collection sync
-- Add Shopify checkout redirect / buy flow
-
 ### P1
-- Add product sorting controls and richer review management
-- Add image/file upload support for bespoke inspiration submissions
-- Add admin-friendly CMS or product editing workflow
-
+- Optional: www subdomain redirect for royalsparkjewelry.com (currently root-only).
+- Multi-variant checkout: map cart material selection → correct Shopify variant (currently uses default/first variant).
+- Pause hero video when browser tab hidden (suggested, not built).
 ### P2
-- Add customer accounts, order history, and saved bespoke consultations
-- Add editorial campaign pages and gifting/occasion landing pages
-- Add analytics-driven featured collection management
+- AR virtual try-on for grillz/rings (Phase 2).
+- Product sorting controls, richer reviews; bespoke attachments + consultation scheduling.
+- Customer accounts / order history.
 
-## Next Tasks
-- Connect Shopify once store credentials are available
-- Map local product schema to Shopify products, collections, and inventory fields
-- Add checkout redirection and live product sync status in the UI
-- Expand bespoke intake with attachments and consultation scheduling
-
-- Extracted a cleaner logo crop from the latest uploaded artwork and replaced the site logo usage across the shared header/footer layout
-
-- Replaced the cropped screenshot logo with a redrawn gold transparent logo system plus square icon and favicon files for consistent branding across the site
-
-
-## Mobile UI Polish (2026-06-27)
-- ProductCard: responsive — mobile shows square image (aspect-square object-cover) + compact name/price + small "Add" button; desktop (md:) keeps aspect-[4/5], description, rating, full action row. Removed h-full/mt-auto on mobile to eliminate empty space below cards.
-- ShopPage: grid is grid-cols-2 on mobile, xl:grid-cols-4 on desktop.
-- Layout: mobile category bar converted to a <select> dropdown (navigates on change); desktop horizontal scroll bar retained.
-- HomePage: hero wrapper aspect-[4/5] sm:aspect-[16/10] (fits frame on mobile); Signature categories + Latest arrivals now 2-col square grids on mobile.
-- Verified by testing agent (iteration_7.json): 100% pass on mobile (390x844) and desktop (1920x800), no regressions.
-- Note: production is on Vercel/Railway — user must commit to GitHub + redeploy to see live.
+## Test Credentials
+- N/A — storefront routes public; Shopify uses backend .env tokens.

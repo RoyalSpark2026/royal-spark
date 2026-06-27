@@ -13,13 +13,8 @@ const readStoredValue = (key, fallback) => {
 };
 
 export const useStorefrontState = () => {
-  const [cartItems, setCartItems] = useState([]);
-  const [wishlistIds, setWishlistIds] = useState([]);
-
-  useEffect(() => {
-    setCartItems(readStoredValue(CART_KEY, []));
-    setWishlistIds(readStoredValue(WISHLIST_KEY, []));
-  }, []);
+  const [cartItems, setCartItems] = useState(() => readStoredValue(CART_KEY, []));
+  const [wishlistIds, setWishlistIds] = useState(() => readStoredValue(WISHLIST_KEY, []));
 
   useEffect(() => {
     window.localStorage.setItem(CART_KEY, JSON.stringify(cartItems));
