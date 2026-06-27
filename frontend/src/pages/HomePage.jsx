@@ -111,7 +111,7 @@ export default function HomePage() {
                 <Volume2 className="h-4 w-4" /> {heroMuted ? "Enable sound" : "Mute sound"}
               </button>
             </div>
-            <div className="absolute left-0 right-0 top-0 px-5 py-5 md:px-8 md:py-8">
+            <div className="absolute left-0 right-0 top-0 hidden px-5 py-5 md:block md:px-8 md:py-8">
               <div className="max-w-xl rounded-[24px] border border-white/10 bg-[#081226]/46 p-4 backdrop-blur-md md:p-5">
                 <p className="text-xs uppercase tracking-[0.32em] text-[#d8b85d]" data-testid="hero-eyebrow">Discover exquisite elegance</p>
                 <h1 className="mt-2 font-display text-3xl leading-[0.98] text-white md:text-4xl" data-testid="hero-heading">
@@ -132,6 +132,24 @@ export default function HomePage() {
             </div>
           </div>
         </motion.div>
+
+        <div className="mt-5 md:hidden" data-testid="hero-mobile-content">
+          <p className="text-xs uppercase tracking-[0.3em] text-[#d8b85d]" data-testid="hero-mobile-eyebrow">Discover exquisite elegance</p>
+          <h1 className="mt-2 font-display text-3xl leading-[1.02] text-white" data-testid="hero-mobile-heading">
+            Where luxury meets craftsmanship.
+          </h1>
+          <p className="mt-3 text-sm leading-relaxed text-[#cbd2ec]" data-testid="hero-mobile-description">
+            Royal Spark presents regal detail, refined craftsmanship, and bold jewelry with a polished luxury presence.
+          </p>
+          <div className="mt-4 flex flex-wrap gap-3">
+            <Button asChild className="h-10 rounded-full bg-[#d8b85d] px-4 text-[#081226] hover:bg-[#f0d78d]" data-testid="hero-mobile-shop-button">
+              <Link to="/shop">Browse categories <ArrowRight className="h-4 w-4" /></Link>
+            </Button>
+            <Button asChild variant="outline" className="h-10 rounded-full border-[#d8b85d]/40 bg-transparent text-white hover:bg-white/10" data-testid="hero-mobile-bespoke-button">
+              <Link to="/bespoke">Start bespoke request</Link>
+            </Button>
+          </div>
+        </div>
       </section>
 
       <section className="relative z-[1] mx-auto max-w-7xl px-6 py-6 md:px-10 lg:px-16" data-testid="feature-grid-section">
