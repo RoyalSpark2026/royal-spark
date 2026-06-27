@@ -4,7 +4,7 @@ import { Link, NavLink, Outlet } from "react-router-dom";
 
 import { CartSheet } from "@/components/CartSheet";
 
-const fullLogo = "https://customer-assets.emergentagent.com/job_shopify-gems-2/artifacts/aqul3ig0_image.png";
+const fullLogo = "/royal-spark-logo-grok-clean.png";
 
 const navItems = [
   { to: "/", label: "Home" },
