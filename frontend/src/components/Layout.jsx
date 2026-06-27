@@ -34,7 +34,7 @@ export const Layout = ({ storefront }) => {
       <header className="sticky top-0 z-40 border-b border-white/10 bg-[#081226]/80 backdrop-blur-xl" data-testid="site-header">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-4 md:px-10 lg:px-16">
           <NavLink to="/" className="flex items-center text-white" data-testid="brand-home-link">
-            <img src={fullLogo} alt="Royal Spark logo" className="h-16 w-auto max-w-[250px] object-contain object-left drop-shadow-[0_1px_3px_rgba(216,184,93,0.10)]" data-testid="header-logo-image" />
+            <img src={fullLogo} alt="Royal Spark logo" className="h-20 w-auto max-w-[290px] object-contain object-left brightness-110 saturate-150 contrast-110 drop-shadow-[0_2px_6px_rgba(216,184,93,0.18)]" data-testid="header-logo-image" />
           </NavLink>
 
           <button
@@ -110,7 +110,7 @@ export const Layout = ({ storefront }) => {
       <footer className="border-t border-white/10 bg-[#081226]/70" data-testid="site-footer">
         <div className="mx-auto grid max-w-7xl gap-6 px-6 py-10 md:grid-cols-3 md:px-10 lg:px-16">
           <div className="flex flex-col gap-4">
-            <img src={fullLogo} alt="Royal Spark Jewelry logo" className="h-10 w-auto max-w-[180px] object-contain object-left drop-shadow-[0_1px_3px_rgba(216,184,93,0.08)]" data-testid="footer-logo-image" />
+            <img src={fullLogo} alt="Royal Spark Jewelry logo" className="h-12 w-auto max-w-[210px] object-contain object-left brightness-110 saturate-150 contrast-110 drop-shadow-[0_2px_6px_rgba(216,184,93,0.14)]" data-testid="footer-logo-image" />
             <p className="mt-3 max-w-sm text-sm leading-relaxed text-[#c6cff0]" data-testid="footer-description">
               A cinematic luxury storefront shaped by the Royal Spark brand film, premium craftsmanship, and a Shopify-ready catalog launch.
             </p>
