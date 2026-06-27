@@ -13,9 +13,9 @@ export const ProductCard = ({ product, isWishlisted, onToggleWishlist, onAddToCa
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true, amount: 0.2 }}
     transition={{ duration: 0.55 }}
-    className="h-full"
+    className="md:h-full"
   >
-    <Card className="group flex h-full flex-col overflow-hidden rounded-[20px] border border-white/10 bg-[#111d3a]/90 text-white shadow-[0_0_30px_rgba(8,18,38,0.35)] md:rounded-[32px]" data-testid={`product-card-${product.slug}`}>
+    <Card className="group flex flex-col overflow-hidden rounded-[20px] border border-white/10 bg-[#111d3a]/90 text-white shadow-[0_0_30px_rgba(8,18,38,0.35)] md:h-full md:rounded-[32px]" data-testid={`product-card-${product.slug}`}>
       <Link to={`/shop/${product.slug}`} className="relative block overflow-hidden">
         <img
           src={product.hero_image}
@@ -33,7 +33,7 @@ export const ProductCard = ({ product, isWishlisted, onToggleWishlist, onAddToCa
         </button>
       </Link>
 
-      <div className="flex h-full flex-col space-y-2 p-3 md:space-y-4 md:p-5">
+      <div className="flex flex-col space-y-2 p-3 md:h-full md:space-y-4 md:p-5">
         <div className="flex items-start justify-between gap-3">
           <div>
             <p className="text-[0.65rem] uppercase tracking-[0.2em] text-[#d8b85d] md:text-xs md:tracking-[0.24em]" data-testid={`product-category-${product.slug}`}>
@@ -85,7 +85,7 @@ export const ProductCard = ({ product, isWishlisted, onToggleWishlist, onAddToCa
         <Button
           type="button"
           onClick={() => onAddToCart(product)}
-          className="mt-auto h-9 rounded-full bg-[#d8b85d] text-xs text-[#081226] hover:bg-[#f0d78d] md:hidden"
+          className="mt-1 h-9 rounded-full bg-[#d8b85d] text-xs text-[#081226] hover:bg-[#f0d78d] md:hidden"
           data-testid={`mobile-add-to-cart-${product.slug}`}
         >
           <ShoppingBag className="h-3.5 w-3.5" /> Add

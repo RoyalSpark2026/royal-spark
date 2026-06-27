@@ -81,7 +81,7 @@ export default function HomePage() {
           className="relative overflow-hidden rounded-[38px] border border-white/10 bg-[#050b18]"
           data-testid="home-hero-video-wrapper"
         >
-          <div className="relative aspect-[16/10] w-full overflow-hidden bg-black">
+          <div className="relative aspect-[4/5] w-full overflow-hidden bg-black sm:aspect-[16/10]">
             <video
               ref={heroVideoRef}
               src={heroFilmUrl}
@@ -139,7 +139,7 @@ export default function HomePage() {
           </p>
         </div>
 
-        <div className="grid gap-6 lg:grid-cols-3" data-testid="feature-grid-cards">
+        <div className="grid grid-cols-2 gap-3 md:gap-6 lg:grid-cols-3" data-testid="feature-grid-cards">
           {signatureCategoryImages.map((feature, index) => (
             <motion.div
               key={feature.title}
@@ -147,7 +147,7 @@ export default function HomePage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.45, delay: index * 0.08 }}
-              className="overflow-hidden rounded-[32px] border border-white/10 bg-[linear-gradient(160deg,_rgba(14,28,58,1),_rgba(7,16,36,0.98))]"
+              className="overflow-hidden rounded-[20px] border border-white/10 bg-[linear-gradient(160deg,_rgba(14,28,58,1),_rgba(7,16,36,0.98))] md:rounded-[32px]"
               data-testid={`feature-grid-card-${index}`}
             >
               <Link
@@ -155,7 +155,7 @@ export default function HomePage() {
                 className="block h-full transition hover:bg-white/5"
                 data-testid={`feature-grid-card-link-${index}`}
               >
-                <div className="aspect-[4/5] overflow-hidden border-b border-white/10 bg-[#071126]" data-testid={`feature-grid-card-image-wrapper-${index}`}>
+                <div className="aspect-square overflow-hidden border-b border-white/10 bg-[#071126] md:aspect-[4/5]" data-testid={`feature-grid-card-image-wrapper-${index}`}>
                   <img
                     src={feature.image}
                     alt={feature.title}
@@ -163,10 +163,10 @@ export default function HomePage() {
                     data-testid={`feature-grid-card-image-${index}`}
                   />
                 </div>
-                <div className="p-7">
-                  <p className="text-xs uppercase tracking-[0.28em] text-[#d8b85d]" data-testid={`feature-grid-card-eyebrow-${index}`}>Feature {index + 1}</p>
-                  <h3 className="mt-5 font-display text-4xl text-white" data-testid={`feature-grid-card-title-${index}`}>{feature.title}</h3>
-                  <p className="mt-4 text-sm leading-relaxed text-[#cbd2ec]" data-testid={`feature-grid-card-copy-${index}`}>{feature.copy}</p>
+                <div className="p-3 md:p-7">
+                  <p className="hidden text-xs uppercase tracking-[0.28em] text-[#d8b85d] md:block" data-testid={`feature-grid-card-eyebrow-${index}`}>Feature {index + 1}</p>
+                  <h3 className="font-display text-lg text-white md:mt-5 md:text-4xl" data-testid={`feature-grid-card-title-${index}`}>{feature.title}</h3>
+                  <p className="mt-4 hidden text-sm leading-relaxed text-[#cbd2ec] md:block" data-testid={`feature-grid-card-copy-${index}`}>{feature.copy}</p>
                 </div>
               </Link>
             </motion.div>
@@ -184,7 +184,7 @@ export default function HomePage() {
             <Link to="/shop" className="text-sm uppercase tracking-[0.24em] text-[#d8b85d]" data-testid="homepage-live-products-link">View all products</Link>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3" data-testid="homepage-live-products-grid">
+          <div className="grid grid-cols-2 gap-3 md:gap-6 md:grid-cols-2 xl:grid-cols-3" data-testid="homepage-live-products-grid">
             {homeData.featured_products.map((product) => (
               <ProductCard
                 key={product.id}
