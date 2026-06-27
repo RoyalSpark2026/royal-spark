@@ -49,11 +49,13 @@ def truncate_text(value: str, max_length: int = 120) -> str:
 
 
 def get_shopify_store_domain() -> Optional[str]:
-    return os.environ.get("SHOPIFY_STORE_DOMAIN")
+    value = os.environ.get("SHOPIFY_STORE_DOMAIN")
+    return value.strip() if value else None
 
 
 def get_shopify_admin_token() -> Optional[str]:
-    return os.environ.get("SHOPIFY_ADMIN_TOKEN")
+    value = os.environ.get("SHOPIFY_ADMIN_TOKEN")
+    return value.strip() if value else None
 
 
 def shopify_is_configured() -> bool:
