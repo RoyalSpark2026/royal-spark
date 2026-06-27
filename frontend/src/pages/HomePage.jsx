@@ -42,6 +42,7 @@ export default function HomePage() {
   const { data: homeData, isLoading } = useQuery({ queryKey: ["home-data"], queryFn: fetchHomeData });
   const [heroMuted, setHeroMuted] = useState(true);
   const heroVideoRef = useRef(null);
+  const userMutedRef = useRef(true);
 
   const handleToggleSound = () => {
     const videoElement = heroVideoRef.current;
@@ -51,6 +52,7 @@ export default function HomePage() {
     if (!nextMuted) {
       videoElement.volume = 1;
     }
+    userMutedRef.current = nextMuted;
     setHeroMuted(nextMuted);
     const playPromise = videoElement.play();
     if (playPromise) playPromise.catch(() => {});
@@ -58,23 +60,32 @@ export default function HomePage() {
 
   useEffect(() => {
     const videoElement = heroVideoRef.current;
-    const heroWrapper = document.querySelector('[data-testid="home-hero-video-wrapper"]');
-    if (!videoElement || !heroWrapper) return;
+    if (!videoElement) return;
+
+    // Keep the hero video playing through the hero (1st) and signature (2nd) sections.
+    videoElement.play().catch(() => {});
+
+    const arrivalsSection = document.querySelector('[data-testid="homepage-live-products-section"]');
+    if (!arrivalsSection) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          videoElement.play().catch(() => {});
-        } else {
+          // Reached the 3rd section (Latest arrivals) -> mute & pause the hero video.
+          videoElement.muted = true;
           videoElement.pause();
+        } else {
+          // Back on the 1st/2nd section -> restore the user's sound choice and resume.
+          videoElement.muted = userMutedRef.current;
+          videoElement.play().catch(() => {});
         }
       },
-      { threshold: 0.35 },
+      { threshold: 0.15 },
     );
 
-    observer.observe(heroWrapper);
+    observer.observe(arrivalsSection);
     return () => observer.disconnect();
-  }, []);
+  }, [homeData]);
 
   if (isLoading || !homeData) {
     return <div className="px-6 py-24 text-center text-sm text-[#666666]" data-testid="home-loading-state">Curating the collection…</div>;
