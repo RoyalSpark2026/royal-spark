@@ -152,6 +152,7 @@ def transform_shopify_product(product: dict) -> dict:
         "category": category,
         "price": price_value,
         "currency": "USD",
+        "variant_id": str(first_variant.get("id")) if first_variant.get("id") else None,
         "materials": materials,
         "is_customizable": customizable,
         "featured": featured,
@@ -277,6 +278,7 @@ class Product(BaseModel):
     category: str
     price: float
     currency: str
+    variant_id: Optional[str] = None
     materials: List[str]
     is_customizable: bool
     featured: bool
@@ -297,6 +299,7 @@ class ProductSummary(BaseModel):
     category: str
     price: float
     currency: str
+    variant_id: Optional[str] = None
     formatted_price: str
     hero_image: str
     rating: float
@@ -353,6 +356,19 @@ class ShopifyReadiness(BaseModel):
     has_admin_token: Optional[bool] = None
 
 
+class CheckoutItem(BaseModel):
+    variant_id: str
+    quantity: int = 1
+
+
+class CheckoutRequest(BaseModel):
+    items: List[CheckoutItem]
+
+
+class CheckoutResponse(BaseModel):
+    checkout_url: str
+
+
 def build_product_summary(product: dict) -> ProductSummary:
     return ProductSummary(
         id=product["id"],
@@ -361,6 +377,7 @@ def build_product_summary(product: dict) -> ProductSummary:
         category=product["category"],
         price=product["price"],
         currency=product["currency"],
+        variant_id=product.get("variant_id"),
         formatted_price=format_money(product["price"]),
         hero_image=product["hero_image"],
         rating=product["rating"],
@@ -511,6 +528,24 @@ async def get_shopify_readiness():
         has_store_domain=bool(get_shopify_store_domain()),
         has_admin_token=bool(get_shopify_admin_token()),
     )
+
+
+@api_router.post("/checkout", response_model=CheckoutResponse)
+async def create_checkout(payload: CheckoutRequest):
+    store_domain = get_shopify_store_domain()
+    if not store_domain:
+        raise HTTPException(status_code=503, detail="Shopify store is not configured")
+
+    valid_items = [
+        item for item in payload.items
+        if item.variant_id and item.variant_id not in ("None", "null", "") and item.quantity > 0
+    ]
+    if not valid_items:
+        raise HTTPException(status_code=400, detail="No valid items to checkout")
+
+    cart_path = ",".join(f"{item.variant_id}:{item.quantity}" for item in valid_items)
+    checkout_url = f"https://{store_domain}/cart/{cart_path}"
+    return CheckoutResponse(checkout_url=checkout_url)
 
 # Include the router in the main app
 app.include_router(api_router)

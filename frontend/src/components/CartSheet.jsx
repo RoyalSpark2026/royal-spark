@@ -1,6 +1,9 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
+import { createCheckout } from "@/lib/api";
 import {
   Sheet,
   SheetClose,
@@ -19,8 +22,31 @@ export const CartSheet = ({
   subtotal,
   updateCartQuantity,
   removeFromCart,
-}) => (
-  <Sheet open={open} onOpenChange={onOpenChange}>
+}) => {
+  const [isRedirecting, setIsRedirecting] = useState(false);
+
+  const handleCheckout = async () => {
+    const items = cartItems
+      .filter((item) => item.variant_id)
+      .map((item) => ({ variant_id: String(item.variant_id), quantity: item.quantity }));
+
+    if (items.length === 0) {
+      toast.error("Please remove and re-add your items, then checkout again.");
+      return;
+    }
+
+    try {
+      setIsRedirecting(true);
+      const { checkout_url } = await createCheckout(items);
+      window.location.href = checkout_url;
+    } catch (error) {
+      setIsRedirecting(false);
+      toast.error("We couldn't start checkout. Please try again.");
+    }
+  };
+
+  return (
+    <Sheet open={open} onOpenChange={onOpenChange}>
     <SheetContent className="w-full border-l border-white/10 bg-[#081226] text-white sm:max-w-lg" data-testid="cart-sheet">
       <SheetHeader className="border-b border-white/10 pb-5">
         <SheetTitle className="font-display text-3xl text-[#f5f7ff]" data-testid="cart-sheet-title">
@@ -102,14 +128,26 @@ export const CartSheet = ({
           )}
         </div>
 
-        <div className="space-y-4 border-t border-white/10 pt-6">
+        <div className="space-y-3 border-t border-white/10 pt-6">
           <div className="flex items-center justify-between text-sm uppercase tracking-[0.24em] text-[#c6cff0]">
             <span data-testid="cart-subtotal-label">Estimated subtotal</span>
             <span className="font-medium text-[#f5f7ff]" data-testid="cart-subtotal-value">{formatMoney(subtotal)}</span>
           </div>
+          <Button
+            type="button"
+            onClick={handleCheckout}
+            disabled={cartItems.length === 0 || isRedirecting}
+            className="h-12 w-full rounded-full bg-[#d8b85d] text-sm uppercase tracking-[0.18em] text-[#081226] transition hover:bg-[#f0d78d] disabled:opacity-50"
+            data-testid="cart-checkout-button"
+          >
+            {isRedirecting ? "Redirecting to secure checkout…" : "Proceed to checkout"}
+          </Button>
+          <p className="text-center text-xs text-[#9aa6cf]" data-testid="cart-secure-note">
+            Secure payment & checkout handled by Shopify.
+          </p>
           <div className="grid gap-3 sm:grid-cols-2">
             <SheetClose asChild>
-              <Button asChild className="h-11 rounded-full bg-[#d8b85d] text-[#081226] hover:bg-[#f0d78d]" data-testid="cart-continue-shopping-button">
+              <Button asChild variant="outline" className="h-11 rounded-full border-[#d8b85d]/40 bg-transparent text-[#f5f7ff] hover:bg-white/10" data-testid="cart-continue-shopping-button">
                 <Link to="/shop">Continue shopping</Link>
               </Button>
             </SheetClose>
@@ -123,4 +161,5 @@ export const CartSheet = ({
       </div>
     </SheetContent>
   </Sheet>
-);
+  );
+};

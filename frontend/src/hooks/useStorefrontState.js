@@ -49,6 +49,7 @@ export const useStorefrontState = () => {
           slug: product.slug,
           name: product.name,
           price: product.price,
+          variant_id: product.variant_id || null,
           hero_image: product.hero_image,
           material: chosenMaterial,
           quantity: 1,

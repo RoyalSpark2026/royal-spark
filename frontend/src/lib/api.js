@@ -28,3 +28,8 @@ export const fetchShopifyReadiness = async () => {
   const response = await api.get("/shopify/readiness");
   return response.data;
 };
+
+export const createCheckout = async (items) => {
+  const response = await api.post("/checkout", { items });
+  return response.data;
+};
