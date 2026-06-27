@@ -1,6 +1,6 @@
 import { Heart, Menu, ShoppingBag } from "lucide-react";
 import { useState } from "react";
-import { Link, NavLink, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 
 import { CartSheet } from "@/components/CartSheet";
 
@@ -28,6 +28,7 @@ const categoryItems = [
 export const Layout = ({ storefront }) => {
   const [cartOpen, setCartOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <div className="min-h-screen bg-[radial-gradient(circle_at_top_right,_rgba(64,112,255,0.18),_transparent_26%),linear-gradient(180deg,_#081226_0%,_#101a33_100%)] text-[#f3f5ff]" data-testid="app-shell">
@@ -88,17 +89,34 @@ export const Layout = ({ storefront }) => {
         </div>
 
         <div className="border-t border-white/5 bg-[#0d1835]/90" data-testid="category-header-bar">
-          <div className="mx-auto flex max-w-7xl gap-3 overflow-x-auto px-6 py-3 md:px-10 lg:px-16" data-testid="category-header-scroll-row">
-            {categoryItems.map((item) => (
-              <Link
-                key={item.label}
-                to={item.href}
-                className="shrink-0 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs uppercase tracking-[0.24em] text-[#dfe5ff] transition hover:border-[#d8b85d]/40 hover:bg-white/10 hover:text-[#d8b85d]"
-                data-testid={`header-category-link-${item.label.toLowerCase()}`}
-              >
-                {item.label}
-              </Link>
-            ))}
+          <div className="mx-auto max-w-7xl px-6 py-3 md:px-10 lg:px-16">
+            <select
+              className="w-full rounded-full border border-white/10 bg-[#0f1b37] px-4 py-2.5 text-xs uppercase tracking-[0.24em] text-[#dfe5ff] outline-none md:hidden"
+              defaultValue=""
+              onChange={(event) => {
+                if (event.target.value) navigate(event.target.value);
+              }}
+              data-testid="mobile-category-select"
+            >
+              <option value="" disabled>Browse categories</option>
+              {categoryItems.map((item) => (
+                <option key={item.label} value={item.href} className="bg-[#0f1b37] text-[#dfe5ff]">
+                  {item.label}
+                </option>
+              ))}
+            </select>
+            <div className="hidden gap-3 overflow-x-auto md:flex" data-testid="category-header-scroll-row">
+              {categoryItems.map((item) => (
+                <Link
+                  key={item.label}
+                  to={item.href}
+                  className="shrink-0 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs uppercase tracking-[0.24em] text-[#dfe5ff] transition hover:border-[#d8b85d]/40 hover:bg-white/10 hover:text-[#d8b85d]"
+                  data-testid={`header-category-link-${item.label.toLowerCase()}`}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </header>
