@@ -12,9 +12,10 @@ import { fetchHomeData } from "@/lib/api";
 const heroFilmUrl = "https://customer-assets.emergentagent.com/job_shopify-gems-2/artifacts/yj0dyksy_generated_video%20%281%29.mp4";
 const signatureCategoryImages = [
   {
-    title: "Rings",
+    title: "Memories",
     eyebrow: "Feature 1",
     category: "Rings",
+    video: "/memories-feature.mp4",
     copy: "Statement silhouettes with refined brilliance and a strong ceremonial feel.",
     image: "https://customer-assets.emergentagent.com/job_shopify-gems-2/artifacts/zunjm4jc_426b8562-73d0-4980-b0fa-67c1b86f59ff.jpg",
   },
