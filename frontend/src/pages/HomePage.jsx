@@ -29,7 +29,7 @@ const signatureCategoryImages = [
     title: "Men's Rings",
     eyebrow: "Feature 3",
     category: "Rings",
-    video: "https://customer-assets.emergentagent.com/job_c39a65ef-6910-4bb2-af06-21144a36a681/artifacts/3igdaj3q_generated_video%20ring.mp4",
+    video: "/ring-feature.mp4",
     copy: "Layering pieces and strong links designed to complete a premium jewelry wardrobe.",
     image: "https://customer-assets.emergentagent.com/job_shopify-gems-2/artifacts/6wsdgjdk_de550993-6d1f-44b3-a299-5e507be1f0e6.jpg",
   },
