@@ -1,6 +1,7 @@
 import logging
 import os
 import re
+import time
 from datetime import datetime, timezone
 from html import unescape
 from pathlib import Path
@@ -58,12 +59,78 @@ def get_shopify_admin_token() -> Optional[str]:
     return value.strip() if value else None
 
 
+def get_shopify_client_id() -> Optional[str]:
+    value = os.environ.get("SHOPIFY_CLIENT_ID")
+    return value.strip() if value else None
+
+
+def get_shopify_client_secret() -> Optional[str]:
+    value = os.environ.get("SHOPIFY_CLIENT_SECRET")
+    return value.strip() if value else None
+
+
+# In-memory cache for the auto-refreshed Shopify access token.
+_shopify_token_cache: dict = {"token": None, "expires_at": 0.0}
+
+
+def fetch_shopify_token_via_client_credentials() -> Optional[str]:
+    """Obtain a fresh Admin API access token using the app's client credentials.
+
+    These dev-dashboard app tokens expire (~24h), so we fetch on demand and cache
+    until shortly before expiry. This avoids any manual token rotation.
+    """
+    store_domain = get_shopify_store_domain()
+    client_id = get_shopify_client_id()
+    client_secret = get_shopify_client_secret()
+    if not (store_domain and client_id and client_secret):
+        return None
+
+    now = time.time()
+    if _shopify_token_cache["token"] and _shopify_token_cache["expires_at"] > now:
+        return _shopify_token_cache["token"]
+
+    try:
+        response = requests.post(
+            f"https://{store_domain}/admin/oauth/access_token",
+            json={
+                "client_id": client_id,
+                "client_secret": client_secret,
+                "grant_type": "client_credentials",
+            },
+            timeout=30,
+        )
+        if response.status_code >= 400:
+            logging.error("Shopify token fetch failed: %s", response.text[:200])
+            return None
+        data = response.json()
+        token = data.get("access_token")
+        expires_in = int(data.get("expires_in") or 3600)
+        if token:
+            # Refresh 5 minutes before actual expiry.
+            _shopify_token_cache["token"] = token
+            _shopify_token_cache["expires_at"] = now + max(expires_in - 300, 60)
+        return token
+    except Exception as exc:  # noqa: BLE001
+        logging.error("Shopify token fetch exception: %s", exc)
+        return None
+
+
+def resolve_shopify_token() -> Optional[str]:
+    """Prefer the auto-refreshed client-credentials token; fall back to a static env token."""
+    token = fetch_shopify_token_via_client_credentials()
+    if token:
+        return token
+    return get_shopify_admin_token()
+
+
 def shopify_is_configured() -> bool:
-    return bool(get_shopify_store_domain() and get_shopify_admin_token())
+    has_domain = bool(get_shopify_store_domain())
+    has_client = bool(get_shopify_client_id() and get_shopify_client_secret())
+    return has_domain and (has_client or bool(get_shopify_admin_token()))
 
 
 def shopify_headers() -> dict:
-    token = get_shopify_admin_token()
+    token = resolve_shopify_token()
     if not token:
         raise HTTPException(status_code=503, detail="Shopify is not configured")
     return {

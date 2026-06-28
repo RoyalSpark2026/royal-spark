@@ -1,0 +1,30 @@
+{
+  "summary": "Verified the Shopify Admin token auto-refresh fix (client_credentials grant against /admin/oauth/access_token, cached until ~5min before expiry). All backend + frontend acceptance criteria pass. Backend pytest (7/7) confirms: /api/shopify/readiness -> 200 connection_ready=true; /api/catalog/products -> 200 with total=42 and every item carries a numeric variant_id; /api/catalog/home -> 200 with 6 featured_products (all numeric variant_ids); /api/catalog/products/<live-slug> -> 200; POST /api/checkout -> 200 with correct cart-permalink for valid items, 400 for empty items, and works with a real live variant_id from the catalog. Frontend (desktop 1280x900 + mobile 390x844): the 'home-loading-state' ('Curating the collection…') is no longer visible; 'homepage-live-products-grid' renders 6 live product cards; /shop renders 42 product cards. Full checkout smoke: Add to cart -> open-cart-button -> cart-checkout-button fires POST /api/checkout with payload {items:[{variant_id:'43466208018521',quantity:1}]} and the network response returns status=200 (browser then navigates to the returned Shopify cart permalink). The previous 'Curating the collection…' / 502 outage is fully resolved by the auto-refresh.",
+  "backend_issues": { "critical": [], "minor": [] },
+  "frontend_issues": { "ui_bugs": [], "integration_issues": [], "design_issues": [] },
+  "test_report_links": [
+    "/app/backend/tests/test_shopify_token_autorefresh.py",
+    "/app/test_reports/pytest/iter12_autorefresh.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "Acceptance-criteria note: the request listed 'GET /api/catalog/products/spark-mobile-fix returns 200'. 'spark-mobile-fix' is the preview subdomain, not a real Shopify slug — that endpoint correctly 404s. Test was adjusted to fetch a real slug from the live catalog (e.g., 'bridal-spark-ring-rings') which returns 200 with a numeric variant_id. No code change needed.",
+    "fetch_shopify_token_via_client_credentials() correctly: (a) short-circuits to cached token when not expired, (b) refreshes 5 min before expires_in, (c) falls back to static SHOPIFY_ADMIN_TOKEN via resolve_shopify_token(). Implementation matches the spec.",
+    "MINOR resilience nit (not blocking): the token cache is process-local (dict); under multi-worker uvicorn each worker will independently fetch its own token. That's still fine vs. Shopify's quota but could be moved to a small TTL cache if scaling out.",
+    "MINOR: shopify_token_cache is not thread-safe; concurrent first requests may race to POST /admin/oauth/access_token. In practice gunicorn workers + the 5-min buffer make this benign, but a threading.Lock around the fetch would be cleaner.",
+    "Backend logs use logging.error with response.text[:200] for token-fetch failures — good observability. No PII concerns."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_shopify_token_autorefresh.py"
+  ],
+  "success_rate": {
+    "backend": "100% (7/7 pytest: readiness, products total=42 + numeric variant_ids, home featured non-empty, product-by-slug, checkout permalink, empty-items 400, live-variant checkout)",
+    "frontend": "100% (desktop home grid w/ 6 live cards, desktop /shop 42 cards, mobile home grid 6 cards; Add-to-cart -> open-cart -> cart-checkout-button fires POST /api/checkout with numeric variant_id and returns 200)"
+  },
+  "test_credentials": "N/A (public storefront; Shopify creds in backend/.env: SHOPIFY_STORE_DOMAIN, SHOPIFY_CLIENT_ID, SHOPIFY_CLIENT_SECRET, plus legacy SHOPIFY_ADMIN_TOKEN as fallback)",
+  "seed_data_creation": "None (live Shopify data)",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Token auto-refresh is verified end-to-end against the live preview. If the storefront ever shows 'Curating the collection…' again, first hit /api/shopify/readiness (connection_ready should be true) and /api/catalog/products (should return 200 with total=42). If readiness is true but products fail, the client_credentials POST to https://royal-spark-jewelry-3.myshopify.com/admin/oauth/access_token is the new failure surface — check backend logs for 'Shopify token fetch failed:' or 'Shopify token fetch exception:'. Live variant_id sample: '43466208018521' (slug: bridal-spark-ring-rings). Use /app/backend/tests/test_shopify_token_autorefresh.py as the regression suite for this fix.",
+  "rca_of_the_issue": "Original outage: the Shopify Admin API token used in SHOPIFY_ADMIN_TOKEN was issued by a dev-dashboard custom app whose Admin tokens expire ~24h, so every catalog request started returning 401 'Invalid API key or access token' after a day, which fetch_shopify_resource translated to a 502 — the frontend's catalog query stayed in the loading branch and rendered 'Curating the collection…' forever. Fix: backend now exchanges SHOPIFY_CLIENT_ID + SHOPIFY_CLIENT_SECRET for a fresh Admin token via POST /admin/oauth/access_token (grant_type=client_credentials), caches it in _shopify_token_cache, and auto-refreshes 5 min before expires_in. shopify_headers() calls resolve_shopify_token() which prefers the auto token and falls back to the static one. Verified live: readiness=true, 42 products with numeric variant_ids, home grid populated, full checkout flow returns a valid Shopify cart permalink."
+}
