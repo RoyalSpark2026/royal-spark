@@ -61,4 +61,11 @@ Build a luxury jewelry web app (React + FastAPI + MongoDB) named "Royal Spark" w
 - Customer accounts / order history.
 
 ## Test Credentials
-- N/A — storefront routes public; Shopify uses backend .env tokens.
+- N/A — storefront routes public.
+
+## ⚠️ PERMANENT SHOPIFY TOKEN FIX (2026-06-28) — IMPORTANT
+- Root cause of recurring "Curating the collection…" / 502: the Shopify dev-dashboard app's Admin token EXPIRES ~24h. Any static SHOPIFY_ADMIN_TOKEN dies daily (401).
+- Fix: backend auto-fetches & caches a fresh token via client_credentials grant (POST https://{store}/admin/oauth/access_token) using SHOPIFY_CLIENT_ID + SHOPIFY_CLIENT_SECRET, refreshing 5 min before expiry. See server.py fetch_shopify_token_via_client_credentials() / resolve_shopify_token().
+- backend/.env now has: SHOPIFY_STORE_DOMAIN, SHOPIFY_CLIENT_ID, SHOPIFY_CLIENT_SECRET (SHOPIFY_ADMIN_TOKEN kept only as fallback).
+- ACTION FOR USER: add SHOPIFY_CLIENT_ID + SHOPIFY_CLIENT_SECRET to Railway env vars and redeploy so production/custom-domain stays online automatically.
+- Verified iteration_12.json (100%). Regression test: backend/tests/test_shopify_token_autorefresh.py. Live variant sample: 43466208018521 (slug bridal-spark-ring-rings).
