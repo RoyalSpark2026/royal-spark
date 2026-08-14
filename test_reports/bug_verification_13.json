@@ -1,0 +1,47 @@
+{
+  "verdict": "not_fixed",
+  "user_reported_bug": "Site domain working but images didn't load / products not showing on landing page on Preview and custom Domain — the landing page product cards showed an SVG placeholder icon and a 'Royal Sparks Spring/Summer' marketing banner instead of real jewelry photos.",
+  "summary": "No relevant testing skill found. Focused verification on the preview URL shows the primary landing-page image bug is fixed: Latest arrivals renders 6 loaded real product photos with no SVG placeholders, marketing banner, or branded placeholder. Shop and product-detail image fallbacks also load. However, the requested regression check failed because GET /api/catalog/products returns 53 products, not the expected 42, so the overall requested verification is not fully fixed.",
+  "backend_issues": {
+    "critical": [
+      {
+        "endpoint": "GET /api/catalog/products",
+        "issue": "Requested regression expected 42 products, but the preview API returns total=53/count=53. All returned variant_id values were numeric.",
+        "priority": "HIGH"
+      }
+    ],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/tests/bug_verify_images_api.py",
+    "/app/tests/bug_verify_images_ui_playwright.py"
+  ],
+  "action_items": [
+    "Confirm whether the live Shopify catalog should be constrained to 42 products. If yes, adjust /api/catalog/products filtering; if 53 is expected current live data, update the regression requirement.",
+    "Redeploy the same fix to the custom Vercel/Railway domain before production/custom-domain validation."
+  ],
+  "critical_code_review_comments": [
+    "Product detail thumbnail images do not have an onError fallback, although current live real-photo and no-photo placeholder galleries both loaded successfully in preview.",
+    "GET /api/catalog/home response_model does not expose has_image, so verification relies on hero_image URLs and browser load evidence rather than a has_image field in the API response."
+  ],
+  "updated_files": [
+    "/app/tests/bug_verify_images_api.py",
+    "/app/tests/bug_verify_images_ui_playwright.py",
+    "/app/test_reports/bug_verification_13.json",
+    "/app/test_reports/iteration_13.json"
+  ],
+  "success_rate": {
+    "backend": "83%",
+    "frontend": "100%"
+  },
+  "seed_data_creation": "None",
+  "retest_needed": true,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Skill search for 'landing page product images load SVG placeholder' returned no relevant testing skill. API evidence: /api/catalog/home has 6 featured products with loaded jpg/png/webp Shopify images and no SVG/banner/placeholder; /product-placeholder.png returns HTTP 200 image/png; four no-photo products use /product-placeholder.png; checkout returns a Shopify /cart/ permalink. UI evidence: homepage Latest arrivals 6/6 images complete with naturalWidth>0; shop grid 53/53 images loaded with 4 branded placeholders; real product detail and no-photo product detail main image + thumbnail loaded. Only requested product-count regression failed: /api/catalog/products returns 53, not 42.",
+  "rca_of_the_issue": "The original image failure appears mitigated by filtering SVG sources, avoiding no-photo products in homepage featured_products when photo products exist, and using /product-placeholder.png for no-photo products. Remaining failure is a contract/data mismatch on the expected /api/catalog/products total. No APIs were MOCKED."
+}

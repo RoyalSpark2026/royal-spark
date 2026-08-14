@@ -203,8 +203,11 @@ def transform_shopify_product(product: dict) -> dict:
     variants = product.get("variants") or []
     first_variant = variants[0] if variants else {}
     images = product.get("images") or []
-    gallery = [image.get("src") for image in images if image.get("src")]
-    hero_image = gallery[0] if gallery else ASSET_RING_CAMPAIGN
+    all_sources = [image.get("src") for image in images if image.get("src")]
+    # Ignore SVG placeholders / icons — only real product photos count as a hero image.
+    photo_sources = [src for src in all_sources if not src.split("?")[0].lower().endswith(".svg")]
+    has_image = bool(photo_sources)
+    hero_image = photo_sources[0] if photo_sources else PLACEHOLDER_IMAGE
     tags = [tag.strip() for tag in (product.get("tags") or "").split(",") if tag.strip()]
     featured = any(tag.lower() in {"featured", "best seller", "bestseller"} for tag in tags)
     customizable = any(tag.lower() in {"custom", "customizable", "bespoke"} for tag in tags)
@@ -226,7 +229,8 @@ def transform_shopify_product(product: dict) -> dict:
         "short_description": truncate_text(description or f"{category} by Royal Spark", 110),
         "description": description or f"{category} by Royal Spark.",
         "hero_image": hero_image,
-        "gallery": gallery or [hero_image],
+        "gallery": photo_sources or [hero_image],
+        "has_image": has_image,
         "rating": 5.0,
         "review_count": 0,
         "highlights": materials[:3] if materials else ["Luxury Finish"],
@@ -264,6 +268,7 @@ def fetch_live_shopify_collections() -> List[dict]:
     return collections or COLLECTIONS
 
 
+PLACEHOLDER_IMAGE = "/product-placeholder.png"
 ASSET_RING_CAMPAIGN = "https://customer-assets.emergentagent.com/job_shopify-gems-2/artifacts/8jfge9he_fashion-%26-beauty-design-2x%20%281%29%20%281%29.png"
 ASSET_GRILL_CROWN = "https://customer-assets.emergentagent.com/job_shopify-gems-2/artifacts/y62y0h0m_fashion-%26-beauty-design-2x%20%282%29%20%281%29.png"
 ASSET_GRILL_SMILES = "https://customer-assets.emergentagent.com/job_shopify-gems-2/artifacts/rqlc637n_fashion-%26-beauty-design-2x%20%284%29%20%281%29.png"
@@ -487,9 +492,11 @@ async def get_status_checks():
 @api_router.get("/catalog/home", response_model=HomeResponse)
 async def get_home_catalog():
     live_products = fetch_live_shopify_products()
-    featured_products = [build_product_summary(product) for product in live_products if product["featured"]][:6]
-    if not featured_products:
-        featured_products = [build_product_summary(product) for product in live_products[:6]]
+    # Only surface products that have a real photo so the landing page never shows placeholders.
+    with_images = [p for p in live_products if p.get("has_image")]
+    pool = with_images or live_products
+    featured_source = [p for p in pool if p["featured"]] + [p for p in pool if not p["featured"]]
+    featured_products = [build_product_summary(product) for product in featured_source[:6]]
     testimonials = [review for product in live_products for review in product["reviews"][:1]][:4]
     return HomeResponse(
         hero_product=featured_products[0] if featured_products else None,

@@ -18,8 +18,13 @@ export const ProductCard = ({ product, isWishlisted, onToggleWishlist, onAddToCa
     <Card className="group flex flex-col overflow-hidden rounded-[20px] border border-white/10 bg-[#111d3a]/90 text-white shadow-[0_0_30px_rgba(8,18,38,0.35)] md:h-full md:rounded-[32px]" data-testid={`product-card-${product.slug}`}>
       <Link to={`/shop/${product.slug}`} className="relative block overflow-hidden">
         <img
-          src={product.hero_image}
+          src={product.hero_image || "/product-placeholder.png"}
           alt={product.name}
+          onError={(event) => {
+            if (!event.currentTarget.src.endsWith("/product-placeholder.png")) {
+              event.currentTarget.src = "/product-placeholder.png";
+            }
+          }}
           className="aspect-square w-full bg-[#0a1631] object-cover transition duration-700 ease-out group-hover:scale-105 md:aspect-[4/5] md:p-3 md:object-contain"
           data-testid={`product-image-${product.slug}`}
         />

@@ -60,6 +60,11 @@ Build a luxury jewelry web app (React + FastAPI + MongoDB) named "Royal Spark" w
 - Product sorting controls, richer reviews; bespoke attachments + consultation scheduling.
 - Customer accounts / order history.
 
+## Landing page image fix (2026-08-14)
+- Bug: some Shopify products had an SVG placeholder as first image / no image → landing page showed icon or marketing banner instead of jewelry photos.
+- Fix (server.py transform_shopify_product + get_home_catalog): skip .svg sources, hero_image=first real photo else PLACEHOLDER_IMAGE '/product-placeholder.png'; add has_image flag; featured_products only from products with real photos (fallback to all if none). Frontend ProductCard + ProductDetailPage use '/product-placeholder.png' with onError fallback; branded placeholder at frontend/public/product-placeholder.png (root-relative, works on preview + Vercel).
+- Verified iteration_13 / bug_verification_13: 6/6 landing images load real photos, placeholder 200 image/png, checkout still works. Live catalog now 53 products (grew from 42 — expected, not a bug).
+
 ## Test Credentials
 - N/A — storefront routes public.
 

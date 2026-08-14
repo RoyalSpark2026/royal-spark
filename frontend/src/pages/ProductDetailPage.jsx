@@ -59,7 +59,7 @@ export default function ProductDetailPage() {
             ))}
           </div>
           <div className="order-1 overflow-hidden rounded-[36px] border border-white/10 bg-[#111d3a] p-3 lg:order-2">
-            <img src={product.gallery[selectedImage]} alt={product.name} className="aspect-[4/5] w-full rounded-[28px] object-cover" data-testid="product-main-image" />
+            <img src={product.gallery[selectedImage] || "/product-placeholder.png"} alt={product.name} onError={(event) => { if (!event.currentTarget.src.endsWith("/product-placeholder.png")) { event.currentTarget.src = "/product-placeholder.png"; } }} className="aspect-[4/5] w-full rounded-[28px] object-cover" data-testid="product-main-image" />
           </div>
         </div>
 
