@@ -9,7 +9,6 @@ import { Button } from "@/components/ui/button";
 import { ProductCard } from "@/components/ProductCard";
 import { fetchHomeData } from "@/lib/api";
 
-const heroFilmUrl = "https://customer-assets.emergentagent.com/job_shopify-gems-2/artifacts/yj0dyksy_generated_video%20%281%29.mp4";
 const signatureCategoryImages = [
   {
     title: "Memories",
@@ -105,7 +104,7 @@ export default function HomePage() {
           <div className="relative aspect-[4/5] w-full overflow-hidden bg-black sm:aspect-[16/10]">
             <video
               ref={heroVideoRef}
-              src={heroFilmUrl}
+              poster="/hero-poster.jpg"
               className="h-full w-full object-cover"
               autoPlay
               controls
@@ -114,7 +113,10 @@ export default function HomePage() {
               muted
               preload="auto"
               data-testid="hero-full-video"
-            />
+            >
+              <source src="/hero-film.mp4" type="video/mp4" />
+              <source src="/hero-film.webm" type="video/webm" />
+            </video>
             <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(6,12,28,0.06),rgba(6,12,28,0.2))]" />
             <div className="pointer-events-none absolute inset-x-0 top-0 z-10 flex justify-end p-5 md:p-6">
               <button
@@ -197,7 +199,6 @@ export default function HomePage() {
                 <div className="aspect-square overflow-hidden border-b border-white/10 bg-[#071126] md:aspect-[4/5]" data-testid={`feature-grid-card-image-wrapper-${index}`}>
                   {feature.video ? (
                     <video
-                      src={feature.video}
                       poster={feature.image}
                       className="h-full w-full object-cover transition duration-700 hover:scale-105"
                       autoPlay
@@ -206,7 +207,10 @@ export default function HomePage() {
                       playsInline
                       preload="auto"
                       data-testid={`feature-grid-card-video-${index}`}
-                    />
+                    >
+                      <source src={feature.video} type="video/mp4" />
+                      <source src={feature.video.replace(".mp4", ".webm")} type="video/webm" />
+                    </video>
                   ) : (
                     <img
                       src={feature.image}

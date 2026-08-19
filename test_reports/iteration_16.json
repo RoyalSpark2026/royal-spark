@@ -1,0 +1,44 @@
+{
+  "verdict": "fixed",
+  "user_reported_bug": "After deploy, video and product images still not showing on the custom domain (https://www.royalsparkjewelry.com) — live site stuck on 'Curating the collection…'. User has NO Railway dashboard access (client owns it), so the fix must work purely via the GitHub code that Railway auto-deploys, WITHOUT setting any Railway env vars. Also the homepage hero video was not rendering.",
+  "summary": "No relevant testing skill found. Focused preview verification passed: homepage no longer stays on 'Curating the collection…', hero + feature-grid videos decode/render using WebM fallback with null media errors and videoWidth/videoHeight > 0, homepage/shop product images load on desktop and mobile, and backend Shopify/CORS/checkout endpoints work. I also simulated missing SHOPIFY_*/CORS env vars with backend/.env loading disabled; /api/catalog/home still returned 6 live featured products via code defaults.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/tests/bug_verify_royal_spark_iteration16_api.py",
+    "/app/tests/bug_verify_royal_spark_iteration16_browser.py",
+    "/app/test_reports/royal_spark_iteration16_api_results.json",
+    "/app/test_reports/royal_spark_iteration16_browser_results.json"
+  ],
+  "action_items": [
+    "No product-code fix needed from this focused retest. After GitHub/Railway/Vercel auto-deploy finishes, smoke-test the production custom domain once to confirm the deployed site matches this preview."
+  ],
+  "critical_code_review_comments": [
+    "HomePage.jsx now uses two source tags for each promo video: MP4 first and WebM fallback second; test Chromium selected the WebM sources and decoded them successfully.",
+    "Backend server.py fallback defaults and CORS behavior support client-owned Railway deployment without SHOPIFY_* or CORS_ORIGINS env vars; blank-env simulation returned live home catalog with ACAO '*'."
+  ],
+  "updated_files": [
+    "/app/tests/bug_verify_royal_spark_iteration16_api.py",
+    "/app/tests/bug_verify_royal_spark_iteration16_browser.py",
+    "/app/test_reports/royal_spark_iteration16_api_results.json",
+    "/app/test_reports/royal_spark_iteration16_browser_results.json",
+    "/app/test_reports/bug_verification_16.json",
+    "/app/test_reports/iteration_16.json"
+  ],
+  "success_rate": {
+    "backend": "100%",
+    "frontend": "100%"
+  },
+  "seed_data_creation": "None",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Preview URL tested: https://spark-mobile-fix.preview.emergentagent.com. Do not fail solely because the live custom domain has not been updated before GitHub/Railway deployment. Static assets returned 200 for /hero-film.mp4, /hero-film.webm, /hero-poster.jpg, and all feature WebMs. API checks passed: /api/catalog/home 200 with 6 real-photo featured products and ACAO '*', /api/catalog/products 200 with 53 numeric variant_id values, /api/shopify/readiness connection_ready true, /api/checkout returned Shopify cart permalink. UI checks passed on desktop 1280x900 and mobile 390x844: hero-full-video and all 3 feature videos had error null, readyState >= 4/2, and nonzero decoded dimensions; homepage and /shop product images had naturalWidth > 0 and no loading-state hang.",
+  "rca_of_the_issue": "Previous failure was Chromium rejecting the single H.264 MP4 source with MEDIA_ERR_SRC_NOT_SUPPORTED. The added WebM fallback is now selected by codec-limited Chromium and decodes successfully, while MP4 remains available for browsers that support it. The prior product-image/loading failure is also covered by backend code defaults for Shopify credentials/CORS and live catalog image filtering. No APIs or flows were mocked."
+}

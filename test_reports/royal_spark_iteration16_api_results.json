@@ -1,0 +1,144 @@
+{
+  "base_url": "https://spark-mobile-fix.preview.emergentagent.com",
+  "passed": 14,
+  "total": 14,
+  "results": [
+    {
+      "pass": true,
+      "message": "static asset /hero-film.mp4 returns HTTP 200",
+      "details": {
+        "status": 200,
+        "content_type": "video/mp4",
+        "content_length": "961899"
+      }
+    },
+    {
+      "pass": true,
+      "message": "static asset /hero-film.webm returns HTTP 200",
+      "details": {
+        "status": 200,
+        "content_type": "video/webm",
+        "content_length": "1265500"
+      }
+    },
+    {
+      "pass": true,
+      "message": "static asset /hero-poster.jpg returns HTTP 200",
+      "details": {
+        "status": 200,
+        "content_type": "image/jpeg",
+        "content_length": "49757"
+      }
+    },
+    {
+      "pass": true,
+      "message": "static asset /memories-feature.webm returns HTTP 200",
+      "details": {
+        "status": 200,
+        "content_type": "video/webm",
+        "content_length": "714250"
+      }
+    },
+    {
+      "pass": true,
+      "message": "static asset /customart-feature.webm returns HTTP 200",
+      "details": {
+        "status": 200,
+        "content_type": "video/webm",
+        "content_length": "1885446"
+      }
+    },
+    {
+      "pass": true,
+      "message": "static asset /ring-feature.webm returns HTTP 200",
+      "details": {
+        "status": 200,
+        "content_type": "video/webm",
+        "content_length": "921865"
+      }
+    },
+    {
+      "pass": true,
+      "message": "GET /api/catalog/home returns 200",
+      "details": {
+        "status": 200
+      }
+    },
+    {
+      "pass": true,
+      "message": "home has 6 featured products with real photo hero_image values",
+      "details": {
+        "featured_count": 6,
+        "real_photo_count": 6,
+        "sample_images": [
+          "https://cdn.shopify.com/s/files/1/0741/6483/0297/files/352372-TT-FS2R-0.webp?v=1785535000",
+          "https://cdn.shopify.com/s/files/1/0741/6483/0297/files/340999-AMR06509.webp?v=1785601806",
+          "https://cdn.shopify.com/s/files/1/0741/6483/0297/files/bridal-spark-ring-royal-blue-background.png?v=1782552395"
+        ]
+      }
+    },
+    {
+      "pass": true,
+      "message": "cross-origin GET includes access-control-allow-origin",
+      "details": {
+        "access_control_allow_origin": "*"
+      }
+    },
+    {
+      "pass": true,
+      "message": "GET /api/catalog/products returns 200",
+      "details": {
+        "status": 200,
+        "total": 53
+      }
+    },
+    {
+      "pass": true,
+      "message": "all returned products have numeric variant_id",
+      "details": {
+        "item_count": 53,
+        "numeric_variant_count": 53,
+        "sample_variant_id": "44261521424473"
+      }
+    },
+    {
+      "pass": true,
+      "message": "/api/shopify/readiness connection_ready true",
+      "details": {
+        "status": 200,
+        "body": {
+          "connection_ready": true,
+          "next_step": "Shopify is connected. Add active products and collections in Shopify to populate the storefront.",
+          "supported_sync_targets": [
+            "products",
+            "collections",
+            "inventory",
+            "checkout redirect",
+            "custom jewelry intake tagging"
+          ],
+          "has_store_domain": true,
+          "has_admin_token": true
+        }
+      }
+    },
+    {
+      "pass": true,
+      "message": "POST /api/checkout returns Shopify cart permalink",
+      "details": {
+        "status": 200,
+        "checkout_url": "https://royal-spark-jewelry-3.myshopify.com/cart/44261521424473:1"
+      }
+    },
+    {
+      "pass": true,
+      "message": "blank SHOPIFY_*/CORS env simulation still returns live home catalog via code defaults",
+      "details": {
+        "status": 200,
+        "featured_count": 6,
+        "has_admin_token": false,
+        "store_domain": "royal-spark-jewelry-3.myshopify.com",
+        "access_control_allow_origin": "*"
+      }
+    }
+  ]
+}

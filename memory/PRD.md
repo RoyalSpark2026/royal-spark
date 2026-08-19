@@ -65,6 +65,15 @@ Build a luxury jewelry web app (React + FastAPI + MongoDB) named "Royal Spark" w
 - Fix (server.py transform_shopify_product + get_home_catalog): skip .svg sources, hero_image=first real photo else PLACEHOLDER_IMAGE '/product-placeholder.png'; add has_image flag; featured_products only from products with real photos (fallback to all if none). Frontend ProductCard + ProductDetailPage use '/product-placeholder.png' with onError fallback; branded placeholder at frontend/public/product-placeholder.png (root-relative, works on preview + Vercel).
 - Verified iteration_13 / bug_verification_13: 6/6 landing images load real photos, placeholder 200 image/png, checkout still works. Live catalog now 53 products (grew from 42 — expected, not a bug).
 
+## Code-only production fix (2026-08-19) — no Railway access needed
+- User has no Railway dashboard access (client owns it); Railway + Vercel auto-deploy from GitHub. Live custom domain was stuck on "Curating…" (CORS + 502 expired token).
+- Fixes baked into code so a GitHub push alone deploys the working app:
+  - server.py getters return DEFAULT_SHOPIFY_STORE_DOMAIN/CLIENT_ID/CLIENT_SECRET fallbacks when env unset → token auto-refresh works with no env vars. ⚠️ Client secret hardcoded as temporary fallback — keep repo PRIVATE; move to env vars when Railway access returns.
+  - CORS middleware: wildcard when CORS_ORIGINS unset/'*'; otherwise env origins + DEFAULT_CORS_ORIGINS (always includes www + root royalsparkjewelry.com).
+  - Hero video re-encoded & self-hosted (/hero-film.mp4 + /hero-film.webm + /hero-poster.jpg); feature videos got .webm fallbacks. All promo <video> now use dual <source> mp4+webm so every browser plays them.
+- Verified iteration_16 (100% backend+frontend), incl. blank-env simulation returning live catalog with ACAO '*'.
+- USER ACTION: click "Save to GitHub" (push to the Royal Spark repo Railway watches) → auto-deploy fixes production.
+
 ## Test Credentials
 - N/A — storefront routes public.
 

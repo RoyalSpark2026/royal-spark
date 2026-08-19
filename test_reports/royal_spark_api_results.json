@@ -1,0 +1,163 @@
+{
+  "external_preview": {
+    "base": "https://spark-mobile-fix.preview.emergentagent.com",
+    "origin": "https://www.royalsparkjewelry.com",
+    "failures": [],
+    "options_catalog_home": {
+      "status": 204,
+      "acao": "*",
+      "allow_methods": "GET, POST, PUT, DELETE, OPTIONS, HEAD, PATCH"
+    },
+    "get_catalog_home": {
+      "status": 200,
+      "acao": "*"
+    },
+    "featured_count": 6,
+    "featured_products": [
+      {
+        "slug": "pear-pave-39ct-diamond-ring-in-yellow-10k-gold",
+        "hero_image": "https://cdn.shopify.com/s/files/1/0741/6483/0297/files/352372-TT-FS2R-0.webp?v=1785535000",
+        "variant_id": "44261535547481"
+      },
+      {
+        "slug": "bridal-ring-1",
+        "hero_image": "https://cdn.shopify.com/s/files/1/0741/6483/0297/files/340999-AMR06509.webp?v=1785601806",
+        "variant_id": "44263726383193"
+      },
+      {
+        "slug": "bridal-spark-ring-rings",
+        "hero_image": "https://cdn.shopify.com/s/files/1/0741/6483/0297/files/bridal-spark-ring-royal-blue-background.png?v=1782552395",
+        "variant_id": "43466208018521"
+      },
+      {
+        "slug": "brilliant-heart-rings",
+        "hero_image": "https://cdn.shopify.com/s/files/1/0741/6483/0297/files/9a2680f6-472e-4032-b5dd-3842d6e30078.jpg?v=1782844482",
+        "variant_id": "43486381801561"
+      },
+      {
+        "slug": "crown-cuff-bangle-bangles",
+        "hero_image": "https://cdn.shopify.com/s/files/1/0741/6483/0297/files/download_3.jpg?v=1782542841",
+        "variant_id": "43466207035481"
+      },
+      {
+        "slug": "crown-detail-bracelet-bracelets",
+        "hero_image": "https://cdn.shopify.com/s/files/1/0741/6483/0297/files/crown-detail-bracelet-navy-blue-background.png?v=1782555654",
+        "variant_id": "43466208411737"
+      }
+    ],
+    "featured_image_checks": [
+      {
+        "url": "https://cdn.shopify.com/s/files/1/0741/6483/0297/files/352372-TT-FS2R-0.webp?v=1785535000",
+        "status": 200,
+        "content_type": "image/jpeg",
+        "bytes": 191033
+      },
+      {
+        "url": "https://cdn.shopify.com/s/files/1/0741/6483/0297/files/340999-AMR06509.webp?v=1785601806",
+        "status": 200,
+        "content_type": "image/jpeg",
+        "bytes": 53225
+      },
+      {
+        "url": "https://cdn.shopify.com/s/files/1/0741/6483/0297/files/bridal-spark-ring-royal-blue-background.png?v=1782552395",
+        "status": 200,
+        "content_type": "image/png",
+        "bytes": 1458290
+      },
+      {
+        "url": "https://cdn.shopify.com/s/files/1/0741/6483/0297/files/9a2680f6-472e-4032-b5dd-3842d6e30078.jpg?v=1782844482",
+        "status": 200,
+        "content_type": "image/jpeg",
+        "bytes": 188914
+      },
+      {
+        "url": "https://cdn.shopify.com/s/files/1/0741/6483/0297/files/download_3.jpg?v=1782542841",
+        "status": 200,
+        "content_type": "image/jpeg",
+        "bytes": 174801
+      },
+      {
+        "url": "https://cdn.shopify.com/s/files/1/0741/6483/0297/files/crown-detail-bracelet-navy-blue-background.png?v=1782555654",
+        "status": 200,
+        "content_type": "image/png",
+        "bytes": 1500772
+      }
+    ],
+    "get_catalog_products": {
+      "status": 200,
+      "acao": "*"
+    },
+    "products_total": 53,
+    "products_returned": 53,
+    "numeric_variant_count": 53,
+    "get_shopify_readiness": {
+      "status": 200,
+      "body": {
+        "connection_ready": true,
+        "next_step": "Shopify is connected. Add active products and collections in Shopify to populate the storefront.",
+        "supported_sync_targets": [
+          "products",
+          "collections",
+          "inventory",
+          "checkout redirect",
+          "custom jewelry intake tagging"
+        ],
+        "has_store_domain": true,
+        "has_admin_token": true
+      }
+    },
+    "post_checkout": {
+      "status": 200,
+      "body": {
+        "checkout_url": "https://royal-spark-jewelry-3.myshopify.com/cart/44261521424473:1"
+      }
+    },
+    "product_placeholder": {
+      "status": 200,
+      "content_type": "image/png",
+      "bytes": 87951
+    }
+  },
+  "local_blank_env_code_path": {
+    "failures": [],
+    "fallback_getters": {
+      "store_domain": "royal-spark-jewelry-3.myshopify.com",
+      "has_client_id": true,
+      "has_client_secret": true,
+      "admin_token": null,
+      "shopify_is_configured": true,
+      "allow_all_origins": true,
+      "allowed_origins": [
+        "*"
+      ]
+    },
+    "local_options_catalog_home": {
+      "status": 200,
+      "acao": "*",
+      "allow_methods": "DELETE, GET, HEAD, OPTIONS, PATCH, POST, PUT"
+    },
+    "local_get_catalog_home": {
+      "status": 200,
+      "acao": "*"
+    },
+    "local_featured_count": 6,
+    "local_readiness": {
+      "status": 200,
+      "body": {
+        "connection_ready": true,
+        "next_step": "Shopify is connected. Add active products and collections in Shopify to populate the storefront.",
+        "supported_sync_targets": [
+          "products",
+          "collections",
+          "inventory",
+          "checkout redirect",
+          "custom jewelry intake tagging"
+        ],
+        "has_store_domain": true,
+        "has_admin_token": false
+      }
+    }
+  },
+  "passed": true,
+  "all_failures": []
+}

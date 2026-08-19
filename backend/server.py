@@ -49,9 +49,20 @@ def truncate_text(value: str, max_length: int = 120) -> str:
     return value[: max_length - 1].rstrip() + "…"
 
 
+# Fallback defaults so the app works when deployment env vars aren't set
+# (e.g. Railway managed by the client). Prefer real env vars in production.
+DEFAULT_SHOPIFY_STORE_DOMAIN = "royal-spark-jewelry-3.myshopify.com"
+DEFAULT_SHOPIFY_CLIENT_ID = "5f74ebc06904605706fad0db261de4ef"
+DEFAULT_SHOPIFY_CLIENT_SECRET = "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"
+DEFAULT_CORS_ORIGINS = [
+    "https://www.royalsparkjewelry.com",
+    "https://royalsparkjewelry.com",
+]
+
+
 def get_shopify_store_domain() -> Optional[str]:
     value = os.environ.get("SHOPIFY_STORE_DOMAIN")
-    return value.strip() if value else None
+    return value.strip() if value else DEFAULT_SHOPIFY_STORE_DOMAIN
 
 
 def get_shopify_admin_token() -> Optional[str]:
@@ -61,12 +72,12 @@ def get_shopify_admin_token() -> Optional[str]:
 
 def get_shopify_client_id() -> Optional[str]:
     value = os.environ.get("SHOPIFY_CLIENT_ID")
-    return value.strip() if value else None
+    return value.strip() if value else DEFAULT_SHOPIFY_CLIENT_ID
 
 
 def get_shopify_client_secret() -> Optional[str]:
     value = os.environ.get("SHOPIFY_CLIENT_SECRET")
-    return value.strip() if value else None
+    return value.strip() if value else DEFAULT_SHOPIFY_CLIENT_SECRET
 
 
 # In-memory cache for the auto-refreshed Shopify access token.
@@ -625,10 +636,16 @@ async def create_checkout(payload: CheckoutRequest):
 app.include_router(api_router)
 
 cors_origins_env = os.environ.get('CORS_ORIGINS', '*')
-allowed_origins = [origin.strip() for origin in cors_origins_env.split(',') if origin.strip()] or ['*']
-# A wildcard origin is not allowed together with credentials per the CORS spec,
-# so only enable credentials when explicit origins are configured.
-allow_all_origins = allowed_origins == ['*']
+env_origins = [origin.strip() for origin in cors_origins_env.split(',') if origin.strip()]
+# A wildcard origin cannot be combined with credentials per the CORS spec.
+allow_all_origins = (not env_origins) or (env_origins == ['*'])
+
+if allow_all_origins:
+    allowed_origins = ['*']
+else:
+    # Always guarantee the production custom domains are allowed, regardless of
+    # whatever CORS_ORIGINS the deployment env happens to have set.
+    allowed_origins = list(dict.fromkeys(env_origins + DEFAULT_CORS_ORIGINS))
 
 app.add_middleware(
     CORSMiddleware,

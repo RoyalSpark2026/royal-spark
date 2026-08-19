@@ -1,0 +1,52 @@
+{
+  "verdict": "not_fixed",
+  "user_reported_bug": "After deploy, video and product images still not showing on the custom domain (https://www.royalsparkjewelry.com) — live site stuck on 'Curating the collection…'. User has NO Railway dashboard access (client owns it), so the fix must work purely via the GitHub code that Railway auto-deploys, WITHOUT setting any Railway env vars.",
+  "summary": "No relevant testing skill found. Backend/CORS/Shopify code-only fallback behavior is fixed in preview and local blank-env simulation; homepage/shop products render with naturalWidth>0 and no loading state on desktop/mobile. However the homepage hero video still does not render in Chromium: the video request returns 206 video/mp4, but the video element ends with MEDIA_ERR_SRC_NOT_SUPPORTED (error code 4), readyState 0, videoWidth 0, leaving the hero area blank. Because the user reported video not showing, verdict is not_fixed.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [
+      {
+        "component": "HomePage hero video",
+        "issue": "Hero video URL loads over network but does not decode/render in browser; video element state after explicit load/play: readyState=0, networkState=3, videoWidth=0, videoHeight=0, error.code=4. Screenshot shows blank/dark video area instead of the promotional video.",
+        "selector": "[data-testid=\"hero-full-video\"]",
+        "priority": "HIGH"
+      }
+    ],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/tests/bug_verify_royal_spark_api.py",
+    "/app/tests/bug_verify_royal_spark_ui_playwright.py",
+    "/app/tests/bug_verify_royal_spark_ui_products_playwright.py",
+    "/app/test_reports/royal_spark_api_results.json"
+  ],
+  "action_items": [
+    "Replace/transcode the homepage hero video to a browser-compatible format/codec (e.g. H.264/AAC MP4 and/or WebM fallback) and retest [data-testid=\"hero-full-video\"] for readyState>=1 and videoWidth>0.",
+    "Keep the backend CORS and Shopify fallback changes; they passed preview and local blank-env verification."
+  ],
+  "critical_code_review_comments": [
+    "backend/server.py fallback getters and CORS middleware match the intended code-only Railway fix: blank SHOPIFY_* and CORS_ORIGINS still produce configured Shopify defaults and wildcard CORS.",
+    "HomePage uses a remote customer-assets MP4 for heroFilmUrl; that file returns video/mp4/206 but Chromium cannot play it (MEDIA_ERR_SRC_NOT_SUPPORTED), so the video-not-showing symptom remains."
+  ],
+  "updated_files": [
+    "/app/tests/bug_verify_royal_spark_api.py",
+    "/app/tests/bug_verify_royal_spark_ui_playwright.py",
+    "/app/tests/bug_verify_royal_spark_ui_products_playwright.py",
+    "/app/test_reports/royal_spark_api_results.json",
+    "/app/test_reports/bug_verification_15.json",
+    "/app/test_reports/iteration_15.json"
+  ],
+  "success_rate": {
+    "backend": "100%",
+    "frontend": "75%"
+  },
+  "seed_data_creation": "None",
+  "retest_needed": true,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Preview tested: https://spark-mobile-fix.preview.emergentagent.com. Do not fail for live royalsparkjewelry.com before GitHub/Railway deploy. Backend passed: cross-origin GET /api/catalog/home status 200 ACAO '*'; OPTIONS 204 ACAO '*'; /api/catalog/home has 6 featured_products with real Shopify images; /api/catalog/products has 53 products with numeric variant_id; /api/shopify/readiness connection_ready true; /api/checkout returns Shopify cart permalink; /product-placeholder.png is 200 image/png. Local blank-env import/TestClient also passed with Shopify client-credentials fallback and no admin token. UI product rendering passed on 1280x900 and 390x844, but hero video still fails to render with MEDIA_ERR_SRC_NOT_SUPPORTED.",
+  "rca_of_the_issue": "Repro: open preview homepage in Chromium, inspect [data-testid=\"hero-full-video\"], call load()/play(), wait 15s. Network shows the remote MP4 returns 206 video/mp4, but video.error.code is 4 (source unsupported), networkState is 3, readyState stays 0, and videoWidth/videoHeight remain 0. Likely the MP4 codec/container is not browser-compatible despite the video/mp4 content type."
+}

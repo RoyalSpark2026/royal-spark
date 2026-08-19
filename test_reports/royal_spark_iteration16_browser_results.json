@@ -1,0 +1,34 @@
+{
+  "base_url": "https://spark-mobile-fix.preview.emergentagent.com",
+  "passed": true,
+  "summary": "Desktop 1280x900 and mobile 390x844 homepage/shop flows passed. Home loading state disappeared, hero and feature-grid videos decoded/played via WebM fallback, and product cards rendered with naturalWidth > 0.",
+  "video_checks": {
+    "desktop": {
+      "hero-full-video": {
+        "currentSrc": "https://spark-mobile-fix.preview.emergentagent.com/hero-film.webm",
+        "poster": "/hero-poster.jpg",
+        "sources": ["/hero-film.mp4", "/hero-film.webm"],
+        "error": null,
+        "videoWidth": 736,
+        "videoHeight": 400,
+        "readyState": 4
+      },
+      "feature-grid-card-video-0": {"currentSrc": "/memories-feature.webm", "error": null, "videoWidth": 368, "videoHeight": 816, "readyState": 4},
+      "feature-grid-card-video-1": {"currentSrc": "/customart-feature.webm", "error": null, "videoWidth": 368, "videoHeight": 816, "readyState": 4},
+      "feature-grid-card-video-2": {"currentSrc": "/ring-feature.webm", "error": null, "videoWidth": 368, "videoHeight": 816, "readyState": 4}
+    },
+    "mobile": {
+      "hero-full-video": {"currentSrc": "https://spark-mobile-fix.preview.emergentagent.com/hero-film.webm", "poster": "/hero-poster.jpg", "sources": ["/hero-film.mp4", "/hero-film.webm"], "error": null, "videoWidth": 736, "videoHeight": 400, "readyState": 4},
+      "feature-grid-card-video-0": {"currentSrc": "/memories-feature.webm", "error": null, "videoWidth": 368, "videoHeight": 816, "readyState": 4},
+      "feature-grid-card-video-1": {"currentSrc": "/customart-feature.webm", "error": null, "videoWidth": 368, "videoHeight": 816, "readyState": 4},
+      "feature-grid-card-video-2": {"currentSrc": "/ring-feature.webm", "error": null, "videoWidth": 368, "videoHeight": 816, "readyState": 4}
+    }
+  },
+  "product_image_checks": {
+    "desktop_homepage_images_loaded": 6,
+    "desktop_shop_images_loaded": 53,
+    "mobile_homepage_images_loaded": 6,
+    "mobile_shop_images_loaded": 53
+  },
+  "console_error_messages_found": false
+}
