@@ -1,0 +1,83 @@
+{
+  "verdict": "not_fixed",
+  "user_reported_bug": "After deploy, video and product images still not showing on the custom domain (https://www.royalsparkjewelry.com) — the live site is stuck on 'Curating the collection…' and no products/images load.",
+  "summary": "No relevant testing skill found. Focused CORS/catalog verification shows the preview code is fixed, but the exact live custom-domain bug still reproduces: www.royalsparkjewelry.com remains stuck on 'Curating the collection…' and /shop never renders product cards. Browser console on the live site still reports missing Access-Control-Allow-Origin from https://royal-spark-production.up.railway.app/api/catalog/home and /catalog/products.",
+  "backend_issues": {
+    "critical": [
+      {
+        "endpoint": "https://royal-spark-production.up.railway.app/api/catalog/home",
+        "issue": "Cross-origin GET with Origin https://www.royalsparkjewelry.com returned HTTP 502 and no access-control-allow-origin header; browser blocks the live custom-domain catalog request.",
+        "priority": "CRITICAL"
+      },
+      {
+        "endpoint": "https://royal-spark-production.up.railway.app/api/catalog/home OPTIONS",
+        "issue": "CORS preflight returned HTTP 502 with no access-control-allow-origin or access-control-allow-methods headers.",
+        "priority": "CRITICAL"
+      },
+      {
+        "endpoint": "https://royal-spark-production.up.railway.app/api/catalog/products",
+        "issue": "Production products endpoint returned HTTP 502, so the live /shop page cannot load products or images.",
+        "priority": "CRITICAL"
+      }
+    ],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [
+      {
+        "component": "Live custom-domain homepage",
+        "issue": "Homepage remains on data-testid=home-loading-state with text 'Curating the collection…'; data-testid=homepage-live-products-grid is absent and no product images render.",
+        "selector": "[data-testid='home-loading-state']",
+        "priority": "CRITICAL"
+      },
+      {
+        "component": "Live custom-domain shop page",
+        "issue": "/shop remains on data-testid=shop-loading-state; data-testid=shop-product-grid is absent and no product cards render.",
+        "selector": "[data-testid='shop-loading-state']",
+        "priority": "CRITICAL"
+      }
+    ],
+    "integration_issues": [
+      {
+        "flow": "Custom domain frontend -> Railway backend catalog",
+        "issue": "Live frontend still calls the Railway backend that is returning no ACAO header/502, causing CORS failures and preventing homepage/shop data from reaching React Query.",
+        "affected_selectors": [
+          "home-loading-state",
+          "homepage-live-products-grid",
+          "shop-loading-state",
+          "shop-product-grid"
+        ]
+      }
+    ],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/tests/bug_cors_catalog_api_check.py",
+    "/app/tests/bug_cors_catalog_ui_check.py",
+    "/app/test_reports/bug_verification_14.json",
+    "/app/test_reports/iteration_14.json"
+  ],
+  "action_items": [
+    "Redeploy the Railway production backend with the updated /app/backend/server.py CORS middleware so wildcard origins use allow_credentials=false, or configure CORS_ORIGINS explicitly for https://www.royalsparkjewelry.com and https://royalsparkjewelry.com.",
+    "Verify production Railway environment has required Shopify credentials and is healthy; current production /api endpoints returned HTTP 502 during testing.",
+    "After redeploy, retest live custom domain in browser and direct CORS GET/OPTIONS against https://royal-spark-production.up.railway.app/api/catalog/home."
+  ],
+  "critical_code_review_comments": [
+    "The uncommitted backend/server.py change appears correct in preview: CORS_ORIGINS='*' now returns access-control-allow-origin: * with allow_credentials disabled. However, the live Railway backend is not serving the fixed behavior and currently returns 502/no ACAO, so the user-visible production bug persists."
+  ],
+  "updated_files": [
+    "/app/tests/bug_cors_catalog_api_check.py",
+    "/app/tests/bug_cors_catalog_ui_check.py",
+    "/app/test_reports/bug_verification_14.json",
+    "/app/test_reports/iteration_14.json"
+  ],
+  "success_rate": {
+    "backend": "50% overall: preview 6/6 passed; production Railway 0/6 passed",
+    "frontend": "67% overall: preview desktop and mobile homepage/shop passed; live custom-domain homepage/shop failed"
+  },
+  "seed_data_creation": "None",
+  "retest_needed": true,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Preview passed: GET /api/catalog/home with custom-domain Origin returned 200 and ACAO '*'; OPTIONS returned 204 with ACAO/methods; /catalog/home returned 6 featured real-photo products; /catalog/products returned 53 products with numeric variant_id; checkout and readiness passed. Live custom domain still failed in browser, with console CORS errors for production Railway /api/catalog/home and /api/catalog/products.",
+  "rca_of_the_issue": "The code-level CORS fix works in preview but is not active/healthy on the production Railway backend used by https://www.royalsparkjewelry.com. Direct production API checks returned 502 without ACAO, and the live browser console still shows missing Access-Control-Allow-Origin, so React Query never receives catalog data and the UI remains in its loading state."
+}

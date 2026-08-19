@@ -624,10 +624,16 @@ async def create_checkout(payload: CheckoutRequest):
 # Include the router in the main app
 app.include_router(api_router)
 
+cors_origins_env = os.environ.get('CORS_ORIGINS', '*')
+allowed_origins = [origin.strip() for origin in cors_origins_env.split(',') if origin.strip()] or ['*']
+# A wildcard origin is not allowed together with credentials per the CORS spec,
+# so only enable credentials when explicit origins are configured.
+allow_all_origins = allowed_origins == ['*']
+
 app.add_middleware(
     CORSMiddleware,
-    allow_credentials=True,
-    allow_origins=os.environ.get('CORS_ORIGINS', '*').split(','),
+    allow_credentials=not allow_all_origins,
+    allow_origins=allowed_origins,
     allow_methods=["*"],
     allow_headers=["*"],
 )
