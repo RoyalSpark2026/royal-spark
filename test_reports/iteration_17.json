@@ -1,0 +1,18 @@
+{
+  "summary": "Backend regression test after base64-encoding the Shopify client secret fallback. All 5 target endpoints pass: /api/catalog/home (6 featured products with real hero images), /api/catalog/products (53 products with numeric variant_id), /api/shopify/readiness (connection_ready=true), /api/checkout (returns Shopify cart permalink), and CORS with royalsparkjewelry.com Origin returns correct ACAO header. Confirms the base64 change did NOT break Shopify token auto-refresh or catalog fetching.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {"ui_bugs": [], "integration_issues": [], "design_issues": []},
+  "test_report_links": ["/app/backend/tests/test_shopify_regression.py", "/app/test_reports/pytest/shopify_regression.xml"],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "server.py stores DEFAULT_SHOPIFY_CLIENT_SECRET as base64 to bypass GitHub push protection. This is obfuscation, not security - the secret is still committed to git in decodable form. Recommend rotating the Shopify client secret and moving it exclusively to environment variables (SHOPIFY_CLIENT_SECRET) with no code fallback."
+  ],
+  "updated_files": ["/app/backend/tests/test_shopify_regression.py"],
+  "success_rate": {"backend": "100% (5/5)", "frontend": "not tested"},
+  "test_credentials": "None - public storefront",
+  "seed_data_creation": "None",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Regression suite at /app/backend/tests/test_shopify_regression.py verifies Shopify token flow end-to-end. All 5 endpoints healthy. Products endpoint returns {items,total,categories} shape. Some hero_image URLs may still be /product-placeholder.png for non-featured products but featured products have real Shopify CDN URLs.",
+  "rca of the issue": "N/A - regression check passed"
+}
