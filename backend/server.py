@@ -2,7 +2,6 @@ import logging
 import os
 import re
 import time
-import base64
 from datetime import datetime, timezone
 from html import unescape
 from pathlib import Path
@@ -50,14 +49,10 @@ def truncate_text(value: str, max_length: int = 120) -> str:
     return value[: max_length - 1].rstrip() + "…"
 
 
-# Fallback defaults so the app works when deployment env vars aren't set
-# (e.g. Railway managed by the client). Prefer real env vars in production.
-# The client secret is base64-encoded here only to avoid tripping automated
-# secret scanners; set SHOPIFY_CLIENT_SECRET as an env var whenever possible.
+# Non-sensitive fallbacks so the app still boots if these env vars are missing.
+# The Shopify CLIENT SECRET has NO fallback — it must come from an env var.
 DEFAULT_SHOPIFY_STORE_DOMAIN = "royal-spark-jewelry-3.myshopify.com"
 DEFAULT_SHOPIFY_CLIENT_ID = "5f74ebc06904605706fad0db261de4ef"
-_DEFAULT_SHOPIFY_CLIENT_SECRET_B64 = "c2hwc3NfZTlmZjhjZWE4YjQ0MzY3N2VmYjE5NzJkNWQ2N2I5NzU="
-DEFAULT_SHOPIFY_CLIENT_SECRET = base64.b64decode(_DEFAULT_SHOPIFY_CLIENT_SECRET_B64).decode()
 DEFAULT_CORS_ORIGINS = [
     "https://www.royalsparkjewelry.com",
     "https://royalsparkjewelry.com",
@@ -81,7 +76,7 @@ def get_shopify_client_id() -> Optional[str]:
 
 def get_shopify_client_secret() -> Optional[str]:
     value = os.environ.get("SHOPIFY_CLIENT_SECRET")
-    return value.strip() if value else DEFAULT_SHOPIFY_CLIENT_SECRET
+    return value.strip() if value else None
 
 
 # In-memory cache for the auto-refreshed Shopify access token.
